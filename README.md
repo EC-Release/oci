@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/Enterprise-connect/oci.svg?branch=v1)](https://travis-ci.com/Enterprise-connect/oci)
+
 # EC OCI Spec
 EC Agent OCI image is currently maintained on [public docker hub](https://hub.docker.com/repository/docker/enterpriseconnect/agent); the usage spec avaialble in several compute environments. Visit the [EC usage examples](https://github.com/Enterprise-connect/ec-x-sdk/tree/v1/examples) or [the wiki if new to EC](https://github.com/Enterprise-connect/ec-sdk/wiki/EC-Agent).
 
