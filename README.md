@@ -19,6 +19,7 @@ The env variables specified in ```--env-file``` will need to be replaced by a se
 docker run --env-file client.list \
   enterpriseconnect/agent:v1
 ```
+For the usage of docker flag ```-e```, please [refer to this example](https://github.com/Enterprise-connect/oci/blob/v1/.travis.yml#L11)
 
 ### Kubernates Deployment example
 When deploy the agent in a k8s instance, the necessary environment variables as specified in the example ```/path/to/the/repo/k8s/agent-<object>.yml```.  k8s users may utilise any custom objects such as a configmap plugin to help in its configuration.
