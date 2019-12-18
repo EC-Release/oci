@@ -8,4 +8,4 @@ before_install:
 - docker images
 
 script:
-- docker run -it -d enterpriseconnect/agent:v1 "./ecagent_linux_sys -ver"
+- docker run -it -d enterpriseconnect/agent:v1 /bin/bash -c "ecagent_linux_sys -ver"
