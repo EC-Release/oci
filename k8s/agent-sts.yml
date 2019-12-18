@@ -1,0 +1,46 @@
+apiVersion: "apps/v1beta1"
+kind: StatefulSet
+metadata:
+  name: agent
+  namespace: thread-connect
+spec:
+  serviceName: agent-avi
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: agent
+    spec:
+      containers:
+      - env:
+        - name: EC_MOD
+          value: gateway
+        - name: EC_GPT
+          value: "8080"
+        - name: EC_ZON
+          value: <-zon>
+        - name: EC_GRP
+          value: <-grp>
+        - name: EC_SST
+          value: <-sst>
+        - name: EC_DBG
+          value: true
+        - name: EC_TKN
+          value: <-tkn>
+        - name: EC_HST
+          value: <-hst ingress>
+        - name: EC_CPS
+          value: !!integer "5" 
+        name: agent
+        image: enterpriseconnect/agent:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: api
+        resources:
+          requests:
+            cpu: "1.0"
+            memory: 1Gi
+          limits:
+            memory: 2Gi
+            cpu: "2.0"
