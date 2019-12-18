@@ -8,7 +8,7 @@ before_install:
 - docker images
 
 script:
-- docker run -it -e EC_MOD=client
+- docker run -it -d -e EC_MOD=client
   -e EC_AID=test-aid
   -e EC_TID=test-tid
   -e EC_HST=test-hst
