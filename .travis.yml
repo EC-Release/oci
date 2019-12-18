@@ -1,0 +1,11 @@
+language: minimal
+
+services:
+  - docker
+
+before_install:
+- docker pull enterpriseconnect/agent:v1
+- docker images
+
+script:
+- docker run enterpriseconnect/agent:v1 ./bin/sh -c "/root/ecagent_linux_sys -ver"
