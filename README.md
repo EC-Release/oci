@@ -1,5 +1,5 @@
 # EC OCI Spec
-EC Agent OCI image usage spec avaialble in several compute environments.
+EC Agent OCI image is currently maintained on [public docker hub](https://hub.docker.com/repository/docker/enterpriseconnect/agent); the usage spec avaialble in several compute environments.
 
 ### Docker Tags
 - [```v1```](https://github.com/Enterprise-connect/oci/blob/v1/spec/agt.Dockerfile)
