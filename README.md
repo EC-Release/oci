@@ -1,4 +1,4 @@
-# EC OCI Specs
+# EC OCI Spec
 EC Agent OCI image usage spec avaialble in several compute environments.
 
 ### Docker Tags
