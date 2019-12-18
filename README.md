@@ -2,8 +2,10 @@
 EC Agent OCI image is currently maintained on [public docker hub](https://hub.docker.com/repository/docker/enterpriseconnect/agent); the usage spec avaialble in several compute environments. Visit the [EC usage examples](https://github.com/Enterprise-connect/ec-x-sdk/tree/v1/examples) or [the wiki if new to EC](https://github.com/Enterprise-connect/ec-sdk/wiki/EC-Agent).
 
 # Docker Tags
-- [```v1```](https://github.com/Enterprise-connect/oci/blob/v1/spec/agt.Dockerfile), latest, v1-slim
-- [```v1beta```](https://github.com/Enterprise-connect/oci/blob/v1beta/spec/agt.Dockerfile), v1beta-slim
+- [```v1```](https://github.com/Enterprise-connect/oci/blob/v1/spec/agt.Dockerfile), ```latest```, ```v1-slim```
+- ```v1-python```, ```v1-ci```
+- [```v1beta```](https://github.com/Enterprise-connect/oci/blob/v1beta/spec/agt.Dockerfile), ```v1beta-slim```
+- ```v1beta-python```, ```v1beta-ci```
 
 ### How to run
 In this container spec example, the pre-defined agent image is launched by using docker. The agent flags in this example are converted into several environment variables that are required based on the ```<path/to/this/repo>/spec/<agent-mode>.yml``` for a EC usage. For instance, to launch a client-mode agent container, it is required to ingest env vars EC_AID, EC_TID, EC_HST, etc. 
