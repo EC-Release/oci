@@ -1,5 +1,5 @@
 #
-#  Copyright (c) 2016 General Electric Company. All rights reserved.
+#  Copyright (c) 2019 General Electric Company. All rights reserved.
 #
 #  The copyright to the computer software herein is the property of
 #  General Electric Company. The software may be used and/or copied only
@@ -10,38 +10,39 @@
 #  author: apolo.yasuda@ge.com
 #
 
-#For build-only, not for cf push
-#FROM golang:1.13.0-alpine3.10
+#FROM python:alpine
 FROM busybox
-#FROM alpine:latest
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
-#USER root
-COPY ./ecagent_linux_sys /root
-#COPY ./ec-agent /root/ecagen
+USER root
+WORKDIR /root
 
-RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
+COPY ./*.yml ./
 
-#CMD /home/ecagent_linux_sys -mod watcher -cfg ./gateway.yml -dbg
-#RUN tar --version
-#RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+RUN wget -O ./ecagent_linux_sys.tar.gz https://raw.githubusercontent.com/Enterprise-connect/ec-x-sdk/v1beta.fukuoka.1724/dist/ecagent_linux_sys.tar.gz \
+  && tar -xvzf ./ecagent_linux_sys.tar.gz \
+  && rm ./ecagent_linux_sys.tar.gz \
+  && ls -al
 
-#commented for local test
-#RUN wget -O ~/ecagent_linux_sys.tar.gz https://raw.githubusercontent.com/Enterprise-connect/ec-x-sdk/v1.1beta/dist/ecagent_linux_sys.tar.gz
-#RUN tar -xvzf ~/ecagent_linux_sys.tar.gz -C ~/ && pwd
-
-#for local test
-#COPY ./ec-agent /root/ecagent_linux_var
-#RUN ls -la ~/
-
-#WORKDIR ~/
-#CMD cd ~/ \
-#    && sed -i 's@{{EC_SID}}@'"$EC_SID"'@g' ~/gateway.yml \
-#    && sed -i 's@{{EC_SST}}@'"$EC_SST"'@g' ~/gateway.yml \
-#    && sed -i 's@{{EC_HST}}@'"$EC_HST"'@g' ~/gateway.yml \
-#    && sed -i 's@{{EC_TKN}}@'"$EC_TKN"'@g' ~/gateway.yml \
-#    && sed -i 's@{{EC_CRT}}@'"$EC_CRT"'@g' ~/gateway.yml \
-#    && cat ./gateway.yml \
-#    && ls -al ~/ \
-#CMD cd /root && pwd && ls -la && /root/ecagent_linux_sys -mod watcher -cfg ./gateway.yml -dbg
+CMD sed -i 's@{EC_AID}@'"$EC_AID"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_TID}@'"$EC_TID"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_CID}@'"$EC_CID"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_CSC}@'"$EC_CSC"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_OA2}@'"$EC_OA2"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_DUR}@'"$EC_DUR"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_DBG}@'"$EC_DBG"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_ZON}@'"$EC_ZON"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_GRP}@'"$EC_GRP"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_CPS}@'"$EC_CPS"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_LPT}@'"$EC_LPT"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_GPT}@'"$EC_GPT"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_RPT}@'"$EC_RPT"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_RHT}@'"$EC_RHT"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_HST}@'"$EC_HST"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_SST}@'"$EC_SST"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_TKN}@'"$EC_TKN"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_PXY}@'"$EC_PXY"'@g' ~/${EC_MOD}.yml \
+ && sed -i 's@{EC_PLG}@'"$EC_PLG"'@g' ~/${EC_MOD}.yml \
+ && cat ./${EC_MOD}.yml \
+ && ./ecagent_linux_sys -cfg ${EC_MOD}.yml
