@@ -1,7 +1,7 @@
 # EC OCI Spec
 EC Agent OCI image is currently maintained on [public docker hub](https://hub.docker.com/repository/docker/enterpriseconnect/agent); the usage spec avaialble in several compute environments. Visit the [EC usage examples](https://github.com/Enterprise-connect/ec-x-sdk/tree/v1/examples) or [the wiki if new to EC](https://github.com/Enterprise-connect/ec-sdk/wiki/EC-Agent).
 
-### Docker Tags
+# Docker Tags
 - [```v1```](https://github.com/Enterprise-connect/oci/blob/v1/spec/agt.Dockerfile)
 - [```v1beta```](https://github.com/Enterprise-connect/oci/blob/v1beta/spec/agt.Dockerfile)
 
