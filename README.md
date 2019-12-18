@@ -8,7 +8,7 @@ EC Agent OCI image is currently maintained on [public docker hub](https://hub.do
 ### How to run
 In this container spec example, the pre-defined agent image is launched by using docker. The agent flags in this example are converted into several environment variables that are required based on the ```<path/to/this/repo>/spec/<agent-mode>.yml``` for a EC usage. For instance, to launch a client-mode agent container, it is required to ingest env vars EC_AID, EC_TID, EC_HST, etc. 
   
-The variables will be replaced by a relevant flag as it is shown in the example yaml file.
+The variables ```--env-file``` will be replaced by a series of relevant flags as it is shown in the example yaml file.
 ```shell
 docker run --env-file client.list \
   enterpriseconnect/agent:v1
