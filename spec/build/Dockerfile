@@ -12,10 +12,6 @@
 
 
 FROM golang:1.13.5-buster 
-#
-# First build this image as below
-# docker build -t wzlib:v1beta .
-#
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
     
@@ -47,6 +43,6 @@ VOLUME /build
 #
 # The run to-be detail
 #
-# docker run --network host -v $(pwd):/build -e DIND_PATH="" --env-file v1beta.list -i wzlib:v1beta
+# docker run --network host -v $(pwd):/build -e DIND_PATH="" --env-file v1beta.list -i enterpriseconnect/agent:v1beta
 #
 CMD cd /build/$DIND_PATH && ls -la  && ./dind.sh
