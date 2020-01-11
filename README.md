@@ -3,7 +3,7 @@
 # EC OCI Spec
 **Running the EC agent artifact within a docker image is not recommended due the dependancy of the underlying linux cgroup with docker.**
 
-The cgroup lives in the docker core which by design requires a sudoer permission from the guest system. Docker users who wish to level up the security by running the container as a secondary user other than the root user within a container should **avoid the volume-sharing on the guest host**.
+The cgroup lives in the docker core which by design requires a sudoer permission from the guest system. Docker users who wish to level up the security by running the container as a non-sudoer user within a container should **avoid the volume-sharing on the guest host**.
 
 The root permission per se defeats the purpose of EC rootless-connectivity model and ultimately create several security leaks on the guest host. However, it is worth to note that **running a standalone agent does NOT require a sudoer/root permission.** Please refer to [the agent source code repo for the standalone deployment](https://github.build.ge.com/Enterprise-Connect/agent#Usage). **Users with restrict security environemnt one such as AWS GovCloud should consider using a self-build image based on the spec examples in this repo.**
 
