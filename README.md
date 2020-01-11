@@ -1,13 +1,18 @@
 [![Build Status](https://travis-ci.com/Enterprise-connect/oci.svg?branch=v1)](https://travis-ci.com/Enterprise-connect/oci)
 
 # EC OCI Spec
-**Running the EC agent artifact within a docker image is not recommended due the dependancy of the underlying linux cgroup with docker.** It is highly recommended to run this image as a rootless/unpriviliged conatiner. Please refer to [runc for further information](https://github.com/opencontainers/runc)
+**Running the EC agent artifact within a docker image is not recommended due the dependancy of the underlying linux cgroup with docker.**
 
-The cgroup lives in the docker core which by design requires a sudoer permission from the guest system. Docker users who wish to level up the security by running the container as a non-sudoer user within a container should **avoid the volume-sharing on the guest host**. 
+The cgroup lives in the docker core which by design requires a sudoer permission from the guest system. Docker users who wish to level up the security by running a non-sudoer user **inside** the container should **avoid the volume-sharing on the guest host**.
+
+Because of this, it is **highly recommended** to running this image as a rootless/unpriviliged container. Please refer to [runc](https://github.com/opencontainers/runc) and [linux cgroup man ```man cgroups```](http://man7.org/linux/man-pages/man7/cgroups.7.html) for further study.
+
+The open-source projects adoption flow-
+```cgroup >> runc + nsenter >> moby >> docker```
 
 The root permission per se defeats the purpose of EC rootless-connectivity model and ultimately create several security leaks on the guest host. However, it is worth to note that **running a standalone agent does NOT require a sudoer/root permission.** Please refer to [the agent source code repo for the standalone deployment](https://github.build.ge.com/Enterprise-Connect/agent#Usage). **Users with restrict security environemnt one such as AWS GovCloud should consider using a self-build image based on the spec examples in this repo.**
 
-EC Agent OCI image is currently maintained on [public docker hub](https://hub.docker.com/repository/docker/enterpriseconnect/agent); the usage spec avaialble in several compute environments. Visit the [EC usage examples](https://github.com/Enterprise-connect/ec-x-sdk/tree/v1/examples) or [the wiki if new to EC](https://github.com/Enterprise-connect/ec-sdk/wiki/EC-Agent).
+The EC Agent OCI image is currently maintained on [public docker hub](https://hub.docker.com/repository/docker/enterpriseconnect/agent); the usage spec avaialble in several compute environments. Visit the [EC usage examples](https://github.com/Enterprise-connect/ec-x-sdk/tree/v1/examples) or [the wiki if new to EC](https://github.com/Enterprise-connect/ec-sdk/wiki/EC-Agent).
 
 OCI (Open Container Initiative) is a contionue trademark of [the Open Container Initiative Community](https://www.opencontainers.org/community) and currently [governed by the community charters](https://www.opencontainers.org/about/governance)
 
