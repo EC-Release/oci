@@ -19,6 +19,11 @@ OCI (Open Container Initiative) is a contionue trademark of [the Open Container 
 - [```v1beta-build```](https://github.com/Enterprise-connect/oci/blob/v1beta/spec/build/Dockerfile)
 - [```v1-build```](https://github.com/Enterprise-connect/oci/blob/v1/spec/build/Dockerfile)
 
+### Tag usage
+- ```v1``` refers to agent ```#212``` release.
+- ```v1beta``` include agent ```#1724``` candidate release.
+- ```<tag>-build``` include the series of tool to build out an agent release.
+
 ### How to run
 In this container spec example, the pre-defined agent image is launched by using docker. The agent flags in this example are converted into several environment variables that are required based on the ```<path/to/this/repo>/spec/<agent-mode>.yml``` for a EC usage. For instance, to launch a client-mode agent container, it is required to ingest env vars EC_AID, EC_TID, EC_HST, etc. 
   
