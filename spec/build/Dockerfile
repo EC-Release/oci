@@ -43,6 +43,6 @@ VOLUME /build
 #
 # The run to-be detail
 #
-# docker run --network host -v $(pwd):/build -e DIND_PATH="" --env-file v1beta.list -i enterpriseconnect/agent:v1beta
+# docker run --network host -v $(pwd):/build -e DIND_PATH="" --env-file v1beta.list -i enterpriseconnect/agent:<v1beta|v1beta-build>
 #
 CMD cd /build/$DIND_PATH && ls -la  && ./dind.sh
