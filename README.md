@@ -19,8 +19,8 @@ OCI (Open Container Initiative) is a contionue trademark of [the Open Container 
 # Docker Tags
 
 ## agent builds
-#### pull example
-```docker pull enterpriseconnect/build:v1beta```
+#### run example
+```docker run --env-file v1beta.list enterpriseconnect/build:v1beta```
 
 #### available tags
 - [```v1beta```](https://github.com/Enterprise-connect/oci/blob/v1beta/spec/build/Dockerfile), ```latest```.
@@ -29,8 +29,8 @@ OCI (Open Container Initiative) is a contionue trademark of [the Open Container 
 - ```v1beta``` refers to the image to build agent ```#1724+```-relate releases.
 
 ## agent containers
-#### pull example
-```docker pull enterpriseconnect/agent:v1beta```
+#### run example
+```docker run --env-file v1beta enterpriseconnect/agent:v1beta```
 
 #### avaialble taga
 - [```v1```](https://github.com/Enterprise-connect/oci/blob/v1/spec/agent/Dockerfile), [```latest```](https://github.com/Enterprise-connect/oci/blob/v1/spec/agent/Dockerfile), [```v1-slim```](https://github.com/Enterprise-connect/oci/blob/v1/spec/agent/Dockerfile)
