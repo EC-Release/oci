@@ -17,6 +17,22 @@ The EC Agent OCI image is currently maintained on [public docker hub](https://hu
 OCI (Open Container Initiative) is a contionue trademark of [the Open Container Initiative Community](https://www.opencontainers.org/community) and currently [governed by the community charters](https://www.opencontainers.org/about/governance)
 
 # Docker Tags
+
+## agent builds
+#### pull example
+```docker pull enterpriseconnect/build:v1beta```
+
+#### available tags
+- [```v1beta```](https://github.com/Enterprise-connect/oci/blob/v1beta/spec/build/Dockerfile), ```latest```.
+
+#### tag usage
+- ```v1beta``` refers to the image to build agent ```#1724+```-relate releases.
+
+## agent containers
+#### pull example
+```docker pull enterpriseconnect/agent:v1beta```
+
+#### avaialble taga
 - [```v1```](https://github.com/Enterprise-connect/oci/blob/v1/spec/agent/Dockerfile), [```latest```](https://github.com/Enterprise-connect/oci/blob/v1/spec/agent/Dockerfile), [```v1-slim```](https://github.com/Enterprise-connect/oci/blob/v1/spec/agent/Dockerfile)
 - ```v1-python```, ```v1-ci```
 - [```v1beta```](https://github.com/Enterprise-connect/oci/blob/v1beta/spec/agent/Dockerfile), [```v1beta-slim```](https://github.com/Enterprise-connect/oci/blob/v1beta/spec/agent/Dockerfile)
@@ -24,7 +40,7 @@ OCI (Open Container Initiative) is a contionue trademark of [the Open Container 
 - [```v1beta-build```](https://github.com/Enterprise-connect/oci/blob/v1beta/spec/build/Dockerfile)
 - [```v1-build```](https://github.com/Enterprise-connect/oci/blob/v1/spec/build/Dockerfile)
 
-### Tag usage
+#### Tag usage
 - ```v1``` refers to agent ```#212``` release.
 - ```v1beta``` include agent ```#1724``` candidate release.
 - ```<tag>-build``` include the series of tool to build out an agent release.
