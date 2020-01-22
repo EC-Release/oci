@@ -35,6 +35,11 @@ RUN go get google.golang.org/grpc
 RUN go get golang.org/x/lint/golint
 RUN go get gopkg.in/cheggaaa/pb.v1
 RUN go get github.com/google/uuid
+RUN go get github.com/docker/docker/client \
+&& rm -Rf ${GOPATH}/src/github.com/docker/docker/vendor/github.com/docker/go-connections/nat
+RUN go get github.com/docker/go-connections/nat
+RUN go get golang.org/x/crypto/ssh/terminal
+
 
 WORKDIR root
 
