@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/Enterprise-connect/oci.svg?branch=v1)](https://travis-ci.com/Enterprise-connect/oci)
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/enterpriseconnect/build)
 
 # EC OCI Spec
 **Running the EC agent artifact within a docker image is not recommended due the dependancy of the underlying linux cgroup with docker.**
@@ -57,6 +57,3 @@ For the usage of docker flag ```-e```, please [refer to this example](https://gi
 
 ### Kubernates Deployment example
 When deploy the agent in a k8s instance, the necessary environment variables as specified in the example ```/path/to/the/repo/k8s/agent-<object>.yml```.  k8s users may utilise any custom objects such as a configmap plugin to help in its configuration.
-
-
-
