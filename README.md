@@ -18,19 +18,23 @@ OCI (Open Container Initiative) is a contionue trademark of [the Open Container 
 
 # Docker Tags
 
-## agent builds
-#### run example
-```docker run --env-file v1beta.list enterpriseconnect/build:v1beta```
+## build agent-related artifacts
+#### pull example
+```docker pull enterpriseconnect/build:v1beta```
 
 #### available tags
-- [```v1beta```](https://github.com/Enterprise-connect/oci/blob/v1beta/spec/build/Dockerfile), ```latest```.
+- [```v1```](https://github.com/Enterprise-connect/oci/blob/v1/spec/build/Dockerfile), ```latest```
+- [```v1beta```](https://github.com/Enterprise-connect/oci/blob/v1beta/spec/build/Dockerfile)
+- [```v1.1beta```](https://github.com/Enterprise-connect/oci/blob/v1beta/spec/build/Dockerfile)
 
 #### tag usage
+- ```v1``` refers to the image to build agent ```#212+```-relate releases.
 - ```v1beta``` refers to the image to build agent ```#1724+```-relate releases.
+- ```v1.1beta``` refers to the image to build agent ```#2721+```-relate releases.
 
-## agent containers
-#### run example
-```docker run --env-file v1beta enterpriseconnect/agent:v1beta```
+## agent in containers
+#### pull example
+```docker pull enterpriseconnect/agent:v1beta```
 
 #### avaialble taga
 - [```v1```](https://github.com/Enterprise-connect/oci/blob/v1/spec/agent/Dockerfile), [```latest```](https://github.com/Enterprise-connect/oci/blob/v1/spec/agent/Dockerfile), [```v1-slim```](https://github.com/Enterprise-connect/oci/blob/v1/spec/agent/Dockerfile)
