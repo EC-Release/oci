@@ -18,7 +18,11 @@ WORKDIR root
 
 VOLUME /build
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update \
+&& apt-get install -y apt-transport-https \
+&& apt-get install -y libpq-dev gcc
+
+#RUN pip install --no-cache-dir -r requirements.txt
 
 #
 # The run to-be detail
