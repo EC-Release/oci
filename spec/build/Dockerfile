@@ -40,6 +40,8 @@ RUN go get github.com/docker/docker/client \
 RUN go get github.com/docker/go-connections/nat
 RUN go get golang.org/x/crypto/ssh/terminal
 
+#add gosec for SAST
+go get github.com/securego/gosec/cmd/gosec
 
 WORKDIR root
 
