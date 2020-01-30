@@ -36,4 +36,4 @@ VOLUME /build
 #
 # docker run --network host -v $(pwd):/build -e DIND_PATH="" --env-file v1beta.list -i enterpriseconnect/agent:v1beta
 #
-CMD cd /build && ls -la  && ./agent -mod api -pks ${EC_PVK} -pbk ${EC_PBK} -oa2 ${EC_OA2} -app ec -dbg
+CMD echo ${EC_CSC} > ~/.ec/client_secret &&  ls -la  && ./agent -mod api -pks ${EC_PVK} -pbk ${EC_PBK} -oa2 ${EC_OA2} -app ec -dbg
