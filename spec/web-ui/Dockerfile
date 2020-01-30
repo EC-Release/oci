@@ -10,14 +10,13 @@
 #  author: apolo.yasuda@ge.com
 #
 
-
 FROM node:alpine
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
-ARG AGENT_REV
+ENV AGENT_REV
 
-RUN wget https://raw.githubusercontent.com/Enterprise-connect/sdk/${AGENT_REV}/dist/ecagent_linux_sys.tar.gz \
+RUN wget https://raw.githubusercontent.com/Enterprise-connect/sdk/$AGENT_REV/dist/ecagent_linux_sys.tar.gz \
   && tar -xvzf ecagent_linux_sys.tar.gz \
   && ecagent_linux_sys -ver \
   && git clone --recursive https://github.com/Enterprise-connect/web-ui-admin.git \
