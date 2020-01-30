@@ -27,7 +27,7 @@ RUN wget https://github.com/Enterprise-connect/web-ui-admin/archive/v1.1beta.tar
 RUN wget https://raw.githubusercontent.com/Enterprise-connect/sdk/${AGENT_REV}/dist/ecagent_linux_sys.tar.gz \
   && tar -xvzf ecagent_linux_sys.tar.gz \
   && mv ecagent_linux_sys agent && rm *.gz \
-  && ./agent -ver && ls -al && mkdir ~/.ec
+  && ./agent -ver && ls -al && ls -al ~/.ec
 
 VOLUME /build
 
@@ -36,4 +36,4 @@ VOLUME /build
 #
 # docker run --network host -v $(pwd):/build -e DIND_PATH="" --env-file v1beta.list -i enterpriseconnect/agent:v1beta
 #
-CMD echo ${EC_CSC} > ~/.ec/client_secret &&  ls -la  && ./agent -mod api -pks ${EC_PVK} -pbk ${EC_PBK} -oa2 ${EC_OA2} -app ec -dbg
+CMD echo ${EC_CSC} > ~/.ec/client_secret && ls -la && ./agent -mod api -pks ${EC_PVK} -pbk ${EC_PBK} -oa2 ${EC_OA2} -app ec -dbg
