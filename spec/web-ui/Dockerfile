@@ -14,7 +14,7 @@ FROM node:alpine
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
-ARG AGENT_REV
+ENV AGENT_REV=v1.1beta.fukuoka.2723
 
 WORKDIR /build
 
