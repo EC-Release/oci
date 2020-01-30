@@ -14,15 +14,20 @@ FROM node:alpine
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
-ENV AGENT_REV
+ARG AGENT_REV
 
-RUN wget https://raw.githubusercontent.com/Enterprise-connect/sdk/$AGENT_REV/dist/ecagent_linux_sys.tar.gz \
+WORKDIR /build
+
+RUN wget https://github.com/Enterprise-connect/web-ui-admin/archive/v1.1beta.tar.gz \
+  && tar -xvzf v1.1beta.tar.gz --strip-components 1 && rm v1.1beta.tar.gz \
+  && wget https://github.com/Enterprise-connect/web-ui-oa2/archive/v1.1beta.tar.gz \
+  && tar -xvzf v1.1beta.tar.gz --strip-components 1 -C $(pwd)/oa2-assets \
+  && ls -al oa2-assets
+
+RUN wget https://raw.githubusercontent.com/Enterprise-connect/sdk/${AGENT_REV}/dist/ecagent_linux_sys.tar.gz \
   && tar -xvzf ecagent_linux_sys.tar.gz \
-  && ecagent_linux_sys -ver \
-  && git clone --recursive https://github.com/Enterprise-connect/web-ui-admin.git \
-  && npm install && npm test
-
-WORKDIR root
+  && mv ecagent_linux_sys agent && rm *.gz \
+  && ./agent -ver && ls -al
 
 VOLUME /build
 
@@ -31,4 +36,4 @@ VOLUME /build
 #
 # docker run --network host -v $(pwd):/build -e DIND_PATH="" --env-file v1beta.list -i enterpriseconnect/agent:v1beta
 #
-CMD cd /build && ls -la  && ./agent -ver
+CMD cd /build && ls -la  && ./agent -mod api -pks ${EC_PVK} -pbk ${EC_PBK} -oa2 ${EC_OA2} -app ec -dbg
