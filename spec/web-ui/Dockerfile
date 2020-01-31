@@ -18,8 +18,6 @@ ENV AGENT_REV=v1.1beta.fukuoka.2723
 
 WORKDIR /build
 
-RUN apk add --update npm
-
 RUN wget https://github.com/Enterprise-connect/web-ui-admin/archive/v1.1beta.tar.gz \
   && tar -xvzf v1.1beta.tar.gz --strip-components 1 && rm v1.1beta.tar.gz \
   && wget https://github.com/Enterprise-connect/web-ui-oa2/archive/v1.1beta.tar.gz \
