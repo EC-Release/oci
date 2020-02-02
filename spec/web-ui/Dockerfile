@@ -14,7 +14,7 @@ FROM node:alpine
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
-ENV AGENT_REV=v1.1beta.fukuoka.2723
+ENV WEBUI_BRANCH=v1.1beta
 
 WORKDIR /build
 
@@ -24,10 +24,10 @@ RUN wget https://github.com/Enterprise-connect/web-ui-admin/archive/v1.1beta.tar
   && tar -xvzf v1.1beta.tar.gz --strip-components 1 -C $(pwd)/oa2-assets \
   && ls -al oa2-assets
 
-RUN wget https://raw.githubusercontent.com/Enterprise-connect/sdk/${AGENT_REV}/dist/ecagent_linux_sys.tar.gz \
-  && tar -xvzf ecagent_linux_sys.tar.gz \
-  && mv ecagent_linux_sys agent && rm *.gz \
-  && ./agent -ver && ls -al && ls -al ~/.ec
+RUN wget https://raw.githubusercontent.com/Enterprise-connect/sdk/${WEBUI_BRANCH}/dist/webui/webui_linux_sys.tar.gz \
+  && tar -xvzf webui_linux_sys.tar.gz \
+  && mv webui_linux_sys webui && rm *.gz \
+  && ./webui -ver && ls -al && ls -al ~/.ec
 
 VOLUME /build
 
@@ -36,4 +36,4 @@ VOLUME /build
 #
 # docker run --network host -v $(pwd):/build -e DIND_PATH="" --env-file v1beta.list -i enterpriseconnect/agent:v1beta
 #
-CMD ls -la && ./agent -mod api -pks ${EC_PVK} -pbk ${EC_PBK} -oa2 ${EC_OA2} -app ec -dbg
+CMD ls -la && ./webui -mod api -pks ${EC_PVK} -pbk ${EC_PBK} -oa2 ${EC_OA2} -app ec -dbg
