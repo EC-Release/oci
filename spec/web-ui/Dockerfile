@@ -18,7 +18,7 @@ ENV WEBUI_BRANCH=v1.1beta
 
 WORKDIR /build
 
-RUN wget https://github.com/Enterprise-connect/web-ui-admin/archive/v1.1beta.tar.gz \
+RUN wget https://github.com/Enterprise-connect/web-ui/archive/v1.1beta.tar.gz \
   && tar -xvzf v1.1beta.tar.gz --strip-components 1 && rm v1.1beta.tar.gz \
   && wget https://github.com/Enterprise-connect/web-ui-oa2/archive/v1.1beta.tar.gz \
   && tar -xvzf v1.1beta.tar.gz --strip-components 1 -C $(pwd)/oa2-assets \
