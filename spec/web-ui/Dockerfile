@@ -34,6 +34,6 @@ VOLUME /build
 #
 # The run to-be detail
 #
-# docker run --network host -v $(pwd):/build -e DIND_PATH="" --env-file v1beta.list -i enterpriseconnect/agent:v1beta
+# docker run --network host -v $(pwd):/build -e DIND_PATH="" --env-file run.list -i enterpriseconnect/agent:v1beta
 #
 CMD ls -la && ./webui -mod api -pks ${EC_PVK} -pbk ${EC_PBK} -oa2 ${EC_OA2} -app ec -dbg
