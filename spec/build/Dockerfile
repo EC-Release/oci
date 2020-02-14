@@ -11,7 +11,7 @@
 #
 
 
-FROM golang:1.12-buster
+FROM golang:1.12.16-buster
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
     
