@@ -39,6 +39,7 @@ RUN go get github.com/docker/docker/client \
 && rm -Rf ${GOPATH}/src/github.com/docker/docker/vendor/github.com/docker/go-connections/nat
 RUN go get github.com/docker/go-connections/nat
 RUN go get golang.org/x/crypto/ssh/terminal
+RUN go get golang.org/x/lint/golint
 
 #add gosec for SAST
 RUN go get github.com/securego/gosec/cmd/gosec
