@@ -15,33 +15,13 @@ FROM busybox
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
 USER root
-WORKDIR /root
+WORKDIR /build
 
-COPY ./*.yml ./
-
-RUN wget -O ./ecagent_linux_sys.tar.gz https://raw.githubusercontent.com/Enterprise-connect/ec-x-sdk/v1.1beta.fukuoka.2722/dist/ecagent_linux_sys.tar.gz \
+RUN wget -O ./ecagent_linux_sys.tar.gz https://raw.githubusercontent.com/Enterprise-connect/ec-x-sdk/${EC_REV}/dist/ecagent_linux_sys.tar.gz \
   && tar -xvzf ./ecagent_linux_sys.tar.gz \
   && rm ./ecagent_linux_sys.tar.gz \
   && ls -al
+  
+VOLUME /build/conf.yml
 
-CMD sed -i 's@{EC_AID}@'"$EC_AID"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_TID}@'"$EC_TID"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_CID}@'"$EC_CID"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_CSC}@'"$EC_CSC"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_OA2}@'"$EC_OA2"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_DUR}@'"$EC_DUR"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_DBG}@'"$EC_DBG"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_ZON}@'"$EC_ZON"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_GRP}@'"$EC_GRP"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_CPS}@'"$EC_CPS"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_LPT}@'"$EC_LPT"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_GPT}@'"$EC_GPT"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_RPT}@'"$EC_RPT"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_RHT}@'"$EC_RHT"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_HST}@'"$EC_HST"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_SST}@'"$EC_SST"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_TKN}@'"$EC_TKN"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_PXY}@'"$EC_PXY"'@g' ~/${EC_MOD}.yml \
- && sed -i 's@{EC_PLG}@'"$EC_PLG"'@g' ~/${EC_MOD}.yml \
- && cat ./${EC_MOD}.yml \
- && ./ecagent_linux_sys -cfg ${EC_MOD}.yml
+CMD ./ecagent_linux_sys -cfg conf.yml
