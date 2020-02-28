@@ -36,7 +36,7 @@ OCI (Open Container Initiative) is a contionue trademark of [the Open Container 
 #### pull example
 ```docker pull enterpriseconnect/agent:v1beta```
 
-#### avaialble taga
+#### avaialble tags
 - [```v1```](https://github.com/Enterprise-connect/oci/blob/v1/spec/agent/Dockerfile), [```latest```](https://github.com/Enterprise-connect/oci/blob/v1/spec/agent/Dockerfile), [```v1-slim```](https://github.com/Enterprise-connect/oci/blob/v1/spec/agent/Dockerfile)
 - ```v1-python```, ```v1-ci```
 - [```v1beta```](https://github.com/Enterprise-connect/oci/blob/v1beta/spec/agent/Dockerfile), [```v1beta-slim```](https://github.com/Enterprise-connect/oci/blob/v1beta/spec/agent/Dockerfile)
@@ -54,10 +54,9 @@ In this container spec example, the pre-defined agent image is launched by using
   
 The env variables specified in ```--env-file``` will need to be replaced by a series of relevant flags as it is shown in the example yaml file.
 ```shell
-docker run --env-file client.list \
-  enterpriseconnect/agent:v1
+docker run -v $(pwd)/<the local agent config yam file. e.g. client.yml>:/build/conf.yml \
+enterpriseconnect/agent:v1.1beta
 ```
-For the usage of docker flag ```-e```, please [refer to this example](https://github.com/Enterprise-connect/oci/blob/v1/.travis.yml#L11)
 
 ### Kubernates Deployment example
 When deploy the agent in a k8s instance, the necessary environment variables as specified in the example ```/path/to/the/repo/k8s/agent-<object>.yml```.  k8s users may utilise any custom objects such as a configmap plugin to help in its configuration.
