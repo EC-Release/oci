@@ -26,4 +26,4 @@ RUN wget -O ./ecagent_linux_sys.tar.gz https://github.com/Enterprise-connect/sdk
   
 VOLUME /build/conf.yml
 
-CMD ./ecagent_linux_sys -cfg conf.yml
+CMD ./agent_linux_sys -cfg conf.yml
