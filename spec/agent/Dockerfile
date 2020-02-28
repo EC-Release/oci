@@ -17,7 +17,7 @@ MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 USER root
 WORKDIR /build
 
-ARG EC_REV_BETA
+ARG EC_REV_BETA=v1.1beta.fukuoka.2726
 
 RUN wget -O ./ecagent_linux_sys.tar.gz https://raw.githubusercontent.com/Enterprise-connect/sdk/$EC_REV_BETA/dist/ecagent_linux_sys.tar.gz \
   && tar -xvzf ./ecagent_linux_sys.tar.gz \
