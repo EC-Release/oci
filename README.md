@@ -58,5 +58,8 @@ docker run -v $(pwd)/<the local agent config yam file. e.g. client.yml>:/build/c
 enterpriseconnect/agent:v1.1beta
 ```
 
+### How to Run (Azure)
+placeholder. [Issue tracking](https://github.com/Enterprise-connect/sdk/issues/70)
+
 ### Kubernates Deployment example
 When deploy the agent in a k8s instance, the necessary environment variables as specified in the example ```/path/to/the/repo/k8s/agent-<object>.yml```.  k8s users may utilise any custom objects such as a configmap plugin to help in its configuration.
