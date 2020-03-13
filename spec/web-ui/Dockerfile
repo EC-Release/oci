@@ -14,7 +14,7 @@ FROM node:alpine
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
-ENV WEBUI_BRANCH=v1.1beta SDK_BRANCH=v1.1beta.fukuoka.2726
+ENV WEBUI_BRANCH=v1.1beta
 
 WORKDIR /build
 
@@ -28,18 +28,14 @@ RUN wget https://raw.githubusercontent.com/Enterprise-connect/sdk/${WEBUI_BRANCH
   && tar -xvzf webui_linux_sys.tar.gz \
   && mv webui_linux_sys webui && rm *.gz \
   && ./webui -ver && ls -al && ls -al ~/.ec
-  
-RUN wget https://raw.githubusercontent.com/Enterprise-connect/sdk/${SDK_BRANCH}/dist/agent/agent_linux_sys.tar.gz \
-  && tar -xvzf agent_linux_sys.tar.gz \
-  && mv agent_linux_sys webui && rm *.gz \
-  && ./agent -ver && ls -al && ls -al ~/.ec
 
-VOLUME /build
+VOLUME /build/conf.yml
+VOLUME /root/.ec
 
 #
 # The run to-be detail
 #
-# docker run --network host -v $(pwd):/build -e DIND_PATH="" --env-file run.list -i enterpriseconnect/agent:v1beta
+# docker run --network host -v $(pwd)/conf.yml:/build/conf.yml -e DIND_PATH="" -i enterpriseconnect/webui:v1.1beta
 #
 # update needed
-CMD ls -la && ./webui -mod api -pks ${EC_PVK} -pbk ${EC_PBK} -oa2 ${EC_OA2} -app ec -dbg
+CMD ls -la && ./webui -cfg conf.yml
