@@ -40,7 +40,9 @@ RUN go get github.com/docker/docker/client \
 RUN go get github.com/docker/go-connections/nat
 RUN go get golang.org/x/crypto/ssh/terminal
 RUN go get golang.org/x/lint/golint
+RUN go get github.com/creack/pty
 RUN go get github.com/jasonlvhit/gocron
+RUN go get github.com/boltdb/bolt
 
 #add gosec for SAST
 RUN go get github.com/securego/gosec/cmd/gosec
