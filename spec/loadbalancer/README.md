@@ -14,7 +14,7 @@ docker run enterpriseconnect/lb:v1beta
 
 ### Current Support Modes Matrix
 Mode | Avaialble Releases | Watcher
---- | --- | --- | --- | --- | --- | ---
+--- | --- | ---
 gateway | v1.1beta, v1.1 | Optional
 client | v1.1beta, v1.1 | Optional
 server | v1.1beta, v1.1 | Optional 
