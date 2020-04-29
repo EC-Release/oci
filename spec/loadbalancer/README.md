@@ -6,7 +6,10 @@
 ### How to use it
 ```sh
 #TLS-enabled Load-Balancer
-docker run -v path/to/tls/cert.pem:~/cert.pem -v path/to/private/key/key.pem:~/key.pem enterpriseconnect/lb:v1beta
+docker run \
+-v path/to/tls/cert.pem:~/cert.pem \
+-v path/to/private/key/key.pem:~/key.pem \
+enterpriseconnect/lb:v1beta
 
 #Non-TLS Load-Balancer
 docker run enterpriseconnect/lb:v1beta
