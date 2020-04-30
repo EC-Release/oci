@@ -15,10 +15,11 @@ Overall connectivity model for the LBer.
 docker run \
 -v path/to/tls/cert.pem:~/cert.pem \
 -v path/to/private/key/key.pem:~/key.pem \
+-p 8080:80 \
 enterpriseconnect/loadbalancer:v1.1beta
 
 #Non-TLS Load-Balancer
-docker run enterpriseconnect/loadbalancer:v1.1beta
+docker run -p 8080:80 enterpriseconnect/loadbalancer:v1.1beta
 ```
 
 ### Current Support Modes Matrix
