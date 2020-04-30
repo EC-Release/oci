@@ -6,4 +6,4 @@ ec-config:
     dbg: true
     tls: false
     oa2: https://ec-oauth.herokuapp.com
-    cid: <user-id|client-id>
+    cid: ${EC_CID}
