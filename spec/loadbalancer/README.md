@@ -1,7 +1,8 @@
 ## EC Load Balancer Spec
 ### Design
-[Lucidchar](https://www.lucidchart.com/invitations/accept/7bbe2eee-a21b-480c-bf7e-53a430fcbfd8)
-[img](https://www.lucidchart.com/invitations/accept/7bbe2eee-a21b-480c-bf7e-53a430fcbfd8)
+The diagram illustrated the overall connectivity model for the LBer.
+![LB High Level](/doc/lb-highlevel.png)
+
 
 ### How to use it
 ```sh
