@@ -19,8 +19,9 @@ docker run \
 enterpriseconnect/loadbalancer:v1.1beta
 
 #Non-TLS Load-Balancer
-docker run -p 8080:80 enterpriseconnect/loadbalancer:v1.1beta
+docker run -p 8080:80 --env-file $(pwd)/machine.env enterpriseconnect/loadbalancer:v1.1beta
 ```
+
 
 ### Current Support Modes Matrix
 Mode | Avaialble Releases | Watcher

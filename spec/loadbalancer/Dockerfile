@@ -10,4 +10,9 @@ RUN wget https://raw.githubusercontent.com/Enterprise-connect/sdk/v1.1beta/dist/
                 tar -xvzf agent_linux_sys.tar.gz && \
                 rm agent_linux_sys.tar.gz && ./agent_linux_sys -ver
 
+CMD sed /IP1/${IP1}g /etc/nginx/conf.d/default.conf && \
+sed /IP2/${IP2}g /etc/nginx/conf.d/default.conf && \
+sed /IP3/${IP3}g /etc/nginx/conf.d/default.conf && nginx
+
+
 #WORKDIR
