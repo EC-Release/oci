@@ -5,7 +5,7 @@ The diagram illustrates the sequence of the connectivity model
 
 
 Overall connectivity model for the LBer.
-![LB High Level](/doc/lb-highlevel.png)
+![LB High Level](/doc/lb-model.png)
 
 
 
