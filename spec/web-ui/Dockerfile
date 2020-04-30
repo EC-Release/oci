@@ -18,6 +18,7 @@ ENV WEBUI_BRANCH=v1.1beta
 
 WORKDIR /build
 
+COPY ./conf.yaml /build/conf.yaml
 RUN wget https://github.com/Enterprise-connect/web-ui/archive/v1.1beta.tar.gz \
   && tar -xvzf v1.1beta.tar.gz --strip-components 1 && rm v1.1beta.tar.gz \
   && wget https://github.com/Enterprise-connect/web-ui-oa2/archive/v1.1beta.tar.gz \
@@ -29,13 +30,10 @@ RUN wget https://raw.githubusercontent.com/Enterprise-connect/sdk/${WEBUI_BRANCH
   && mv webui_linux_sys webui && rm *.gz \
   && ./webui -ver && ls -al && ls -al ~/.ec
 
-VOLUME /build/conf.yml
-VOLUME /root/.ec
-
 #
 # The run to-be detail
 #
 # docker run --network host -v $(pwd)/conf.yml:/build/conf.yml -e DIND_PATH="" -i enterpriseconnect/webui:v1.1beta
 #
 # update needed
-CMD ls -la && ./webui -cfg conf.yml
+CMD ls -la && EC_PORT=:${PORT} ./webui -cfg conf.yaml
