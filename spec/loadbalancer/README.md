@@ -1,7 +1,12 @@
 ## EC Load Balancer Spec
 ### Design
-The diagram illustrated the overall connectivity model for the LBer.
+The diagram illustrates the sequence of the connectivity model
+![LB Seq. High Level](/doc/lb-sequence.png)
+
+
+Overall connectivity model for the LBer.
 ![LB High Level](/doc/lb-highlevel.png)
+
 
 
 ### How to use it
