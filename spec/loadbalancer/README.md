@@ -25,7 +25,7 @@ docker run -p 8080:80 --env-file $(pwd)/machine.env enterpriseconnect/loadbalanc
 ### Use-case I vm-2-vm
 ![LB Usecase](/doc/lb-usecase.png)
 
-
+gateway yaml format - 
 ```yaml
 ec-config:
   conf:
