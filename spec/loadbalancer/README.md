@@ -23,9 +23,52 @@ docker run -p 8080:80 --env-file $(pwd)/machine.env enterpriseconnect/loadbalanc
 ```
 
 ### Use-case I vm-2-vm
-vm to vm load-balancing for agent file trasfer.
+![LB Usecase](/doc/lb-usecase.png)
 
-#### to-do 
+gateway yaml format - 
+```yaml
+ec-config:
+  conf:
+    mod: gateway
+    gpt: ":17990"
+    zon: {ec-zone-id}
+    grp: {ec-service-group}
+    sst: https://{ec-service-uri}
+    dbg: true
+    tkn: {admin-token}
+    hst: ws://{loadbalancer-url-or-ip}/agent
+    cps: 5
+  watcher:
+    env: LOCAL
+    license: SERVER_X5 #cert
+    role: DEVELOPER #cert
+    devId: {developer-id}
+    scope: app.auth #cert
+    certsDir: "/etc/ssl/certs"
+    mode: gateway #cert. available option: gateway,server,client,gw:server,gw:client
+    os: linux
+    arch: amd64
+    instance: 1
+    duration: 1
+    cpuPeriod: 100000 #microsec. e.g. 50000/100000 = .5 cpu
+    cpuQuota: 50000
+    cpuShared: 128
+    inMemory: 134217728 #in bytes. ~128mb
+    swapMemory: 134217728
+    oauth2: https://ec-oauth.herokuapps.com
+    httpPort: ":17990"
+    tcpPort: ":17991"
+    customPort: ":17992"
+    contRev: {agent-version}
+    contArtURL: https://raw.githubusercontent.com/Enterprise-connect/sdk/{{contRev}}/dist/agent/agent_linux_sys.tar.gz
+```
+
+Download the agent and run gateway - 
+```sh
+./agent -cfg </path/to/yaml/file> -wtr 
+```
+
+Note: ```wtr``` falg is to run gateway in watcher mode. Gateway can also run as standalone process.
 
 ### Current Support Modes Matrix
 Mode | Avaialble Releases | Watcher
