@@ -14,15 +14,17 @@ FROM node:alpine
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
-ENV WEBUI_BRANCH=v1.1beta
+ENV EC_REV_BETA=v1.1beta.fukuoka.2733
 
 WORKDIR /build
 
 COPY ./conf.yaml /build/conf.yaml
 RUN  wget https://github.com/Enterprise-connect/web-ui-oa2/archive/v1.1beta.tar.gz \
+  && mkdir oa2-assets \
   && tar -xvzf v1.1beta.tar.gz --strip-components 1 -C $(pwd)/oa2-assets \
-  && ls -al oa2-assets
+  && rm v1.1beta.tar.gz && ls -al oa2-assets
 
+  
 RUN wget -O ./agent_linux_sys.tar.gz https://github.com/Enterprise-connect/sdk/raw/${EC_REV_BETA}/dist/agent/agent_linux_sys.tar.gz \
   && tar -xvzf ./agent_linux_sys.tar.gz \
   && mv ./agent_linux_sys ./agent \
