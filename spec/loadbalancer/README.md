@@ -22,6 +22,10 @@ enterpriseconnect/loadbalancer:v1.1beta
 docker run -p 8080:80 --env-file $(pwd)/machine.env enterpriseconnect/loadbalancer:v1.1beta
 ```
 
+### Use-case I vm-2-vm
+vm to vm load-balancing for agent file trasfer.
+
+#### to-do 
 
 ### Current Support Modes Matrix
 Mode | Avaialble Releases | Watcher
