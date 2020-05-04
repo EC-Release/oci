@@ -4,7 +4,7 @@ services:
   - docker
 
 before_install:
-- docker pull enterpriseconnect/agent:v1
+- docker pull enterpriseconnect/agent:v1.1beta
 - docker images
 
 script:
@@ -20,3 +20,13 @@ script:
   -e EC_ZON=some-zone
   -e EC_GRP=some-group
   -e EC_CPS=5 enterpriseconnect/agent:v1
+
+notifications:  
+  email:  
+    recipients:  
+    - ec-research@ge.com
+    - koushik.apal@ge.com
+    - prasad.alokam@ge.com
+    - RamaRao.Srikakulapu@ge.com
+    on_success: always  
+    on_failure: always
