@@ -1,0 +1,42 @@
+ec-config:
+  conf:
+    mod: oauth2
+    apt: ${EC_PORT}
+    dbg: true
+    tls: false
+  #group to define the authentication method of the connectivity.  
+  authGroup:
+  - validate: oidc
+    scope: ["admin.read","subs.read"]
+    oidc:
+      domain: ${EC_OIDC_DOMAIN}
+      authPath: ${EC_OIDC_AUTHPATH}
+      tokenPath: ${EC_OIDC_TOKENPATH}
+      clientId: ${EC_OIDC_CLIENTID}
+      clientSecret: ${EC_OIDC_CLIENTSECRET}
+      scopeIndex:
+        "read:user": admin.read
+        "read:description": subs.read
+    #isOwner indicates if this oauth instance will use the auth keypair for the purpose of TLS, if enabled 
+    isOwner: true
+    privateKey: ${EC_PVTKEY_1}
+    publicCrt: ${EC_PUBKEY_1}
+    description: "some decription for reference only"
+  - validate: oaep
+    scope: ["app.auth","cluster.admin"]
+    isOwner: false
+    privateKey: ${EC_PVTKEY_2}
+    publicCrt: ${EC_PUBKEY_2}
+    description: "some decription for reference only"
+  - validate: oaep
+    scope: ["app.auth","cluster.user"]
+    isOwner: false
+    privateKey: ${EC_PVTKEY_3}
+    publicCrt: ${EC_PUBKEY_3}
+    description: "decription #2 for reference only"
+  - validate: oaep
+    scope: ["app.auth","cluster.user"]
+    isOwner: false
+    privateKey: ${EC_PVTKEY_4}
+    publicCrt: ${EC_PUBKEY_4}
+    description: "decription #2 for reference only"
