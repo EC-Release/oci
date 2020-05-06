@@ -23,7 +23,6 @@ RUN  wget https://github.com/Enterprise-connect/web-ui-oa2/archive/v1.1beta.tar.
   && mkdir oa2-assets \
   && tar -xvzf v1.1beta.tar.gz --strip-components 1 -C $(pwd)/oa2-assets \
   && rm v1.1beta.tar.gz && ls -al oa2-assets
-
   
 RUN wget -O ./agent_linux_sys.tar.gz https://github.com/Enterprise-connect/sdk/raw/${EC_REV_BETA}/dist/agent/agent_linux_sys.tar.gz \
   && tar -xvzf ./agent_linux_sys.tar.gz \

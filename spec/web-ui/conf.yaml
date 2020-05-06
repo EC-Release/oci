@@ -5,5 +5,5 @@ ec-config:
     apt: ${EC_PORT}
     dbg: true
     tls: false
-    oa2: https://ec-oauth.herokuapp.com
+    oa2: ${EC_OAUTH_URL}
     cid: ${EC_CID}
