@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "client.fullname" . }}-test-connection"
+  labels:
+    {{- include "client.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: client
+      image: {{ .Values.image.repository }}
+      command: ['./agent',"-ver"]
+      #args: ['{{ include "client.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

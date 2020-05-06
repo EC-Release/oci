@@ -15,15 +15,15 @@ FROM busybox
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
 USER root
-WORKDIR /build
+WORKDIR /root
 
-ARG EC_REV_BETA=v1.1beta.fukuoka.2727
+ARG EC_REV_BETA=v1.1beta.fukuoka.2732
 
-RUN wget -O ./ecagent_linux_sys.tar.gz https://github.com/Enterprise-connect/sdk/raw/${EC_REV_BETA}/dist/agent/agent_linux_sys.tar.gz \
-  && tar -xvzf ./ecagent_linux_sys.tar.gz \
-  && rm ./ecagent_linux_sys.tar.gz \
-  && ls -al
-  
-VOLUME /build/conf.yml
+RUN wget -O ./agent_linux_sys.tar.gz https://github.com/Enterprise-connect/sdk/raw/${EC_REV_BETA}/dist/agent/agent_linux_sys.tar.gz \
+  && tar -xvzf ./agent_linux_sys.tar.gz \
+  && mv ./agent_linux_sys ./agent \
+  && rm ./agent_linux_sys.tar.gz \
+  && ./agent -ver && ls -al
 
-CMD ./agent_linux_sys -cfg conf.yml
+#simplify launcher
+CMD ./agent -wtr -dae
