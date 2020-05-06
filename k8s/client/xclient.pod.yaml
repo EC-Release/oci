@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: xclient-pod
+spec:
+  containers:
+    - name: client
+      image: enterpriseconnect/agent:v1.1beta
+      command: ["./agent", "-env"]
+      #allow interactives w/ stdin
+      stdinOnce: true
+      stdin: true
+      tty: true 
+      envFrom:
+      - configMapRef:
+          name: xclient-configmap
+  restartPolicy: Never
