@@ -2,4 +2,4 @@
 
 ### use case I
 The diagram illustrates the usage of the connectivity model in k8s
-![LB Seq. High Level](/doc/k8s-ft.png)
+![LB Seq. High Level](/doc/k8s-ftp.png)
