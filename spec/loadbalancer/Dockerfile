@@ -7,8 +7,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 ARG IP1
 
 RUN apt-get update && \
-apt-get install wget -y && \
-apt-get install nginx-mod-http-lua
+apt-get install wget -y 
 
 RUN wget https://raw.githubusercontent.com/Enterprise-connect/sdk/v1.1beta/dist/agent/agent_linux_sys.tar.gz && \
                 tar -xvzf agent_linux_sys.tar.gz && \
