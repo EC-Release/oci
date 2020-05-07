@@ -1,11 +1,9 @@
 ## EC Gateway Load Balancer Spec
+### Goal
+High availability for EC gateway. Load balancing network traffic across gateway instances from multiple source and target agents in platform-agnostic way.   
 ### Design
 The diagram illustrates the sequence of the connectivity model
 ![LB Seq. High Level](/doc/lb-sequence.png)
-
-
-Overall connectivity model for the LBer.
-![LB High Level](/doc/lb-model.png)
 
 ### How to use it
 ```sh
@@ -20,64 +18,65 @@ enterpriseconnect/loadbalancer:v1.1beta
 docker run -p 8080:80 --env-file $(pwd)/machine.env enterpriseconnect/loadbalancer:v1.1beta
 ```
 
-#### available tags
+### available tags
 - [```v1.1beta```](https://github.com/Enterprise-connect/oci/blob/v1.1beta/spec/loadbalancer/Dockerfile)
 
-#### tag usage
-- ```v1.1beta``` refers to the image to build agent ```#2730+```-relate releases.
+```sh
+docker pull enterpriseconnect/loadbalancer:v1.1beta
+```
 
 ### Use-case I vm-2-vm
-![LB Usecase](/doc/lb-usecase.png)
+![LB High Level](/doc/lb-model.png)
 
-- Deploy watcher in a VM
+#### Deploy watcher in a VM
 
-  - Download the agent from [v1.1beta](https://github.com/Enterprise-connect/sdk/tree/v1.1beta/dist/agent) or [v1.1](https://github.com/Enterprise-connect/sdk/tree/v1.1/dist/agent)
-  - Prepare yml with configuration as follows - 
-    ```yaml
-    ec-config:
-      conf:
-        mod: gateway
-        gpt: ":17990"
-        zon: {ec-zone-id}
-        grp: {ec-service-group}
-        sst: https://{ec-service-uri}
-        dbg: true
-        tkn: {admin-token}
-        hst: ws://{loadbalancer-url-or-ip}/agent
-        cps: 5
-      watcher:
-        env: LOCAL
-        license: SERVER_X5 #cert
-        role: DEVELOPER #cert
-        devId: {developer-id}
-        scope: app.auth #cert
-        certsDir: "/etc/ssl/certs"
-        mode: gateway #cert. available option: gateway,server,client,gw:server,gw:client
-        os: linux
-        arch: amd64
-        instance: 1
-        duration: 1
-        cpuPeriod: 100000 #microsec. e.g. 50000/100000 = .5 cpu
-        cpuQuota: 50000
-        cpuShared: 128
-        inMemory: 134217728 #in bytes. ~128mb
-        swapMemory: 134217728
-        oauth2: https://ec-oauth.herokuapps.com
-        httpPort: ":17990"
-        tcpPort: ":17991"
-        customPort: ":17992"
-        contRev: {agent-version}
-        contArtURL: https://raw.githubusercontent.com/Enterprise-connect/sdk/{{contRev}}/dist/agent/agent_linux_sys.tar.gz
-    ```
-  - Command to run watcher
-    ```sh
-    ./agent -cfg </path/to/yaml/file> -wtr 
-    ```
+- Download the agent from [v1.1beta](https://github.com/Enterprise-connect/sdk/tree/v1.1beta/dist/agent) or [v1.1](https://github.com/Enterprise-connect/sdk/tree/v1.1/dist/agent)
+- Prepare yml with configuration as follows - 
+```yaml
+ec-config:
+  conf:
+    mod: gateway
+    gpt: ":17990"
+    zon: {ec-zone-id}
+    grp: {ec-service-group}
+    sst: https://{ec-service-uri}
+    dbg: true
+    tkn: {admin-token}
+    hst: ws://{loadbalancer-url-or-ip}/agent
+    cps: 5
+  watcher:
+    env: LOCAL
+    license: SERVER_X5 #cert
+    role: DEVELOPER #cert
+    devId: {developer-id}
+    scope: app.auth #cert
+    certsDir: "/etc/ssl/certs"
+    mode: gateway #cert. available option: gateway,server,client,gw:server,gw:client
+    os: linux
+    arch: amd64
+    instance: 1
+    duration: 1
+    cpuPeriod: 100000 #microsec. e.g. 50000/100000 = .5 cpu
+    cpuQuota: 50000
+    cpuShared: 128
+    inMemory: 134217728 #in bytes. ~128mb
+    swapMemory: 134217728
+    oauth2: https://ec-oauth.herokuapps.com
+    httpPort: ":17990"
+    tcpPort: ":17991"
+    customPort: ":17992"
+    contRev: {agent-version}
+    contArtURL: https://raw.githubusercontent.com/Enterprise-connect/sdk/{{contRev}}/dist/agent/agent_linux_sys.tar.gz
+```
+- Command to run watcher
+```sh
+./agent -cfg </path/to/yaml/file> -wtr 
+```
 
-- Run the EC gateway loadbalancer in a VM
+#### Run the EC gateway loadbalancer in a VM
 
-  - Update ```machine.env``` with IP address where watcher is running
-  - [Download and run](#how-to-use-it) the loadbalancer image
+- Update ```machine.env``` with IP address where watcher is running
+- [Download and run](#how-to-use-it) the loadbalancer image
     
 ### Current Support Modes Matrix
 Mode | Avaialble Releases | Watcher
