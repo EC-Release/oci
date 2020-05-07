@@ -14,7 +14,7 @@ FROM node:alpine
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
-ENV WEBUI_BRANCH=v1.1beta
+ENV WEBUI_BRANCH=v1.1beta.webui.0
 
 WORKDIR /build
 
