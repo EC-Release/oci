@@ -1,7 +1,13 @@
 ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/enterpriseconnect/loadbalancer)
 ## EC Gateway Load Balancer Spec
 ### Goal
-High availability for EC gateway. Load balancing network traffic across gateway instances from multiple source and target agents in platform-agnostic way.   
+High availability for EC gateway. Load balancing network traffic across gateway instances from multiple source and target agents in platform-agnostic way.
+
+### Runtime Requirement
+- VM's with same network group/ subnet. One VM for load balancer and rest for watchers
+- OS: Linux, Windows, Darwin, Arm, etc.
+- [docker 1x.xx+](https://docs.docker.com/get-docker/)   
+- [EC Agent](#tag-usage)
 ### Design
 The diagram illustrates the sequence of the connectivity model
 ![LB Seq. High Level](/doc/lb-sequence.png)
@@ -19,12 +25,20 @@ enterpriseconnect/loadbalancer:v1.1beta
 docker run -p 8080:80 --env-file $(pwd)/machine.env enterpriseconnect/loadbalancer:v1.1beta
 ```
 
-### available tags
+#### available tags
 - [```v1.1beta```](https://github.com/Enterprise-connect/oci/blob/v1.1beta/spec/loadbalancer/Dockerfile)
+- v1.1
 
 ```sh
 docker pull enterpriseconnect/loadbalancer:v1.1beta
 ```
+
+#### tag usage
+- [```v1.1```](https://github.com/Enterprise-connect/sdk/tree/v1.1/dist/agent)
+- [```v1```](https://github.com/Enterprise-connect/sdk/tree/v1/dist)
+- [```v1.1beta```](https://github.com/Enterprise-connect/sdk/tree/v1.1beta/dist/agent)
+- [```v1.1```](https://github.com/Enterprise-connect/sdk/tree/v1beta/dist) 
+
 
 ### Use-case I vm-2-vm
 ![LB High Level](/doc/lb-model.png)
