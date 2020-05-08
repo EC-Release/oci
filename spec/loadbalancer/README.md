@@ -1,3 +1,4 @@
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/enterpriseconnect/loadbalancer)
 ## EC Gateway Load Balancer Spec
 ### Goal
 High availability for EC gateway. Load balancing network traffic across gateway instances from multiple source and target agents in platform-agnostic way.   
