@@ -6,7 +6,7 @@ High availability for EC gateway. Load balancing network traffic across gateway 
 ### Runtime Requirement
 - VM's with same network group/ subnet. One VM for load balancer and rest for watchers
 - OS: Linux, Windows, Darwin, Arm, etc.
-- [docker 1x.xx+](https://docs.docker.com/get-docker/)   
+- [docker 19.03.4+](https://docs.docker.com/get-docker/)   
 - [EC Agent](#tag-usage)
 ### Design
 The diagram illustrates the sequence of the connectivity model
@@ -16,13 +16,14 @@ The diagram illustrates the sequence of the connectivity model
 ```sh
 #TLS-enabled Load-Balancer
 docker run \
--v path/to/tls/cert.pem:~/cert.pem \
--v path/to/private/key/key.pem:~/key.pem \
+-v path/to/tls/cert.crt:/etc/nginx/certs/cert.crt \
+-v path/to/private/key/key.key:/etc/nginx/certs/certkey.key \
+--env-file $(pwd)/environment.env \
 -p 8080:80 \
 enterpriseconnect/loadbalancer:v1.1beta
 
 #Non-TLS Load-Balancer
-docker run -p 8080:80 --env-file $(pwd)/machine.env enterpriseconnect/loadbalancer:v1.1beta
+docker run -p 8080:80 --env-file $(pwd)/environment.env enterpriseconnect/loadbalancer:v1.1beta
 ```
 
 #### available tags
@@ -34,13 +35,17 @@ docker pull enterpriseconnect/loadbalancer:v1.1beta
 ```
 
 #### tag usage
-- [```v1.1```](https://github.com/Enterprise-connect/sdk/tree/v1.1/dist/agent)
-- [```v1```](https://github.com/Enterprise-connect/sdk/tree/v1/dist)
-- [```v1.1beta```](https://github.com/Enterprise-connect/sdk/tree/v1.1beta/dist/agent)
-- [```v1.1```](https://github.com/Enterprise-connect/sdk/tree/v1beta/dist) 
-
+| Agent version | Load balancer image tag |
+| ------------- | ----------------------- |
+| [```v1.1```](https://github.com/Enterprise-connect/sdk/tree/v1.1/dist/agent) | v1.1                    |
+| [```v1```](https://github.com/Enterprise-connect/sdk/tree/v1/dist)            | v1.1                    |
+| [```v1.1beta```](https://github.com/Enterprise-connect/sdk/tree/v1.1beta/dist/agent)      | v1.1beta                |
+| [```v1.1```](https://github.com/Enterprise-connect/sdk/tree/v1beta/dist)        | v1.1beta                |
 
 ### Use-case I vm-2-vm
+
+Use case to run gateways in watcher mode in multiple virtual machines behind load balancer. Server agents make super connections with all gateway instances and client agents should able to make target systems with any available gateway instances.
+
 ![LB High Level](/doc/lb-model.png)
 
 #### Deploy watcher in a VM
