@@ -5,6 +5,7 @@ COPY default.conf /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/nginx.conf
 
 ARG IP1
+ARG DNS_NAME
 
 RUN apt-get update && \
 apt-get install wget -y 
@@ -15,6 +16,7 @@ RUN wget https://raw.githubusercontent.com/Enterprise-connect/sdk/v1.1beta/dist/
 
 CMD echo "$IP1" && \
 sed -i "s/IP1/${IP1}/g" /etc/nginx/conf.d/default.conf && \
+sed -i "s/DNS_NAME/${DNS_NAME}/g" /etc/nginx/conf.d/default.conf && \
 more /etc/nginx/conf.d/default.conf && \
 nginx -g 'daemon off;'
 
