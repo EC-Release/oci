@@ -34,9 +34,3 @@ ec-config:
     privateKey: ${EC_PVTKEY_3}
     publicCrt: ${EC_PUBKEY_3}
     description: "decription #2 for reference only"
-  - validate: oaep
-    scope: ["app.auth","cluster.user"]
-    isOwner: false
-    privateKey: ${EC_PVTKEY_4}
-    publicCrt: ${EC_PUBKEY_4}
-    description: "decription #2 for reference only"
