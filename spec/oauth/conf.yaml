@@ -17,6 +17,7 @@ ec-config:
       scopeIndex:
         "read:user": admin.read
         "read:description": subs.read
+      scim: ${EC_SCIM}
     #isOwner indicates if this oauth instance will use the auth keypair for the purpose of TLS, if enabled 
     isOwner: true
     privateKey: ${EC_PVTKEY_1}
