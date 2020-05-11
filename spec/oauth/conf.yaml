@@ -23,8 +23,18 @@ ec-config:
     privateKey: ${EC_PVTKEY_1}
     publicCrt: ${EC_PUBKEY_1}
     description: "some decription for reference only"
-  - validate: oaep
-    scope: ["app.auth","cluster.admin"]
+  - validate: oidc
+    scope: ["admin.read","subs.read"]
+    oidc:
+      domain: ${EC_OIDC_DOMAIN_2}
+      authPath: ${EC_OIDC_AUTHPATH_2}
+      tokenPath: ${EC_OIDC_TOKENPATH_2}
+      clientId: ${EC_OIDC_CLIENTID_2}
+      clientSecret: ${EC_OIDC_CLIENTSECRET_2}
+      scopeIndex:
+        "read:user": admin.read
+        "read:description": subs.read
+      scim: ${EC_SCIM_2}
     isOwner: false
     privateKey: ${EC_PVTKEY_2}
     publicCrt: ${EC_PUBKEY_2}
