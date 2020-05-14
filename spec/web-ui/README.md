@@ -1,3 +1,4 @@
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/enterpriseconnect/webui)
 ## Web-Ui
 The web-ui runtime spec implemented the EC security ECOsys for the EC Connectivity management portal.
 Web-UI is an admin console for EC components like - EC service, EC agent, etc.
