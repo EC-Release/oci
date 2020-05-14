@@ -17,13 +17,24 @@ ec-config:
       scopeIndex:
         "read:user": admin.read
         "read:description": subs.read
+      scim: ${EC_SCIM}
     #isOwner indicates if this oauth instance will use the auth keypair for the purpose of TLS, if enabled 
     isOwner: true
     privateKey: ${EC_PVTKEY_1}
     publicCrt: ${EC_PUBKEY_1}
     description: "some decription for reference only"
-  - validate: oaep
-    scope: ["app.auth","cluster.admin"]
+  - validate: oidc
+    scope: ["admin.read","subs.read"]
+    oidc:
+      domain: ${EC_OIDC_DOMAIN_2}
+      authPath: ${EC_OIDC_AUTHPATH_2}
+      tokenPath: ${EC_OIDC_TOKENPATH_2}
+      clientId: ${EC_OIDC_CLIENTID_2}
+      clientSecret: ${EC_OIDC_CLIENTSECRET_2}
+      scopeIndex:
+        "read:user": admin.read
+        "read:description": subs.read
+      scim: ${EC_SCIM_2}
     isOwner: false
     privateKey: ${EC_PVTKEY_2}
     publicCrt: ${EC_PUBKEY_2}
@@ -33,10 +44,4 @@ ec-config:
     isOwner: false
     privateKey: ${EC_PVTKEY_3}
     publicCrt: ${EC_PUBKEY_3}
-    description: "decription #2 for reference only"
-  - validate: oaep
-    scope: ["app.auth","cluster.user"]
-    isOwner: false
-    privateKey: ${EC_PVTKEY_4}
-    publicCrt: ${EC_PUBKEY_4}
     description: "decription #2 for reference only"

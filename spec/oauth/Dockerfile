@@ -14,7 +14,7 @@ FROM node:alpine
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
-ENV EC_REV_BETA=v1.1beta.fukuoka.2733
+ENV EC_REV_BETA=v1.1beta.fukuoka.2734
 
 WORKDIR /build
 

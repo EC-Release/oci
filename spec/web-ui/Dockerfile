@@ -18,6 +18,7 @@ ENV WEBUI_BRANCH=v1.1beta.webui.0
 ENV XCALR_URL=https://xcalr.apps.ge.com/v2beta/ 
 ENV GITHUB_URL=https://github.com/Enterprise-connect/sdk/raw/
 
+ENV WEBUI_BRANCH=v1.1beta
 
 WORKDIR /build
 
