@@ -12,9 +12,13 @@
 
 FROM node:alpine
 
-MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
+MAINTAINER Gayatri Tagade "gayatri.tagade@ge.com"
 
 ENV WEBUI_BRANCH=v1.1beta.webui.0
+ENV XCALR_URL=https://xcalr.apps.ge.com/v2beta/ 
+ENV GITHUB_URL=https://github.com/Enterprise-connect/sdk/raw/
+
+ENV WEBUI_BRANCH=v1.1beta
 
 WORKDIR /build
 
@@ -30,10 +34,4 @@ RUN wget https://raw.githubusercontent.com/Enterprise-connect/sdk/${WEBUI_BRANCH
   && mv webui_linux_sys webui && rm *.gz \
   && ./webui -ver && ls -al && ls -al ~/.ec
 
-#
-# The run to-be detail
-#
-# docker run --network host -v $(pwd)/conf.yml:/build/conf.yml -e DIND_PATH="" -i enterpriseconnect/webui:v1.1beta
-#
-# update needed
 CMD ls -la && EC_PORT=:${PORT} ./webui -cfg conf.yaml
