@@ -1,4 +1,4 @@
-## EC Connectivity with helm charts
+## EC Connectivity in kubernetes
 agent k8s deployment via helmchart examples
 
 ### requirement
