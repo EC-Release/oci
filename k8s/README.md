@@ -1,17 +1,19 @@
 ## agent k8s deployment via helmchart examples
 ### Step One add Agent Charts to your Helm Repo
 ```bash
-# optional add the following mode(s) to a helm charts deployment package
-$ helm repo add ec-client https://enterprise-connect.github.io/oci/k8s/client
-$ helm repo add ec-server https://enterprise-connect.github.io/oci/k8s/server
-$ helm repo add ec-gateway https://enterprise-connect.github.io/oci/k8s/gateway
-$ helm repo add ec-vln https://enterprise-connect.github.io/oci/k8s/vln
-$ helm repo add ec-xgateway https://enterprise-connect.github.io/oci/k8s/xgateway
-$ helm repo add ec-xserver https://enterprise-connect.github.io/oci/k8s/xserver
-$ helm repo add ec-xclient https://enterprise-connect.github.io/oci/k8s/xclient
+# optional add the following agent package(s) to a helm charts deployment
+$ helm repo add agent https://enterprise-connect.github.io/oci/k8s/agent
+$ helm repo add agent+vln https://enterprise-connect.github.io/oci/k8s/agent+vln
+$ helm repo add agent+tls https://enterprise-connect.github.io/oci/k8s/agent+tls
 
 $ helm repo list
-ec-client    https://enterprise-connect.github.io/oci/k8s/client
+agent    https://enterprise-connect.github.io/oci/k8s/agent
+
+# update chart repo index
+$ helm dependency update <agent|agent+vln|agent+tls>
+
+# deploy charts
+$ helm install --set ec-config=</path/to/conf.yaml> <agent|agent+vln|agent+tls>
 ```
 
 ### Step Two the _helper usage example
