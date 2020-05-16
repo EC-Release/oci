@@ -1,5 +1,11 @@
-## agent k8s deployment via helmchart examples
-### Step One add Agent Charts to your Helm Repo
+## EC Connectivity with helm charts
+agent k8s deployment via helmchart examples
+
+### requirement
+- [helm 3.0+](https://helm.sh/docs/intro/install/)
+- [kubectl 1.10+](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+
+### chart usage
 ```bash
 # optional add the following agent package(s) to a helm charts deployment
 $ helm repo add agent https://enterprise-connect.github.io/oci/k8s/agent
@@ -12,11 +18,14 @@ agent    https://enterprise-connect.github.io/oci/k8s/agent
 # update chart repo index
 $ helm dependency update <agent|agent+vln|agent+tls>
 
+# test charts template
+$ helm template <agent|agent+vln|agent+tls>
+
 # deploy charts
-$ helm install --set ec-config=</path/to/conf.yaml> <agent|agent+vln|agent+tls>
+$ helm install --set ec-config=</path/to/conf.yaml> --<debug|dry-run> <agent|agent+vln|agent+tls>
 ```
 
-### Step Two the _helper usage example
+### chart developer
 
 ### use case I
 The diagram illustrates the usage of the connectivity model in k8s
