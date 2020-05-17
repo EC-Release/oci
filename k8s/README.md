@@ -56,10 +56,10 @@ $ helm dependency update mychart
 #### Install Plugin & Go
 ```bash
 # install EC helm plugin
-$ helm plugin install https://enterprise-connect.github.io/oci/k8s/plg/ecagt
+$ helm plugin install https://enterprise-connect.github.io/oci/k8s/plg/agent
 
 # generate ec configuration ready for the chart deployment
-$ helm ecagt -cfg <EC configuration yaml. E.g. conf.yaml>
+$ helm agent -cfg <EC configuration yaml. E.g. conf.yaml>
 
 # test charts template
 $ helm template mychart
