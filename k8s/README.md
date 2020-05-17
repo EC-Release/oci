@@ -14,8 +14,13 @@ $ helm create mychart
 $ helm repo add agent+helper https://enterprise-connect.github.io/oci/k8s/agent+helper/pkg/
 
 # OPTIONAL: add any of the following agent package(s) to the mychart deployment
+# agent: the deployment includes the agent artifact, and the configuration
 $ helm repo add agent https://enterprise-connect.github.io/oci/k8s/agent/pkg/
+# agent+vln: agent with vlan usage, this allow the vln 
+# plugin to control the vlan setting inside the container.
 $ helm repo add agent+vln https://enterprise-connect.github.io/oci/k8s/agent+vln/pkg/
+# agent+tls: agent with tls usage. tls can be served as a reversed-proxy to
+# bypass a tls security restriction.
 $ helm repo add agent+tls https://enterprise-connect.github.io/oci/k8s/agent+tls/pkg/
 
 $ helm repo list
