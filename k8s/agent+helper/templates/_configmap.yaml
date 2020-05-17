@@ -1,10 +1,10 @@
-{{- define "agent.conf.tpl" -}}
+{{- define "agent+helper.conf.tpl" -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}
   data: {}
 {{- end -}}
-{{- define "agent.conf" -}}
-{{- include "agent.conf.merge" (append . "agent.conf.tpl") -}}
+{{- define "agent+helper.conf" -}}
+{{- include "agent+helper.conf.merge" (append . "agent+helper.conf.tpl") -}}
 {{- end -}}
