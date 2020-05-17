@@ -58,8 +58,8 @@ $ helm dependency update mychart
 # install EC helm plugin
 $ helm plugin install https://enterprise-connect.github.io/oci/k8s/plg/agent
 
-# generate ec configuration ready for the chart deployment
-$ helm agent -cfg <EC configuration yaml. E.g. conf.yaml>
+# convert the ec config file into a chart-readable format and be ready for the chart deployment
+$ helm agent -cfg <EC configuration yaml. E.g. conf.yaml> -out conf.env
 
 # test charts template
 $ helm template mychart
@@ -148,5 +148,5 @@ metadata:
 The diagram illustrates the usage of the connectivity model in k8s
 ![LB Seq. High Level](/doc/k8s-ftp.png)
 
-### disclaimer
+### Disclaimer
 <sup>Helm, Charts, and its subsidiary components are the trademark of, all right reserved by Cloud Native Compute Foundation, a Linux Foundation. Examples, plugins, chart/library packages in the sub-path of this repo are actively contributed and maintained by EC R&D team. The open source software in this subpath is licensed under [CC-By-4.0](https://creativecommons.org/licenses/by/4.0/) The software is not garanteed in a working state given any environements, ownership, and the usage may change from time-to-time depend on the project priority.</sup>
