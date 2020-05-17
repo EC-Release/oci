@@ -11,12 +11,12 @@ agent k8s deployment via helmchart examples
 $ helm create mychart
 
 # REQUIRED: add the helper library as the dependency to support usage
-$ helm repo add agent+helper https://enterprise-connect.github.io/oci/k8s/agent+helper
+$ helm repo add agent+helper https://enterprise-connect.github.io/oci/k8s/agent+helper/pkg/
 
 # OPTIONAL: add any of the following agent package(s) to the mychart deployment
-$ helm repo add agent https://enterprise-connect.github.io/oci/k8s/agent
-$ helm repo add agent+vln https://enterprise-connect.github.io/oci/k8s/agent+vln
-$ helm repo add agent+tls https://enterprise-connect.github.io/oci/k8s/agent+tls
+$ helm repo add agent https://enterprise-connect.github.io/oci/k8s/agent/pkg/
+$ helm repo add agent+vln https://enterprise-connect.github.io/oci/k8s/agent+vln/pkg/
+$ helm repo add agent+tls https://enterprise-connect.github.io/oci/k8s/agent+tls/pkg/
 
 $ helm repo list
 agent+helper https://enterprise-connect.github.io/oci/k8s/agent+helper
