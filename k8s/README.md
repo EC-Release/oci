@@ -5,13 +5,10 @@ agent k8s deployment via helmchart examples
 - [helm 3.0+](https://helm.sh/docs/intro/install/)
 - [kubectl 1.10+](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
-### chart usage example
+### Getting Started
 ```bash
 # bootstrap a chart
 $ helm create mychart
-
-# install EC helm plugin
-$ helm plugin install https://enterprise-connect.github.io/oci/k8s/plg/ec-conf
 
 # REQUIRED: add the helper library as the dependency to support usage
 $ helm repo add agent+helper https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/
@@ -55,11 +52,17 @@ dependencies:
 # update chart repo index
 $ helm dependency update mychart
 
+# install EC helm plugin
+$ helm plugin install https://enterprise-connect.github.io/oci/k8s/plg/ecagt
+
+# generate ec configuration ready for the chart deployment
+$ helm ecagt -cfg <EC configuration yaml. E.g. conf.yaml>
+
 # test charts template
 $ helm template mychart
 
 # deploy charts
-$ helm install --set ec-config=</path/to/conf.yaml> --<debug|dry-run> mychart mychart/
+$ helm install --<debug|dry-run> mychart mychart/
 ```
 
 ### chart developer
