@@ -49,11 +49,12 @@ dependencies:
   repository: @agent+vln
 ...
 ```
+```bash
+# update chart repo index after modify the list
+$ helm dependency update mychart
+```
 #### Install Plugin & Go
 ```bash
-# update chart repo index
-$ helm dependency update mychart
-
 # install EC helm plugin
 $ helm plugin install https://enterprise-connect.github.io/oci/k8s/plg/ecagt
 
@@ -65,6 +66,80 @@ $ helm template mychart
 
 # deploy charts
 $ helm install --<debug|dry-run> mychart mychart/
+install.go:158: [debug] Original chart version: ""
+install.go:175: [debug] CHART PATH: /home/ayasuda/Documents/hokkaido/sdk/oci/k8s/agent
+
+NAME: mydemo
+LAST DEPLOYED: Sat May 16 20:25:44 2020
+NAMESPACE: default
+STATUS: pending-install
+REVISION: 1
+USER-SUPPLIED VALUES:
+{}
+
+COMPUTED VALUES:
+affinity: {}
+agent+helper:
+  global: {}
+fullnameOverride: ""
+image:
+  pullPolicy: Always
+  repository: enterpriseconnect/agent:v1.1beta
+imagePullSecrets: []
+ingress:
+  annotations: {}
+  enabled: false
+  hosts:
+  - host: chart-example.local
+    paths: []
+  tls: []
+nameOverride: ""
+nodeSelector: {}
+podSecurityContext: {}
+replicaCount: 1
+resources: {}
+securityContext: {}
+service:
+  port: 80
+  type: ClusterIP
+serviceAccount:
+  annotations: {}
+  create: true
+  name: miinikube
+tolerations: []
+
+HOOKS:
+---
+# Source: agent/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "mydemo-agent-test-connection"
+  labels:
+    helm.sh/chart: agent-0.1.0
+    app.kubernetes.io/name: agent
+    app.kubernetes.io/instance: mydemo
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['mydemo-agent:80']
+  restartPolicy: Never
+MANIFEST:
+---
+# Source: agent/templates/configmap.yaml
+apiVersion: v1
+data:
+  myvalue: Hello World
+kind: ConfigMap
+metadata:
+  name: agent-mydemo
+...
 ```
 
 ### chart developer
