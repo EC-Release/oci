@@ -11,7 +11,7 @@ agent k8s deployment via helmchart examples
 $ helm create mychart
 
 # install EC helm plugin
-$ helm plugin install https://enterprise-connect.github.io/oci/k8s/plg/ec-config-converter
+$ helm plugin install https://enterprise-connect.github.io/oci/k8s/plg/ec-conf
 
 # REQUIRED: add the helper library as the dependency to support usage
 $ helm repo add agent+helper https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/
