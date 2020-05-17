@@ -24,6 +24,7 @@ $ helm repo add agent+vln https://enterprise-connect.github.io/oci/k8s/pkg/agent
 $ helm repo add agent+tls https://enterprise-connect.github.io/oci/k8s/pkg/agent+tls/
 
 $ helm repo list
+NAME         URL
 agent+helper https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper
 agent        https://enterprise-connect.github.io/oci/k8s/pkg/agent
 
