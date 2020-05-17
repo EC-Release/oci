@@ -9,6 +9,6 @@ entries:
     name: agent+helper
     type: library
     urls:
-    - https://enterprise-connect.github.io/oci/k8s/pkagent+helper/agent+helper-0.1.0.tgz
+    - https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/agent+helper-0.1.0.tgz
     version: 0.1.0
 generated: "2020-05-16T19:36:15.957559116-07:00"
