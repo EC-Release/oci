@@ -6,6 +6,8 @@ agent k8s deployment via helmchart examples
 - [kubectl 1.10+](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
 ### Getting Started
+
+#### Add Dependency Repo
 ```bash
 # bootstrap a chart
 $ helm create mychart
@@ -29,7 +31,7 @@ agent+helper https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper
 agent        https://enterprise-connect.github.io/oci/k8s/pkg/agent
 
 ```
-
+#### Update Dependency List
 ```yaml
 # add chart dependencies to mychart/Chart.yaml
 dependencies:
@@ -47,7 +49,7 @@ dependencies:
   repository: @agent+vln
 ...
 ```
-
+#### Install Plugin & Go
 ```bash
 # update chart repo index
 $ helm dependency update mychart
