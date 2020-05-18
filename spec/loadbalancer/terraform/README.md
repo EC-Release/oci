@@ -6,6 +6,7 @@ Automation deployment scripts for EC gateway with load balancer
 
 ### How to use it
 
+Update the ```terraform.tf``` with corresponding details 
 ##### Initialize the terraform
 ```hcl-terraform
 terraform init
