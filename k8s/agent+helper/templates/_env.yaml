@@ -3,7 +3,7 @@
 {{- end -}}
 {{- define "agent+helper.conf.tpl" -}}
 env:
-  {{ range .Files.Lines "foo/bar.txt" }}
+  {{ range .Files.Lines "conf.env" }}
   {{ $a := splitList "=" . }}
   - name: {{- printf "%s" (index $a 0 ) -}} 
     value: {{- printf "%s" (index $a 1 ) -}}
