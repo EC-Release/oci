@@ -56,13 +56,14 @@ $ helm dependency update mychart
 #### Agent/Chart Configuration Conversion
 ```bash
 # convert the ec config file into a chart-readable format and be ready for the chart deployment
-$ bash <(curl -s https://enterprise-connect.github.io/oci/k8s/conf.txt) \
+$ cd <path/to/mychart> && bash <(curl -s https://enterprise-connect.github.io/oci/k8s/conf.txt) \
 -cfg <conf.yaml> \
 -out <conf.env>
 ```
 ```batch
 :: for windows 10+
-c:\> curl -LOk https://github.com/Enterprise-connect/sdk/raw/v1.1beta/dist/agent/agent_windows_sys.exe.tar.gz ^
+c:\> cd <path\to\mychart> ^
+&& curl -LOk https://github.com/Enterprise-connect/sdk/raw/v1.1beta/dist/agent/agent_windows_sys.exe.tar.gz ^
 && tar xvf agent_windows_sys.exe.tar.gz ^
 && agent_windows_sys.exe -cfg -cfg <conf.yaml> -out <conf.env>
 ```
