@@ -65,15 +65,15 @@ $ cd <path/to/mychart> && bash <(curl -s https://enterprise-connect.github.io/oc
 c:\> cd <path\to\mychart> ^
 && curl -LOk https://github.com/Enterprise-connect/sdk/raw/v1.1beta/dist/agent/agent_windows_sys.exe.tar.gz ^
 && tar xvf agent_windows_sys.exe.tar.gz ^
-&& agent_windows_sys.exe -cfg -cfg <conf.yaml> -out <conf.env>
+&& agent_windows_sys.exe -cfg -cfg <conf.yaml> -out <conf.toml>
 ```
 #### Install Plugin & Go
 ```bash
 # test charts template
 $ helm template mychart
 
-# deploy charts
-$ helm install --<debug|dry-run> mychart mychart/
+# deploy charts. agtConfig must present for the custom file -out
+$ helm install --set agtConfig=<conf.toml> --<debug|dry-run> mychart mychart/
 install.go:158: [debug] Original chart version: ""
 install.go:175: [debug] CHART PATH: /home/ayasuda/Documents/hokkaido/sdk/oci/k8s/agent
 
