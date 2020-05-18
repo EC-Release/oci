@@ -53,14 +53,21 @@ dependencies:
 # update chart repo index after modify the list
 $ helm dependency update mychart
 ```
+#### Agent/Chart Configuration Conversion
+```bash
+# convert the ec config file into a chart-readable format and be ready for the chart deployment
+$ bash <(curl -s https://enterprise-connect.github.io/oci/k8s/conf.txt) \
+-cfg <conf.yaml> \
+-out <conf.env>
+```
+```batch
+:: for windows 10+
+c:\> curl -LOk https://github.com/Enterprise-connect/sdk/raw/v1.1beta/dist/agent/agent_windows_sys.exe.tar.gz
+c:\> tar xvf agent_windows_sys.exe.tar.gz
+c:\> agent_windows_sys.exe -cfg -cfg <conf.yaml> -out <conf.env>
+```
 #### Install Plugin & Go
 ```bash
-# install EC helm plugin
-$ helm plugin install https://enterprise-connect.github.io/oci/k8s/plg/agent
-
-# convert the ec config file into a chart-readable format and be ready for the chart deployment
-$ helm agent -cfg <EC configuration yaml. E.g. conf.yaml> -out conf.env
-
 # test charts template
 $ helm template mychart
 
