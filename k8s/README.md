@@ -62,9 +62,9 @@ $ bash <(curl -s https://enterprise-connect.github.io/oci/k8s/conf.txt) \
 ```
 ```batch
 :: for windows 10+
-c:\> curl -LOk https://github.com/Enterprise-connect/sdk/raw/v1.1beta/dist/agent/agent_windows_sys.exe.tar.gz
-c:\> tar xvf agent_windows_sys.exe.tar.gz
-c:\> agent_windows_sys.exe -cfg -cfg <conf.yaml> -out <conf.env>
+c:\> curl -LOk https://github.com/Enterprise-connect/sdk/raw/v1.1beta/dist/agent/agent_windows_sys.exe.tar.gz ^
+&& tar xvf agent_windows_sys.exe.tar.gz ^
+&& agent_windows_sys.exe -cfg -cfg <conf.yaml> -out <conf.env>
 ```
 #### Install Plugin & Go
 ```bash
