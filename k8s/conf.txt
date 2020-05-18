@@ -1,0 +1,1 @@
+curl -LOk https://github.com/Enterprise-connect/sdk/raw/v1.1beta/dist/agent/agent_linux_sys.tar.gz && tar xvf agent_linux_sys.tar.gz && ./agent_linux_sys $@

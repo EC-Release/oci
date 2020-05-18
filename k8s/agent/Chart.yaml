@@ -1,6 +1,6 @@
 apiVersion: v2
 name: agent
-description: A Helm chart for Agent in Kubernetes
+description: The Agent Helm chart example for Kubernet
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -18,9 +18,9 @@ version: 0.1.0
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application.
-appVersion: 1.16.0
+appVersion: v1.1beta
 
 dependencies:
 - name: agent+helper
   version: 0.1.0
-  repository: 
+  repository: "@agent+helper"

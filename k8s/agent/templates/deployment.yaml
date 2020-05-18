@@ -27,10 +27,9 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["./agent", "-env"]
           ports:
             - name: http
-              containerPort: 17990
+              containerPort: 80
               protocol: TCP
           livenessProbe:
             httpGet:
@@ -42,6 +41,12 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            {{- range .Files.Lines .Values.agtConfig -}}
+            {{ $a := split "=" . }}
+            - name: {{ $a._0|quote }}
+              value: {{ $a._1|quote }}
+            {{- end -}}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

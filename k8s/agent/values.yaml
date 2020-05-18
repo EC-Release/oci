@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: enterpriseconnect/agent
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -66,3 +66,5 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+agtConfig: conf.env
