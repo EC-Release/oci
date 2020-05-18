@@ -6,3 +6,5 @@
 *.local.*
 *.idea/
 *.tfvars
+*.terraform/
+*terraform.tfstate
