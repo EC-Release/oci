@@ -2,5 +2,10 @@
 {{- include "agent+helper.conf.merge" (append . "agent+helper.conf.tpl") -}}
 {{- end -}}
 {{- define "agent+helper.conf.tpl" -}}
-env: {}
+env:
+  {{ range .Files.Lines "foo/bar.txt" }}
+  {{ $a := splitList "=" . }}
+  - name: {{- printf "%s" (index $a 0 ) -}} 
+    value: {{- printf "%s" (index $a 1 ) -}}
+  {{ end }}
 {{- end -}}
