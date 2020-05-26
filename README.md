@@ -1,9 +1,9 @@
 ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/enterpriseconnect/build)
 
 # EC OCI Spec
-**Running the EC agent artifact within a docker image is not recommended due the dependancy of the underlying linux cgroup with docker.**
+**It is recommneded running the containers specified in this repo in rootless mode for better security.**
 
-The cgroup lives in the docker core which by design requires a sudoer permission from the guest system. Docker users who wish to level up the security by running a non-sudoer user **inside** the container should **avoid the volume-sharing on the guest host**.
+Cgroup resided in docker core which by design requires a sudoer permission from the guest system. Docker users who wish to level up the security by running a non-sudoer user **inside** the container should **avoid the volume-sharing on the guest host**.
 
 Because of this, it is **highly recommended** to running this image as a rootless/unpriviliged container. Please refer to [runc](https://github.com/opencontainers/runc) and [linux cgroup man ```man cgroups```](http://man7.org/linux/man-pages/man7/cgroups.7.html) for further study.
 

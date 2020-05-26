@@ -1,7 +1,11 @@
 ## EC Connectivity in kubernetes
 agent k8s deployment via helmchart examples
 
-### requirement
+### Use Case PoC
+The diagram illustrates the usage of the connectivity model in k8s
+![LB Seq. High Level](/doc/k8s-ftp.png)
+
+### Requirement
 - [helm 3.0+](https://helm.sh/docs/intro/install/)
 - [kubectl 1.10+](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
@@ -65,15 +69,15 @@ $ cd <path/to/mychart> && bash <(curl -s https://enterprise-connect.github.io/oc
 c:\> cd <path\to\mychart> ^
 && curl -LOk https://github.com/Enterprise-connect/sdk/raw/v1.1beta/dist/agent/agent_windows_sys.exe.tar.gz ^
 && tar xvf agent_windows_sys.exe.tar.gz ^
-&& agent_windows_sys.exe -cfg -cfg <conf.yaml> -out <conf.env>
+&& agent_windows_sys.exe -cfg -cfg <conf.yaml> -out <conf.toml>
 ```
 #### Install Plugin & Go
 ```bash
 # test charts template
 $ helm template mychart
 
-# deploy charts
-$ helm install --<debug|dry-run> mychart mychart/
+# deploy charts. agtConfig must present for the custom file -out
+$ helm install --set agtConfig=<conf.toml> --<debug|dry-run> mychart mychart/
 install.go:158: [debug] Original chart version: ""
 install.go:175: [debug] CHART PATH: /home/ayasuda/Documents/hokkaido/sdk/oci/k8s/agent
 
@@ -151,10 +155,6 @@ metadata:
 ```
 
 ### chart developer
-
-### use case I
-The diagram illustrates the usage of the connectivity model in k8s
-![LB Seq. High Level](/doc/k8s-ftp.png)
 
 ### Disclaimer
 <sup>Helm, Charts, and its subsidiary components are the trademark of, all right reserved by Cloud Native Compute Foundation, a Linux Foundation. Examples, plugins, chart/library packages in the sub-path of this repo are actively contributed and maintained by EC R&D team. The open source software in this subpath is licensed under [CC-By-4.0](https://creativecommons.org/licenses/by/4.0/) The software is not garanteed in a working state given any environements, ownership, and the usage may change from time-to-time depend on the project priority.</sup>
