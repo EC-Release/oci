@@ -3,11 +3,11 @@ entries:
   agent+tls:
   - apiVersion: v1
     appVersion: 1.16.0
-    created: "2020-05-30T02:12:36.14609133Z"
+    created: "2020-05-30T03:04:27.156599335Z"
     description: A Helm chart for Kubernetes
-    digest: e36c24ff11a6721dd68bf896b5809bc84fb501a83f967d3658195b9a68360a5b
+    digest: 9f631c87cfa4cd62710c8bd284d587cdd87fe3220f141f3ad667fcd81acfaa8f
     name: agent+tls
     urls:
     - https://enterprise-connect.github.io/oci/k8s/pkg/agent+tls/agent+tls-0.1.0.tgz
     version: 0.1.0
-generated: "2020-05-30T02:12:36.145169393Z"
+generated: "2020-05-30T03:04:27.156162097Z"
