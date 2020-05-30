@@ -1,5 +1,5 @@
 language: minimal
-if: head_branch = v1.1beta_helm_pkg_update OR branch = v1.1beta
+if: head_branch = v1.1beta_helm_pkg_update OR branch = v1.1beta_helm_pkg
 
 before_install:
   - curl -L https://git.io/get_helm.sh | bash
@@ -28,7 +28,7 @@ deploy:
   skip_cleanup: true
   keep_history: true
   on:
-    branch: v1.1beta
+    branch: v1.1beta_helm_pkg
 
 notifications:  
   email:  
