@@ -1,5 +1,5 @@
 language: minimal
-if: head_branch = v1.1beta_helm_pkg_update
+if: head_branch = v1.1beta_helm_pkg_update OR branch = v1.1beta
 
 before_install:
   - curl -L https://git.io/get_helm.sh | bash
@@ -29,9 +29,6 @@ deploy:
   keep_history: true
   on:
     branch: v1.1beta
-
-script:
-  - helm create mychart
 
 notifications:  
   email:  
