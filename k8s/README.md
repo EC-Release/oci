@@ -1,5 +1,5 @@
 ## EC Connectivity in kubernetes
-agent k8s deployment via helmchart examples
+agent k8s deployment via helmchart examples.
 
 ### Use Case PoC
 The diagram illustrates the usage of the connectivity model in k8s
