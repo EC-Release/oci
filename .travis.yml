@@ -30,10 +30,6 @@ deploy:
   on:
     branch: v1.1beta
 
-script:
-  - helm create mychart
-  - helm repo add agent https://enterprise-connect.github.io/oci/k8s/pkg/agent/
-
 notifications:  
   email:  
     recipients:  
