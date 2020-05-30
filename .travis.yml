@@ -32,6 +32,7 @@ deploy:
 
 script:
   - helm create mychart
+  - helm repo add agent https://enterprise-connect.github.io/oci/k8s/pkg/agent/
 
 notifications:  
   email:  
