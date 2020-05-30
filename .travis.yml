@@ -1,32 +1,29 @@
 language: minimal
-
-services:
-  - docker
+if: branch = v1.1beta
 
 before_install:
-- docker pull enterpriseconnect/agent:v1.1beta
-- docker images
+  - curl -L https://git.io/get_helm.sh | bash
+  - helm init --client-only
 
 script:
-- docker run -it -d -e EC_MOD=client
-  -e EC_AID=test-aid
-  -e EC_TID=test-tid
-  -e EC_HST=test-hst
-  -e EC_CID=test-cid
-  -e EC_CSC=test-test-csc
-  -e EC_OA2=some-uaa
-  -e EC_DUR=3000
-  -e EC_DBG=true
-  -e EC_ZON=some-zone
-  -e EC_GRP=some-group
-  -e EC_CPS=5 enterpriseconnect/agent:v1
-
-notifications:  
-  email:  
-    recipients:  
-    - ec-research@ge.com
-    - koushik.apal@ge.com
-    - prasad.alokam@ge.com
-    - RamaRao.Srikakulapu@ge.com
-    on_success: always  
-    on_failure: always
+  - echo $(pwd)
+  - ls -la .
+  - helm package k8s/agent -d k8s/pkg/agent
+  - helm package k8s/agent+helper -d k8s/pkg/agent+helper
+  - helm package k8s/agent+tls -d k8s/pkg/agent+tls
+  - helm package k8s/agent+vln -d k8s/pkg/agent+vln
+  - helm repo index k8s/pkg/agent --url https://enterprise-connect.github.io/oci/k8s/pkg/agent/
+  - helm repo index k8s/pkg/agent+helper --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/
+  - helm repo index k8s/pkg/agent+tls --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+tls/
+  - helm repo index k8s/pkg/agent+vln --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+vln/
+  
+deploy:
+  provider: pages  
+  github_token: $GITHUB_TOKEN
+  local_dir: .
+  target_branch: gh-pages
+  verbose: true
+  skip_cleanup: true
+  keep_history: true
+  on:
+    branch: v1.1beta
