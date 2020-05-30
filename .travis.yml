@@ -1,5 +1,5 @@
 language: minimal
-if: branch = v1.1beta
+if: head_branch = v1.1beta
 
 before_install:
   - curl -L https://git.io/get_helm.sh | bash
@@ -29,3 +29,13 @@ deploy:
   keep_history: true
   on:
     branch: v1.1beta
+
+notifications:  
+  email:  
+    recipients:  
+    - ec-research@ge.com
+    - prasad.alokam@ge.com
+    - Simran.Choudhary@ge.com
+    - Sheshank.Gujjari@ge.com
+    on_success: always  
+    on_failure: always
