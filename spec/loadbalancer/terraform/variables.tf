@@ -63,5 +63,6 @@ variable "aws_instance_gw" {
     watcher_customPort          = string
     watcher_contRev             = string
     watcher_contArtURL          = string
+    watcher_passphrase          = string
   })
 }
