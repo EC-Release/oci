@@ -42,15 +42,15 @@ dependencies:
 # REQUIRED
 - name: agent+helper
   version: 0.1.0
-  repository: @agent
+  repository: "@agent+helper"
 # OPTIONAL
 - name: agent
   version: 0.1.0
-  repository: @agent
+  repository: "@agent"
 # OPTIONAL
 - name: agent+vln
   version: 0.1.0
-  repository: @agent+vln
+  repository: "@agent+vln"
 ...
 ```
 ```bash
