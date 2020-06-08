@@ -5,6 +5,6 @@
 *~
 *.local.*
 *.idea/
-*.tfvars
+spec/loadbalancer/terraform/terraform.tfvars
 *.terraform/
 *terraform.tfstate*

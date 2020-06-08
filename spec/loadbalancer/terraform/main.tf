@@ -197,7 +197,7 @@ resource "aws_instance" "dc-ec-gateway-lber-vm" {
   instance_type               = var.aws_instance_lber.instance_type
   subnet_id                   = var.aws_instance_lber.subnet_id
   security_groups             = var.aws_instance_lber.security_groups
-  key_name                    = var.aws_instance_gw.key_name
+  key_name                    = var.aws_instance_lber.key_name
   iam_instance_profile        = var.aws_instance_lber.iam_instance_profile
   associate_public_ip_address = var.aws_instance_lber.associate_public_ip_address
 
