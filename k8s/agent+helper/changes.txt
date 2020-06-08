@@ -1,0 +1,1 @@
+while installing agent+helper helm we are getting errors on Notes.txt file complaining on the ingress object. As notes.txt can be rene=dered we would like to delete notes.txt from helm template and test it. Also we saw agent+helper cannot be deployed alone as it is jst a library we will now be deploying agent hem along with the agent+helper as the dependency object.
