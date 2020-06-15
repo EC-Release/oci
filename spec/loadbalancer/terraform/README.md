@@ -13,12 +13,17 @@ Automation deployment scripts for EC gateway with load balancer
 
 Update the ```terraform.tfvars``` with corresponding configuration details 
 
-- For Cago tool, refresh the profiles 
-  ```hcl-terraform
-  cago refresh-profiles
-  ```
+- Connect to the target cloud environment.
+  - For Cago tool, refresh the profiles 
+    ```hcl-terraform
+    cago refresh-profiles
+    ```
+    It will generate a token and will be used for connecting to target cloud environment.
+  - For aws cli, configure the environment by running the command
+    ```hcl-terraform
+    aws configure
+    ```
 
-  It will generate a token and will be used for connecting to target cloud environment
 - Initialize the terraform
   ```hcl-terraform
   terraform init

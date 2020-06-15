@@ -206,8 +206,6 @@ resource "aws_instance" "dc-ec-gateway-lber-vm" {
 
 sudo su -
 
-${file("/Users/ramaraosrikakulapu/temp/server.yml")} >> /tmp/file_foo.txt
-
 mkdir -p ~/ec-loadbalancer
 
 echo "Gateway VM's count: ${var.aws_instance_gw.count}" >> /tmp/other-logs.txt

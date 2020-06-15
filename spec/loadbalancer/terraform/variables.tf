@@ -65,6 +65,5 @@ variable "aws_instance_gw" {
     watcher_contArtURL          = string
     watcher_passphrase          = string
     watcher_lber_dnsname        = string
-    watcher_key                 = string
   })
 }
