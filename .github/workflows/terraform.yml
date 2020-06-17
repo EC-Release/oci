@@ -67,13 +67,17 @@ jobs:
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token 
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@master
+      uses: hashicorp/setup-terraform@v1
       with:
+	    tf_actions_working_dir: 'spec/loadbalancer/terraform'
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init
+	  uses: hashicorp/setup-terraform@v1
+      with:
+	    tf_actions_working_dir: 'spec/loadbalancer/terraform'
+		tf_actions_subcommand: 'init'
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
