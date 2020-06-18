@@ -1,4 +1,4 @@
-![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/enterpriseconnect/build)
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/enterpriseconnect/build) [![Build Status](https://travis-ci.com/Enterprise-connect/oci.svg?branch=v1.1beta)](https://travis-ci.com/Enterprise-connect/oci)
 
 # EC OCI Spec
 **It is recommneded running the containers specified in this repo in rootless mode for better security.**
