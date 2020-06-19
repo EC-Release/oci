@@ -48,7 +48,6 @@ on:
   push:
     branches:
     - terraform-lbr
-  pull_request:
 
 jobs:
   terraform:
