@@ -1,30 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "agent.fullname" . }}
+  name: {{ include "example.fullname" . }}
   labels:
-    {{- include "agent.labels" . | nindent 4 }}
+    {{- include "example.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "agent.selectorLabels" . | nindent 6 }}
+      {{- include "example.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "agent.selectorLabels" . | nindent 8 }}
+        {{- include "example.selectorLabels" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      serviceAccountName: {{ include "agent.serviceAccountName" . }}
+      serviceAccountName: {{ include "example.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          image: enterpriseconnect/agent:v1.1beta                                                                                                                                            
-          command: ["./agent", "-env"] 
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
@@ -43,12 +41,6 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          env:
-            {{- range (split "\n" .Values.global.agtConfig) }}
-            {{- $a := split "=" . }}
-            - name: {{ $a._0|quote }}
-              value: {{ $a._1|quote }}
-            {{- end -}}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

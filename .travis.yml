@@ -7,6 +7,15 @@ before_install:
 
 script:
   - echo $(pwd)
+  - echo test output
+  - |-
+    << EOF > ec.env
+    hello=world
+    ec=agent
+    cf=down
+    EOF
+  - helm dependency update k8s/example/
+  - helm template k8s/example -v=10 --debug --set-file global.agtConfig=./ec.env
   - rm -Rf k8s/pkg
   - mkdir -p k8s/pkg/{agent,agent+helper,agent+tls,agent+vln}
   - ls -la k8s/pkg
