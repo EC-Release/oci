@@ -14,6 +14,7 @@ script:
     ec=agent
     cf=down
     EOF
+  - cat ec.env
   - helm dependency update k8s/example/
   - helm template k8s/example --debug --set-file global.agtConfig=./ec.env
   - rm -Rf k8s/pkg
