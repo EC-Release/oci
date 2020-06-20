@@ -8,14 +8,8 @@ script:
   - helm version
   - echo $(pwd)
   - echo test example spec
-  - |-
-    cat << EOF >ec.env
-    hello=world
-    ec=agent
-    cf=down\
-  - ls -al
   - helm dependency update k8s/example
-  - helm template k8s/example --debug --set-file global.agtConfig=./ec.env
+  - helm template k8s/example --debug --set-file global.agtConfig=k8s/example/ec.env
   - rm -Rf k8s/pkg
   - mkdir -p k8s/pkg/{agent,agent+helper,agent+tls,agent+vln}
   - ls -la k8s/pkg
