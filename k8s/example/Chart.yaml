@@ -23,7 +23,7 @@ appVersion: 1.16.0
 dependencies:
 - name: agent+helper
   version: 0.1.0
-  repository: "@agent+helper"
+  repository: "file://./../agent+helper/"
 - name: agent
   version: 0.1.0
-  repository: "@agent"
+  repository: "file://./../agent/"
