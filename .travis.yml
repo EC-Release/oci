@@ -7,16 +7,6 @@ before_install:
 
 script:
   - echo $(pwd)
-  - echo test output
-  - |-
-    cat << EOF >ec.env
-    hello=world
-    ec=agent
-    cf=down
-    EOF
-  - ls -al
-  - helm dependency update k8s/example/
-  - helm template k8s/example --debug --set-file global.agtConfig=./ec.env
   - rm -Rf k8s/pkg
   - mkdir -p k8s/pkg/{agent,agent+helper,agent+tls,agent+vln}
   - ls -la k8s/pkg
@@ -28,6 +18,21 @@ script:
   - helm repo index k8s/pkg/agent+helper --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/
   - helm repo index k8s/pkg/agent+tls --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+tls/
   - helm repo index k8s/pkg/agent+vln --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+vln/
+
+after_deploy:
+  - helm repo add agent+helper https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/
+  - helm repo add agent https://enterprise-connect.github.io/oci/k8s/pkg/agent/
+  - echo test output
+  - |-
+    cat << EOF >ec.env
+    hello=world
+    ec=agent
+    cf=down
+    EOF
+  - ls -al
+  - helm dependency update k8s/example/
+  - helm template k8s/example --debug --set-file global.agtConfig=./ec.env
+
   
 deploy:
   provider: pages 
