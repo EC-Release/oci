@@ -6,6 +6,7 @@ before_install:
   - helm init --client-only
 
 script:
+  - helm version
   - echo $(pwd)
   - rm -Rf k8s/pkg
   - mkdir -p k8s/pkg/{agent,agent+helper,agent+tls,agent+vln}
