@@ -10,8 +10,8 @@ script:
   - rm -Rf k8s/pkg
   - mkdir -p k8s/pkg/{agent,agent+helper,agent+tls,agent+vln}
   - ls -la k8s/pkg
-  - helm package k8s/agent -d k8s/pkg/agent
   - helm package k8s/agent+helper -d k8s/pkg/agent+helper
+  - helm package k8s/agent -d k8s/pkg/agent
   - helm package k8s/agent+tls -d k8s/pkg/agent+tls
   - helm package k8s/agent+vln -d k8s/pkg/agent+vln
   - helm repo index k8s/pkg/agent --url https://enterprise-connect.github.io/oci/k8s/pkg/agent/
