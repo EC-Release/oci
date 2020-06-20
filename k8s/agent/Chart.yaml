@@ -23,4 +23,4 @@ appVersion: v1.1beta
 dependencies:
 - name: agent+helper
   version: 0.1.0
-  repository: "https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/"
+  repository: "file://./k8s/agent+helper/"
