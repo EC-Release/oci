@@ -2,22 +2,29 @@ language: minimal
 if: head_branch = v1.1beta_helm_pkg_update OR branch = v1.1beta_helm_pkg
 
 before_install:
-  - curl -L https://git.io/get_helm.sh | bash
-  - helm init --client-only
+  - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
 script:
+  - helm version
   - echo $(pwd)
+  - echo test example spec
+  - helm dependency update k8s/example
+  - helm template k8s/example --debug --set-file global.agtConfig=k8s/example/ec.env
   - rm -Rf k8s/pkg
   - mkdir -p k8s/pkg/{agent,agent+helper,agent+tls,agent+vln}
   - ls -la k8s/pkg
-  - helm package k8s/agent -d k8s/pkg/agent
   - helm package k8s/agent+helper -d k8s/pkg/agent+helper
+  - helm dependency update k8s/agent
+  - helm package k8s/agent -d k8s/pkg/agent
   - helm package k8s/agent+tls -d k8s/pkg/agent+tls
   - helm package k8s/agent+vln -d k8s/pkg/agent+vln
   - helm repo index k8s/pkg/agent --url https://enterprise-connect.github.io/oci/k8s/pkg/agent/
   - helm repo index k8s/pkg/agent+helper --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/
   - helm repo index k8s/pkg/agent+tls --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+tls/
   - helm repo index k8s/pkg/agent+vln --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+vln/
+
+after_deploy:
+
   
 deploy:
   provider: pages 
