@@ -13,8 +13,6 @@ script:
     hello=world
     ec=agent
     cf=down
-    EOF
-    
   - ls -al
   - helm dependency update k8s/example
   - helm template k8s/example --debug --set-file global.agtConfig=./ec.env
