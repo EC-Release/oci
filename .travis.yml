@@ -2,7 +2,7 @@ language: minimal
 if: head_branch = v1.1beta_helm_pkg_update OR branch = v1.1beta_helm_pkg
 
 before_install:
-  - curl -L https://git.io/get_helm.sh | bash
+  - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
   - helm init --client-only
 
 script:
