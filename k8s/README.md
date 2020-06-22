@@ -14,7 +14,7 @@ The diagram illustrates the usage of the connectivity model in k8s
 #### Add Dependency Repo
 ```bash
 # bootstrap a chart
-$ helm create mychart
+$ helm create example
 
 # REQUIRED: add the helper library as the dependency to support usage
 $ helm repo add agent+helper https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/
@@ -37,7 +37,7 @@ agent        https://enterprise-connect.github.io/oci/k8s/pkg/agent
 ```
 #### Update Dependency List
 ```yaml
-# add chart dependencies to mychart/Chart.yaml
+# add chart dependencies to example/Chart.yaml
 dependencies:
 # REQUIRED
 - name: agent+helper
@@ -55,12 +55,12 @@ dependencies:
 ```
 ```bash
 # update chart repo index after modify the list
-$ helm dependency update mychart
+$ helm dependency update example
 ```
 #### Agent/Chart Configuration Conversion
 ```bash
 # convert the ec config file into a chart-readable format and be ready for the chart deployment
-$ cd <path/to/mychart> && bash <(curl -s https://enterprise-connect.github.io/oci/k8s/conf.txt) \
+$ cd <path/to/example> && bash <(curl -s https://enterprise-connect.github.io/oci/k8s/conf.txt) \
 -cfg <conf.yaml> \
 -out <conf.env>
 ```
@@ -69,56 +69,77 @@ $ cd <path/to/mychart> && bash <(curl -s https://enterprise-connect.github.io/oc
 c:\> cd <path\to\mychart> ^
 && curl -LOk https://github.com/Enterprise-connect/sdk/raw/v1.1beta/dist/agent/agent_windows_sys.exe.tar.gz ^
 && tar xvf agent_windows_sys.exe.tar.gz ^
-&& agent_windows_sys.exe -cfg -cfg <conf.yaml> -out <conf.toml>
+&& agent_windows_sys.exe -cfg -cfg <conf.yaml> -out <conf.env>
 ```
 #### Install Plugin & Go
 ```bash
 # test charts template
-$ helm template mychart
+$ helm template --set-file global.agtConfig=<conf.env> example
 
 # deploy charts. agtConfig must present for the custom file -out
-$ helm install --set agtConfig=<conf.toml> --<debug|dry-run> mychart mychart/
-install.go:158: [debug] Original chart version: ""
-install.go:175: [debug] CHART PATH: /home/ayasuda/Documents/hokkaido/sdk/oci/k8s/agent
-
-NAME: mydemo
-LAST DEPLOYED: Sat May 16 20:25:44 2020
-NAMESPACE: default
-STATUS: pending-install
-REVISION: 1
-USER-SUPPLIED VALUES:
-{}
-
-COMPUTED VALUES:
-affinity: {}
-agent+helper:
-  global: {}
-fullnameOverride: ""
-image:
-  pullPolicy: Always
-  repository: enterpriseconnect/agent:v1.1beta
-imagePullSecrets: []
-ingress:
-  annotations: {}
-  enabled: false
-  hosts:
-  - host: chart-example.local
-    paths: []
-  tls: []
-nameOverride: ""
-nodeSelector: {}
-podSecurityContext: {}
-replicaCount: 1
-resources: {}
-securityContext: {}
-service:
-  port: 80
-  type: ClusterIP
-serviceAccount:
-  annotations: {}
-  create: true
-  name: miinikube
-tolerations: []
+$ helm install --set-file global.agtConfig=<conf.env> --<debug|dry-run> example example/
+# Source: example/charts/agent/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: RELEASE-NAME-agent
+  labels:
+    helm.sh/chart: agent-0.1.0
+    app.kubernetes.io/name: agent
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/version: "v1.1beta"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: agent
+      app.kubernetes.io/instance: RELEASE-NAME
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: agent
+        app.kubernetes.io/instance: RELEASE-NAME
+    spec:
+      serviceAccountName: RELEASE-NAME-agent
+      securityContext:
+        {}
+      containers:
+        - name: agent
+          image: enterpriseconnect/agent:v1.1beta
+          command: ["./agent", "-env"] 
+          securityContext:
+            {}
+          image: "enterpriseconnect/agent:v1.1beta"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {}
+          env:
+            - name: "mod"
+              value: "client"
+            - name: "lpt"
+              value: "7990"
+            - name: "cid"
+              value: "hello"
+            - name: "csc"
+              value: "DWDdfddfs@"
+            - name: "aid"
+              value: "31fwe"
+            - name: "tid"
+              value: "f3f3rv"
+---
 
 HOOKS:
 ---
@@ -143,14 +164,6 @@ spec:
       args: ['mydemo-agent:80']
   restartPolicy: Never
 MANIFEST:
----
-# Source: agent/templates/configmap.yaml
-apiVersion: v1
-data:
-  myvalue: Hello World
-kind: ConfigMap
-metadata:
-  name: agent-mydemo
 ...
 ```
 
