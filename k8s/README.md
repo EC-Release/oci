@@ -74,7 +74,7 @@ c:\> cd <path\to\mychart> ^
 #### Install Plugin & Go
 ```bash
 # test charts template
-$ helm template --set-file agtConfig=<conf.env> example
+$ helm template --set-file global.agtConfig=<conf.env> example
 
 # deploy charts. agtConfig must present for the custom file -out
 $ helm install --set-file agtConfig=<conf.env> --<debug|dry-run> example example/
