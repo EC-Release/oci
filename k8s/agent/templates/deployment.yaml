@@ -43,11 +43,7 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
-            {{- range (split "\n" .Values.global.agtConfig) }}
-            {{- $a := split "=" . }}
-            - name: {{ $a._0|quote }}
-              value: {{ $a._1|quote }}
-            {{- end -}}
+            {{- include "agent.EnvList" . | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
