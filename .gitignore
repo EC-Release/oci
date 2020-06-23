@@ -8,3 +8,4 @@
 spec/loadbalancer/terraform/terraform.tfvars
 *.terraform/
 *terraform.tfstate*
+spec/loadbalancer/terraform/pkg/
