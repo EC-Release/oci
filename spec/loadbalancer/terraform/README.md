@@ -39,3 +39,15 @@ Update the ```terraform.tfvars``` with corresponding configuration details
   ```hcl-terraform
   terraform apply -var-file="terraform.tfvars"
   ```
+
+### How to run integration test cases
+
+- Install ```go lang``` from [golang.org](https://golang.org/dl/)
+ 
+    *Note*: Test case was tested on ```go version go1.13 darwin/amd64``` version
+- Run below commands to initiate and run the test case
+
+    ```bash
+    go mod init test
+    go test -v ./...
+    ```
