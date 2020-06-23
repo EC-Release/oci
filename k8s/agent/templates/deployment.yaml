@@ -18,11 +18,12 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      serviceAccountName: {{ include "agent.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
+          image: enterpriseconnect/agent:v1.1beta
+          command: ["./agent", "-env"] 
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
@@ -33,17 +34,17 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /agent
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /agent
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
-            {{- range .Files.Lines .Values.agtConfig -}}
-            {{ $a := split "=" . }}
+            {{- range (split "\n" .Values.global.agtConfig) }}
+            {{- $a := split "=" . }}
             - name: {{ $a._0|quote }}
               value: {{ $a._1|quote }}
             {{- end -}}
