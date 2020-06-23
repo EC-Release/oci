@@ -48,7 +48,6 @@ on:
   push:
     branches:
     - terraform-lbr
-  pull_request:
 
 jobs:
   terraform:
@@ -68,24 +67,30 @@ jobs:
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-      with:
-	    tf_actions_working_dir: 'spec/loadbalancer/terraform'
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-	  uses: hashicorp/setup-terraform@v1
+    - name: 'Terraform Init'
+      uses: hashicorp/terraform-github-actions@master
       with:
-	    tf_actions_working_dir: 'spec/loadbalancer/terraform'
-		tf_actions_subcommand: 'init'
-
+        tf_actions_version: 0.12.13
+        tf_actions_subcommand: 'init'
+        tf_actions_working_dir: 'spec/loadbalancer/terraform'
+        tf_actions_comment: true
+      
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       run: terraform fmt -check
 
     # Generates an execution plan for Terraform
-#     - name: Terraform Plan
-#       run: terraform plan
+    - name: Terraform Plan
+      env: 
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        TF_VAR_aws_profile: ${{ secrets.TF_VAR_AWS_PROFILE }}
+        TF_VAR_aws_region: ${{ secrets.TF_VAR_AWS_REGION }}
+        TF_VAR_aws_instance_lber: ${{ secrets.TF_VAR_AWS_INSTANCE_LBER }}
+        TF_VAR_aws_instance_gw: ${{ secrets.TF_VAR_AWS_INSTANCE_GW }}
+      run: terraform plan
     
       # On push to master, build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks

@@ -1,3 +1,4 @@
+![Terraform](https://github.com/Enterprise-connect/oci/workflows/Terraform/badge.svg)
 
 ## Load balancer deployment automation
 ### Goal
