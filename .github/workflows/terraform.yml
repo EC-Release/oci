@@ -90,9 +90,7 @@ jobs:
         TF_VAR_aws_region: ${{ secrets.TF_VAR_AWS_REGION }}
         TF_VAR_aws_instance_lber: ${{ secrets.TF_VAR_AWS_INSTANCE_LBER }}
         TF_VAR_aws_instance_gw: ${{ secrets.TF_VAR_AWS_INSTANCE_GW }}
-      run: terraform plan
-      with:
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+      run: terraform plan -backend-config="token=${{ secrets.TF_API_TOKEN }}"
               
     - run: echo ${{ secrets.AWS_ACCESS_KEY_ID }}
     - run: echo ${{ secrets.AWS_SECRET_ACCESS_KEY }}
