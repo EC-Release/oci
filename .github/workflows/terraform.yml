@@ -74,6 +74,7 @@ jobs:
     - name: 'Terraform Init'
       run: |
         cd ${FOLDER}
+        echo ${ secrets.AWS_ACCESS_KEY_ID }
         terraform init
       env:
         FOLDER: spec/loadbalancer/terraform
