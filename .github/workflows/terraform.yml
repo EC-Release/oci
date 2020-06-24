@@ -82,7 +82,7 @@ jobs:
     - name: Terraform Format
       run: |
         cd ${FOLDER}
-        terraform fmt -check
+        terraform fmt
       env:
         FOLDER: spec/loadbalancer/terraform
 
