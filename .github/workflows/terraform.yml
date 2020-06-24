@@ -74,10 +74,11 @@ jobs:
     - name: 'Terraform Init'
       run: |
         cd ${FOLDER}
-        echo ${secrets.AWS_ACCESS_KEY_ID}
+        echo ${KEY}
         terraform init
       env:
         FOLDER: spec/loadbalancer/terraform
+        KEY: ${ secrets.AWS_ACCESS_KEY_ID }
       
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
