@@ -10,18 +10,18 @@ script:
   - echo test example spec
   - helm dependency update k8s/example
   - helm template k8s/example --debug --set-file global.agtConfig=k8s/example/ec.env
-  - rm -Rf k8s/pkg
-  - mkdir -p k8s/pkg/{agent,agent+helper,agent+tls,agent+vln}
+  #- rm -Rf k8s/pkg
+  - mkdir -p k8s/pkg/agent/$AGENT_CHART_REV k8s/pkg/agent+helper/$AGENT_HELPER_REV k8s/pkg/agent+vln/$AGENT_VLN_REV k8s/pkg/agent+tls/$AGENT_TLS_REV
   - ls -la k8s/pkg
-  - helm package k8s/agent+helper -d k8s/pkg/agent+helper
+  - helm package k8s/agent+helper -d k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV
   - helm dependency update k8s/agent
-  - helm package k8s/agent -d k8s/pkg/agent
-  - helm package k8s/agent+tls -d k8s/pkg/agent+tls
-  - helm package k8s/agent+vln -d k8s/pkg/agent+vln
-  - helm repo index k8s/pkg/agent --url https://enterprise-connect.github.io/oci/k8s/pkg/agent/
-  - helm repo index k8s/pkg/agent+helper --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/
-  - helm repo index k8s/pkg/agent+tls --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+tls/
-  - helm repo index k8s/pkg/agent+vln --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+vln/
+  - helm package k8s/agent -d k8s/pkg/agent/$AGENT_CHART_REV
+  - helm package k8s/agent+tls -d k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV
+  - helm package k8s/agent+vln -d k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV
+  - helm repo index k8s/pkg/agent/$AGENT_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent/$AGENT_CHART_REV
+  - helm repo index k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV
+  - helm repo index k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV
+  - helm repo index k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV
 
 after_deploy:
 
