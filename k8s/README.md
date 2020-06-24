@@ -17,22 +17,22 @@ The diagram illustrates the usage of the connectivity model in k8s
 $ helm create example
 
 # REQUIRED: add the helper library as the dependency to support usage
-$ helm repo add agent+helper https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/
+$ helm repo add agent+helper https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/<version. E.g. "v0.1.0">
 
 # OPTIONAL: add any of the following agent package(s) to the mychart deployment
 # agent: the deployment includes the agent artifact, and the configuration
-$ helm repo add agent https://enterprise-connect.github.io/oci/k8s/pkg/agent/
+$ helm repo add agent https://enterprise-connect.github.io/oci/k8s/pkg/agent/<version. E.g. "v0.1.1">
 # agent+vln: agent with vlan usage, this allow the vln 
 # plugin to control the vlan setting inside the container.
-$ helm repo add agent+vln https://enterprise-connect.github.io/oci/k8s/pkg/agent+vln/
+$ helm repo add agent+vln https://enterprise-connect.github.io/oci/k8s/pkg/agent+vln/<version. E.g. "v0.1.0">
 # agent+tls: agent with tls usage. tls can be served as a reversed-proxy to
 # bypass a tls security restriction.
-$ helm repo add agent+tls https://enterprise-connect.github.io/oci/k8s/pkg/agent+tls/
+$ helm repo add agent+tls https://enterprise-connect.github.io/oci/k8s/pkg/agent+tls/<version. E.g. "v0.1.0">
 
 $ helm repo list
 NAME         URL
-agent+helper https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper
-agent        https://enterprise-connect.github.io/oci/k8s/pkg/agent
+agent+helper https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/v0.1.0
+agent        https://enterprise-connect.github.io/oci/k8s/pkg/agent/v0.1.1
 
 ```
 #### Update Dependency List
@@ -45,7 +45,7 @@ dependencies:
   repository: "@agent+helper"
 # OPTIONAL
 - name: agent
-  version: 0.1.0
+  version: 0.1.1
   repository: "@agent"
 # OPTIONAL
 - name: agent+vln
