@@ -68,7 +68,7 @@ Generate container port for client agent. Need review for gateway usage
 {{- define "agent.portNumber" -}}
 {{- range (split "\n" .Values.global.agtConfig) }}
 {{- if contains "lpt" . -}}
-- name: clientAgentPort
+- name: agentPort
   containerPort: {{ (split "=" . )._1|quote }}
   protocol: TCP
 {{- end -}}
