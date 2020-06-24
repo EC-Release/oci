@@ -66,7 +66,7 @@ Create the name of the service account to use
 Generate env vars for agent
 */}}
 {{- define "agent.EnvList" -}}
-{{- range (split "\n" .Values.global.agtConfig) -}}
+{{- range (split "\n" .Values.global.agtConfig) }}
 - name: {{ (split "=" . )._0|quote }}
   value: {{ (split "=" . )._1|quote }}
 {{- end -}}
