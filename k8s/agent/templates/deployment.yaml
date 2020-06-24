@@ -29,18 +29,16 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
-            {{- include "agent.portNumber" . | nindent 12 }}
+            {{- include "agent.portSpec" . | nindent 12 }}
+            {{- include "agent.healthPortSpec" . | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /health
-              port: http
+              port: {{ .Values.agtK8Config.agtHealthPortName }}
           readinessProbe:
             httpGet:
               path: /health
-              port: http
+              port: {{ .Values.agtK8Config.agtHealthPortName }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
