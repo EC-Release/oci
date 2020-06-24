@@ -68,7 +68,7 @@ Generate container port spec for client agent. Need review for gateway usage
 {{- define "agent.portSpec" -}}
 {{- range (split "\n" .Values.global.agtConfig) }}
 {{- if contains "lpt" . -}}
-- name: {{ default .Values.agtK8Config.portName }}
+- name: {{ $.Values.agtK8Config.portName }}
   containerPort: {{ (split "=" . )._1|quote }}
   protocol: TCP
 {{- end -}}
