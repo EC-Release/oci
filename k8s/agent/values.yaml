@@ -68,3 +68,10 @@ tolerations: []
 affinity: {}
 
 agtConfig: conf.env
+
+agtK8Config:
+  agtPortName: agentPort
+  agtSvcPortName: agentSvcPort
+  agtHealthPortName: agentHealthPort
+  agtSvcHealthPortName: agentSvcHealthPort
+  
