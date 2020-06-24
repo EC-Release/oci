@@ -63,12 +63,25 @@ Create the name of the service account to use
 {{- end -}}
 
 {{/*
-Generate container port for client agent. Need review for gateway usage
+Generate container port spec for client agent. Need review for gateway usage
 */}}
-{{- define "agent.portNumber" -}}
+{{- define "agent.portSpec" -}}
 {{- range (split "\n" .Values.global.agtConfig) }}
 {{- if contains "lpt" . -}}
-- name: agentPort
+- name: {{ .Values.agtK8Config.agtPortName }}
+  containerPort: {{ (split "=" . )._1|quote }}
+  protocol: TCP
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Generate container HEALTH port spec for client agent. Need review for gateway usage
+*/}}
+{{- define "agent.healthPortSpec" -}}
+{{- range (split "\n" .Values.global.agtConfig) }}
+{{- if contains "hca" . -}}
+- name: {{ .Values.agtK8Config.agtSvcPortName }}
   containerPort: {{ (split "=" . )._1|quote }}
   protocol: TCP
 {{- end -}}
