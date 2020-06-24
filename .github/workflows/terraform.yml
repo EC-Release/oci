@@ -80,25 +80,21 @@ jobs:
       
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
-      run: terraform fmt -check
+      run: |
+        cd {FOLDER}
+        terraform fmt -check
+      env:
+        FOLDER: spec/loadbalancer/terraform
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
+      run: |
+        cd {FOLDER}
+        terraform plan -no-color
       env: 
+        FOLDER: spec/loadbalancer/terraform
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        TF_VAR_aws_profile: ${{ secrets.TF_VAR_AWS_PROFILE }}
-        TF_VAR_aws_region: ${{ secrets.TF_VAR_AWS_REGION }}
-        TF_VAR_aws_instance_lber: ${{ secrets.TF_VAR_AWS_INSTANCE_LBER }}
-        TF_VAR_aws_instance_gw: ${{ secrets.TF_VAR_AWS_INSTANCE_GW }}
-      run: terraform plan
-              
-    - run: echo ${{ secrets.AWS_ACCESS_KEY_ID }}
-    - run: echo ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    - run: echo ${{ secrets.TF_VAR_AWS_PROFILE }}
-    - run: echo ${{ secrets.TF_VAR_AWS_REGION }}
-    - run: echo ${{ secrets.TF_VAR_AWS_INSTANCE_LBER }}
-    - run: echo ${{ secrets.TF_VAR_AWS_INSTANCE_GW }}
       
       # On push to master, build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
