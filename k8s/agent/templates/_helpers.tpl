@@ -79,7 +79,7 @@ Generate container port spec for client agent. Need review for gateway usage
 Generate service port spec for client agent pods. Need review for gateway usage
 */}}
 {{- define "agent.svcPortSpec" -}}
-- port: {{ .Values.agtK8Config.svcPortNum }}
+- port: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
   targetPort: {{ .Values.agtK8Config.portName }}
   protocol: TCP
   name: {{ .Values.agtK8Config.svcPortName }}
@@ -102,7 +102,7 @@ Generate container HEALTH port spec for client agent. Need review for gateway us
 Generate service health port spec for client agent pods. Need review for gateway usage
 */}}
 {{- define "agent.svcHealthPortSpec" -}}
-- port: {{ .Values.agtK8Config.svcHealthPortNum }}
+- port: {{ ternary .Values.agtK8Config.svcHealthPortNum .Values.global.agtK8Config.svcHealthPortNum  (kindIs "invalid" .Values.global.agtK8Config.svcHealthPortNum) }}
   targetPort: {{ .Values.agtK8Config.healthPortName }}
   protocol: TCP
   name: {{ .Values.agtK8Config.svcHealthPortName }}
