@@ -32,6 +32,7 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
+            {{- include "agent.portNumber" . | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /health
