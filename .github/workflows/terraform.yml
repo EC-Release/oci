@@ -72,12 +72,11 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: 'Terraform Init'
-      uses: hashicorp/terraform-github-actions@master
-      with:
-        tf_actions_version: 0.12.13
-        tf_actions_subcommand: 'init'
-        tf_actions_working_dir: 'spec/loadbalancer/terraform'
-        tf_actions_comment: true
+      run: |
+        cd ${FOLDER}
+        terraform init
+      env:
+        FOLDER: spec/loadbalancer/terraform
       
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
