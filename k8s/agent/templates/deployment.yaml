@@ -34,11 +34,11 @@ spec:
           livenessProbe:
             httpGet:
               path: /health
-              port: {{ .Values.agtK8Config.agtHealthPortName }}
+              port: {{ .Values.agtK8Config.healthPortName }}
           readinessProbe:
             httpGet:
               path: /health
-              port: {{ .Values.agtK8Config.agtHealthPortName }}
+              port: {{ .Values.agtK8Config.healthPortName }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
