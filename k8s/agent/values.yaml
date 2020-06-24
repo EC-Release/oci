@@ -72,6 +72,7 @@ agtConfig: conf.env
 agtK8Config:
   agtPortName: agentPort
   agtSvcPortName: agentSvcPort
+  agtSvcPortNum: 8080 
   agtHealthPortName: agentHealthPort
   agtSvcHealthPortName: agentSvcHealthPort
-  
+  agtSvcHealthPortNum: 8081
