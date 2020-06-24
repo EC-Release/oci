@@ -61,3 +61,16 @@ Create the name of the service account to use
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Generate container port for client agent. Need review for gateway usage
+*/}}
+{{- define "agent.portNumber" -}}
+{{- range (split "\n" .Values.global.agtConfig) }}
+{{- if contains "lpt" . -}}
+- name: clientAgentPort
+  containerPort: {{ (split "=" . )._1|quote }}
+  protocol: TCP
+{{- end -}}
+{{- end -}}
+{{- end -}}
