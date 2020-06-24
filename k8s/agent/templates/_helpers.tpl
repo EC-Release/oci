@@ -68,11 +68,21 @@ Generate container port spec for client agent. Need review for gateway usage
 {{- define "agent.portSpec" -}}
 {{- range (split "\n" .Values.global.agtConfig) }}
 {{- if contains "lpt" . -}}
-- name: {{ .Values.agtK8Config.agtPortName }}
+- name: {{ .Values.agtK8Config.portName }}
   containerPort: {{ (split "=" . )._1|quote }}
   protocol: TCP
 {{- end -}}
 {{- end -}}
+{{- end -}}
+
+{{/*
+Generate service port spec for client agent pods. Need review for gateway usage
+*/}}
+{{- define "agent.svcPortSpec" -}}
+- port: {{ .Values.agtK8Config.svcPortNum }}
+  targetPort: {{ .Values.agtK8Config.portName }}
+  protocol: TCP
+  name: {{ .Values.agtK8Config.svcPortName }}
 {{- end -}}
 
 {{/*
@@ -81,9 +91,19 @@ Generate container HEALTH port spec for client agent. Need review for gateway us
 {{- define "agent.healthPortSpec" -}}
 {{- range (split "\n" .Values.global.agtConfig) }}
 {{- if contains "hca" . -}}
-- name: {{ .Values.agtK8Config.agtHealthPortName }}
+- name: {{ .Values.agtK8Config.healthPortName }}
   containerPort: {{ (split "=" . )._1|quote }}
   protocol: TCP
 {{- end -}}
 {{- end -}}
+{{- end -}}
+
+{{/*
+Generate service health port spec for client agent pods. Need review for gateway usage
+*/}}
+{{- define "agent.svcHealthPortSpec" -}}
+- port: {{ .Values.agtK8Config.svcHealthPortNum }}
+  targetPort: {{ .Values.agtK8Config.healthPortName }}
+  protocol: TCP
+  name: {{ .Values.agtK8Config.svcHealthPortName }}
 {{- end -}}
