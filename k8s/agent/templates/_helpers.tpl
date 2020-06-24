@@ -91,7 +91,7 @@ Generate container HEALTH port spec for client agent. Need review for gateway us
 {{- define "agent.healthPortSpec" -}}
 {{- range (split "\n" .Values.global.agtConfig) }}
 {{- if contains "hca" . -}}
-- name: {{ .Values.agtK8Config.healthPortName }}
+- name: {{ $.Values.agtK8Config.healthPortName }}
   containerPort: {{ (split "=" . )._1|quote }}
   protocol: TCP
 {{- end -}}
