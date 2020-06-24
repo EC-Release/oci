@@ -27,15 +27,21 @@ after_deploy:
 
   
 deploy:
-  provider: pages 
-  github_token: $GITHUB_TOKEN
-  local_dir: .
-  target_branch: gh-pages
-  verbose: true
-  skip_cleanup: true
-  keep_history: true
-  on:
-    branch: v1.1beta_helm_pkg
+  - provider: pages 
+    github_token: $GITHUB_TOKEN
+    local_dir: .
+    target_branch: gh-pages
+    verbose: true
+    skip_cleanup: true
+    keep_history: true
+    on:
+      branch: v1.1beta_helm_pkg
+  - provider: releases
+    api_key: $GITHUB_TOKEN
+    skip_cleanup: true
+    name: $AGENT_CHART_REV
+    on:
+      tags: true
 
 notifications:  
   email:  
