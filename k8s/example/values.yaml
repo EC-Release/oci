@@ -69,5 +69,5 @@ affinity: {}
 
 global:
   agtK8Config:
-    svcPortNum: 8080
-    svcHealthPortNum: 8081
+    svcPortNum: 18080
+    svcHealthPortNum: 18081
