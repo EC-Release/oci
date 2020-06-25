@@ -1,9 +1,9 @@
 dependencies:
 - name: agent+helper
-  repository: file://./../agent+helper/
+  repository: file://./../agent+helper
   version: 0.1.0
 - name: agent
-  repository: file://./../agent/
-  version: 0.1.1
-digest: sha256:c215a08544347d26873657e090ee7051a5ce135592027b9bf7a305ae1708e16c
-generated: "2020-06-25T18:36:25.978029824Z"
+  repository: file://./../agent
+  version: 0.1.2
+digest: sha256:ae0d05c1172721ab52dddc590939b1600f8eb03c48605e05634eb71f0e4164c5
+generated: "2020-06-25T18:53:31.811667749Z"
