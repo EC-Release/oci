@@ -7,12 +7,12 @@ before_install:
 script:
   - helm version
   - echo $(pwd)
-  - eval "sed -i -e 's#<%AGENT_HELPER_CHART_REV%>#${AGENT_HELPER_CHART_REV}#g' k8s/agent+helper/Chart.yaml"
-  - eval "sed -i -e 's#<%AGENT_CHART_REV%>#${AGENT_CHART_REV}#g' k8s/agent/Chart.yaml"
-  - eval "sed -i -e 's#<%AGENT_TLS_CHART_REV%>#${AGENT_TLS_CHART_REV}#g' k8s/agent+tls/Chart.yaml"
-  - eval "sed -i -e 's#<%AGENT_VlN_CHART_REV%>#${AGENT_VLN_CHART_REV}#g' k8s/agent+vln/Chart.yaml"
-  - eval "sed -i -e 's#<%AGENT_HELPER_CHART_REV%>#${AGENT_HELPER_CHART_REV}#g' k8s/example/Chart.yaml"
-  - eval "sed -i -e 's#<%AGENT_CHART_REV%>#${AGENT_CHART_REV}#g' k8s/example/Chart.yaml"
+  - eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/agent+helper/Chart.yaml"
+  - eval "sed -i -e 's#<AGENT_CHART_REV>#${AGENT_CHART_REV}#g' k8s/agent/Chart.yaml"
+  - eval "sed -i -e 's#<AGENT_TLS_CHART_REV>#${AGENT_TLS_CHART_REV}#g' k8s/agent+tls/Chart.yaml"
+  - eval "sed -i -e 's#<AGENT_VlN_CHART_REV>#${AGENT_VLN_CHART_REV}#g' k8s/agent+vln/Chart.yaml"
+  - eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/example/Chart.yaml"
+  - eval "sed -i -e 's#<AGENT_CHART_REV>#${AGENT_CHART_REV}#g' k8s/example/Chart.yaml"
   - echo test example spec
   - helm dependency update k8s/example
   - helm template k8s/example --debug --set-file global.agtConfig=k8s/example/ec.env
