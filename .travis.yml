@@ -22,7 +22,6 @@ script:
   - helm package k8s/agent -d k8s/pkg/agent/$AGENT_CHART_REV
   - helm package k8s/agent+tls -d k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV
   - helm package k8s/agent+vln -d k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV
-  - helm repo add agent k8s/agent
   - echo test example spec
   - helm dependency update k8s/example
   - helm template k8s/example --debug --set-file global.agtConfig=k8s/example/ec.env
