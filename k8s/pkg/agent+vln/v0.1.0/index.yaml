@@ -3,12 +3,12 @@ entries:
   agent+vln:
   - apiVersion: v1
     appVersion: 1.16.0
-    created: "2020-06-24T23:38:30.27794682Z"
+    created: "2020-06-25T16:21:35.700703674Z"
     description: A Helm chart for Kubernetes
-    digest: 75532c39444447bc9579d57640abae8ed4f9a1072d0d97399b54f263efdae687
+    digest: 8c53e048aae2f597a483d7ce46c98ff6770972c42d0b0ce60233a0814a6fdc3f
     name: agent+vln
     type: application
     urls:
     - https://enterprise-connect.github.io/oci/k8s/pkg/agent+vln/v0.1.0/agent+vln-0.1.0.tgz
     version: 0.1.0
-generated: "2020-06-24T23:38:30.27655893Z"
+generated: "2020-06-25T16:21:35.699886268Z"

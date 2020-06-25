@@ -6,4 +6,4 @@ dependencies:
   repository: file://./../agent/
   version: 0.1.1
 digest: sha256:c215a08544347d26873657e090ee7051a5ce135592027b9bf7a305ae1708e16c
-generated: "2020-06-24T23:38:29.757810224Z"
+generated: "2020-06-25T16:21:35.178185579Z"
