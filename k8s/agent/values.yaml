@@ -70,9 +70,9 @@ affinity: {}
 agtConfig: conf.env
 
 agtK8Config:
-  portName: agent-port
-  svcPortName: agent-svc-port
+  portName: agt-prt
+  svcPortName: agt-svc-prt
   svcPortNum: 8080 
-  healthPortName: agent-health-port
-  svcHealthPortName: agent-svc-health-port
+  healthPortName: agt-h-prt
+  svcHealthPortName: agt-svc-h-prt
   svcHealthPortNum: 8081
