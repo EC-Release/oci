@@ -15,7 +15,7 @@ script:
   - helm dependency update k8s/example
   - helm template k8s/example --debug --set-file global.agtConfig=k8s/example/ec.env
   #- rm -Rf k8s/pkg
-  - mkdir -p k8s/pkg/agent/$AGENT_CHART_REV k8s/pkg/agent+helper/$AGENT_HELPER_REV k8s/pkg/agent+vln/$AGENT_VLN_REV k8s/pkg/agent+tls/$AGENT_TLS_REV
+  - mkdir k8s/pkg/agent/$AGENT_CHART_REV k8s/pkg/agent+helper/$AGENT_HELPER_REV k8s/pkg/agent+vln/$AGENT_VLN_REV k8s/pkg/agent+tls/$AGENT_TLS_REV
   - ls -la k8s/pkg
   - helm package k8s/agent+helper -d k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV
   - helm dependency update k8s/agent
