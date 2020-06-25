@@ -23,4 +23,4 @@ appVersion: v1.1beta
 dependencies:
 - name: agent+helper
   version: <AGENT_HELPER_CHART_REV>
-  repository: "file://./../agent+helper/"
+  repository: "@agent+helper"
