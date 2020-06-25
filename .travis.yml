@@ -6,7 +6,6 @@ before_install:
 
 script:
   - helm version
-  - git pull origin gh-pages
   - echo $(pwd)
   - echo test example spec
   - helm dependency update k8s/example
