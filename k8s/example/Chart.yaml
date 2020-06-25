@@ -21,9 +21,9 @@ version: 0.1.0
 appVersion: 1.16.0
 
 dependencies:
-- name: <AGENT_HELPER_CHART_REV>
-  version: 0.1.0
-  repository: "file://./../agent+helper/"
+- name: agent+helper
+  version: <AGENT_HELPER_CHART_REV>
+  repository: "@agent+helper"
 - name: agent
   version: <AGENT_CHART_REV>
-  repository: "file://./../agent/"
+  repository: "@agent"
