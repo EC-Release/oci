@@ -23,7 +23,7 @@ appVersion: 1.16.0
 dependencies:
 - name: agent+helper
   version: <AGENT_HELPER_CHART_REV>
-  repository: "file://./../k8s/agent+helper"
+  repository: "file://./../agent+helper"
 - name: agent
   version: <AGENT_CHART_REV>
-  repository: "file://./../k8s/agent"
+  repository: "file://./../agent"
