@@ -12,7 +12,7 @@ resource "aws_instance" "dc-ec-gateway-vm" {
   key_name                    = var.aws_instance_gw.key_name
   iam_instance_profile        = var.aws_instance_gw.iam_instance_profile
   associate_public_ip_address = var.aws_instance_gw.associate_public_ip_address
-  user_data = <<-EOF
+  user_data                   = <<-EOF
 #! /bin/bash
 
 sudo su -
@@ -182,7 +182,7 @@ EOF
   }
 
   tags = {
-    Name           = "dc-ec-gateway-${count.index+1}"
+    Name           = "dc-ec-gateway-${count.index + 1}"
     Env            = var.aws_instance_gw.tags.Env
     Engineer_Email = var.aws_instance_gw.tags.Engineer_Email
     Engineer_SSO   = var.aws_instance_gw.tags.Engineer_SSO
@@ -201,7 +201,7 @@ resource "aws_instance" "dc-ec-gateway-lber-vm" {
   iam_instance_profile        = var.aws_instance_lber.iam_instance_profile
   associate_public_ip_address = var.aws_instance_lber.associate_public_ip_address
 
-  user_data                   = <<-EOF
+  user_data = <<-EOF
 #! /bin/bash
 
 sudo su -

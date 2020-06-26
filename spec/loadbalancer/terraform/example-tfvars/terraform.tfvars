@@ -1,15 +1,15 @@
-aws_profile = "<Account number>/<role name>" #e.g. 123456789/bu-setup
-aws_region  = "<region>" #e.g. us-east-1
+aws_profile = "544724983097/bu-initial-setup"
+aws_region  = "us-east-1"
 
 aws_instance_gw = {
-  "count"                       = <count in number> #e.g. 1
-  "ami"                         = "<ami-id> "#e.g. "ami-0915e09cc7ceee3ab"
-  "instance_type"               = "<instance-type>" #e.g. "t2.micro"
-  "subnet_id"                   = "<subnet_id>" #e.g. "subnet-f219a0bf"
-  "security_groups"             = "<security_groups seperated by comma>"  #e.g. ["sg-48575964","sg-48575964"]
-  "key_name"                    = "<key_name>"  #e.g. "dc-lab-generic"
-  "iam_instance_profile"        = "<iam_instance_profile>"  #e.g. "dc-ssm-session-manager-iam"
-  "associate_public_ip_address" = "<true | false>" #e.g. true
+  "count"                       = 1
+  "ami"                         = "ami-0915e09cc7ceee3ab"
+  "instance_type"               = "t2.micro"
+  "subnet_id"                   = "subnet-f219a0bf"
+  "security_groups"             = ["sg-48575964"]
+  "key_name"                    = "dc-lab-generic"
+  "iam_instance_profile"        = "dc-ssm-session-manager-iam"
+  "associate_public_ip_address" = true
   "watcher_mod"                 = "<gateway | x-gateway>" #e.g. "gateway"
   "watcher_gpt"                 = "<gateway port in double quotes preceeded by colon>"  #e.g. "\":17990\""
   "watcher_zon"                 = "<EC Subscription id>"  #e.g. "d985acd4-8dssf06a-4fff679-9441-cd22"
@@ -45,32 +45,32 @@ aws_instance_gw = {
   "watcher_lber_dnsname"        = "<DNS Name>"  #e.g. "corp-preprod-ecgw4.apps.ge.com"
 
   tags = {
-    Name           = "<Name of the VM>" #e.g. "dc-ec-gateway"
-    Env            = "<Environment name>" #e.g. "Lab"
-    Engineer_Email = "<Developer email>"  #e.g. "Ramarao.Srikakulapu@ge.com"
-    Engineer_SSO   = "<Developer SSO>"  #e.g. "212602085"
-    Best_By        = "<Instance can be deleted after>"#e.g. "2020-05-30"
-    UAI            = "<UAI>"  #e.g. "UAI1234567"
-    Builder        = "<Builder name>" #e.g. "Terraform"
+    Name           = "dc-ec-gateway"
+    Env            = "Lab"
+    Engineer_Email = "Ramarao.Srikakulapu@ge.com"
+    Engineer_SSO   = "212602085"
+    Best_By        = "2020-05-30"
+    UAI            = "UAI1234567"
+    Builder        = "Terraform"
   }
 }
 
 aws_instance_lber = {
-  "ami"                         = "<ami-id>"  #e.g. "ami-0915e09cc7ceee3ab"
-  "instance_type"               = "<instance-type>" #e.g. "t2.micro"
-  "subnet_id"                   = "<subnet_id>" #e.g. "subnet-f219a0bf"
-  "security_groups"             = "<security_groups seperated by comma>"  #e.g. ["sg-48575964","sg-48575964"]
-  "key_name"                    = "<key_name>"  #e.g. "dc-lab-generic"
-  "iam_instance_profile"        = "<iam_instance_profile>"  #e.g. "dc-ssm-session-manager-iam"
-  "associate_public_ip_address" = "<true | false>" #e.g. true
+  "ami"                         = "ami-0915e09cc7ceee3ab"
+  "instance_type"               = "t2.micro"
+  "subnet_id"                   = "subnet-f219a0bf"
+  "security_groups"             = ["sg-48575964"]
+  "key_name"                    = "dc-lab-generic"
+  "iam_instance_profile"        = "dc-ssm-session-manager-iam"
+  "associate_public_ip_address" = true
 
   tags = {
-    Name           = "<Name of the VM>" #e.g. "dc-ec-lber"
-    Env            = "<Environment name>" #e.g. "Lab"
-    Engineer_Email = "<Developer email>"  #e.g. "Ramarao.Srikakulapu@ge.com"
-    Engineer_SSO   = "<Developer SSO>"  #e.g. "212602085"
-    Best_By        = "<Instance can be deleted after>"#e.g. "2020-05-30"
-    UAI            = "<UAI>"  #e.g. "UAI1234567"
-    Builder        = "<Builder name>" #e.g. "Terraform"
+    Name           = "dc-ec-lber"
+    Env            = "Lab"
+    Engineer_Email = "Ramarao.Srikakulapu@ge.com"
+    Engineer_SSO   = "212602085"
+    Best_By        = "2020-05-30"
+    UAI            = "UAI1234567"
+    Builder        = "Terraform"
   }
 }
