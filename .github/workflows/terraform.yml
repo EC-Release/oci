@@ -92,7 +92,7 @@ jobs:
     - name: Terraform Plan
       run: |
         cd ${FOLDER}
-        terraform plan
+        terraform plan -var-file=example-tfvars/terraform.tfvars
       env: 
         FOLDER: spec/loadbalancer/terraform
         AWS_ACCESS_KEY_ID: ${ secrets.AWS_ACCESS_KEY_ID }
