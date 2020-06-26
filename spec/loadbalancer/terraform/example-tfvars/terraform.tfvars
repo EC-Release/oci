@@ -1,4 +1,3 @@
-aws_profile = "544724983097/bu-initial-setup"
 aws_region  = "us-east-1"
 
 aws_instance_gw = {
