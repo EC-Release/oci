@@ -18,9 +18,9 @@ USER root
 WORKDIR /root
 
 #arg is rewritten by docker build
-ARG EC_REV_BETA=v1.1beta.fukuoka.2734
+ARG EC_REV_V1_1BETA=v1.1beta.fukuoka.2734
 
-RUN wget -O ./agent_linux_sys.tar.gz https://github.com/Enterprise-connect/sdk/raw/${EC_REV_BETA}/dist/agent/agent_linux_sys.tar.gz \
+RUN wget -O ./agent_linux_sys.tar.gz https://github.com/Enterprise-connect/sdk/raw/${EC_REV_V1_1BETA}/dist/agent/agent_linux_sys.tar.gz \
   && tar -xvzf ./agent_linux_sys.tar.gz \
   && mv ./agent_linux_sys ./agent \
   && rm ./agent_linux_sys.tar.gz \
