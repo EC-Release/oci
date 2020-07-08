@@ -71,3 +71,5 @@ global:
   agtK8Config:
     svcPortNum: 18080
     svcHealthPortNum: 18081
+    #options v1.1beta|v1|v1beta
+    releaseTag: v1.1beta
