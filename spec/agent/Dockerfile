@@ -17,9 +17,12 @@ MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 USER root
 WORKDIR /root
 
+#arg is rewritten by docker build
+ARG EC_REV=v1.hokkaido.212
+
 COPY ./*.yml ./
 
-RUN wget -O ./ecagent_linux_sys.tar.gz https://raw.githubusercontent.com/Enterprise-connect/sdk/v1.hokkaido.212/dist/ecagent_linux_sys.tar.gz \
+RUN wget -O ./ecagent_linux_sys.tar.gz https://raw.githubusercontent.com/Enterprise-connect/sdk/${EC_REV}/dist/ecagent_linux_sys.tar.gz \
   && tar -xvzf ./ecagent_linux_sys.tar.gz \
   && rm ./ecagent_linux_sys.tar.gz \
   && ls -al
