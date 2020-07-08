@@ -22,7 +22,7 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          image: enterpriseconnect/agent:v1.1beta
+          image: "enterpriseconnect/agent:{{ .Values.global.agtK8Config.releaseTag }}"
           command: ["./agent", "-env"] 
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
