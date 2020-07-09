@@ -7,7 +7,7 @@ services:
 before_install:
 
 script:
-   - docker build -t enterriseconnect/agent:v1.1beta ./spec/agent/Dockerfile
+   - docker build -t enterriseconnect/agent:v1.1beta $(pwd)/spec/agent/Dockerfile
    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
    - docker push enterriseconnect/v1.1beta
    
