@@ -26,7 +26,6 @@ spec:
           command: ["./agent", "-env"] 
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             {{- include "agent.portSpec" . | nindent 12 }}
