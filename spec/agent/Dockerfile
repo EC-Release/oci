@@ -20,7 +20,8 @@ WORKDIR /root
 #arg is rewritten by docker build
 ARG EC_REV_V1_1BETA=${EC_REV_V1_1BETA}
 
-RUN wget -O ./agent_linux_sys.tar.gz https://github.com/Enterprise-connect/sdk/raw/${EC_REV_V1_1BETA}/dist/agent/agent_linux_sys.tar.gz \
+RUN echo EC_REV_V1_1BETA: ${EC_REV_V1_1BETA} \
+  && wget -O ./agent_linux_sys.tar.gz https://github.com/Enterprise-connect/sdk/raw/${EC_REV_V1_1BETA}/dist/agent/agent_linux_sys.tar.gz \
   && tar -xvzf ./agent_linux_sys.tar.gz \
   && mv ./agent_linux_sys ./agent \
   && rm ./agent_linux_sys.tar.gz \
