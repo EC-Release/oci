@@ -8,7 +8,7 @@ before_install:
 
 script:
    - cd ./spec/agent && docker build -t enterriseconnect/agent:v1.1beta --build-arg EC_REV_V1_1BETA=${EC_REV_V1_1BETA} .
-   - echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+   - echo '${DOCKER_PASSWORD}' | docker login -u '${DOCKER_USERNAME}' --password-stdin
    - docker push enterriseconnect/v1.1beta
    
 after_deploy:
