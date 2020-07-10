@@ -57,6 +57,19 @@ dependencies:
 # update chart repo index after modify the list
 $ helm dependency update example
 ```
+
+#### Update the agent usage
+In the parent chart(s), there are some options avaialble to customise the agent usage. The configuration below is also available in the example/ to the reference.
+```yaml
+...
+global:
+  agtK8Config:
+    svcPortNum: 18080
+    svcHealthPortNum: 18081
+    #options v1.1beta|v1|v1beta
+    releaseTag: v1.1beta
+```
+
 #### Agent/Chart Configuration Conversion
 ```bash
 # convert the ec config file into a chart-readable format and be ready for the chart deployment
