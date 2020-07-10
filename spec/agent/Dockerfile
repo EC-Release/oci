@@ -24,6 +24,7 @@ COPY ./*.yml ./
 
 RUN wget -O ./ecagent_linux_sys.tar.gz https://raw.githubusercontent.com/Enterprise-connect/sdk/${EC_REV_V1}/dist/ecagent_linux_sys.tar.gz \
   && tar -xvzf ./ecagent_linux_sys.tar.gz \
+  && mv ecagent_linux_sys agent \
   && rm ./ecagent_linux_sys.tar.gz \
   && ls -al
 
