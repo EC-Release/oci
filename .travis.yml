@@ -1,22 +1,30 @@
 language: minimal
+if: head_branch = v1_oci_spec_update OR branch = v1_oci_spec
 
 services:
   - docker
-
+  
 before_install:
-- docker pull enterpriseconnect/agent:v1
-- docker images
 
 script:
-- docker run -it -d -e EC_MOD=client
-  -e EC_AID=test-aid
-  -e EC_TID=test-tid
-  -e EC_HST=test-hst
-  -e EC_CID=test-cid
-  -e EC_CSC=test-test-csc
-  -e EC_OA2=some-uaa
-  -e EC_DUR=3000
-  -e EC_DBG=true
-  -e EC_ZON=some-zone
-  -e EC_GRP=some-group
-  -e EC_CPS=5 enterpriseconnect/agent:v1
+   - cd ./spec/agent && docker build -t enterpriseconnect/agent:v1 --build-arg EC_REV_V1=${EC_REV_V1} .
+   
+deploy:
+  - provider: script
+    script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker push enterpriseconnect/agent:v1.1beta
+    on:
+      branch: v1.1beta_oci_spec
+
+after_deploy:
+
+notifications:  
+  email:  
+    recipients:  
+    - ec-research@ge.com
+    - prasad.alokam@ge.com
+    - Simran.Choudhary@ge.com
+    - Sheshank.Gujjari@ge.com
+    on_success: always  
+    on_failure: always
