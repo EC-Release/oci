@@ -16,7 +16,7 @@ deploy:
     on:
       branch: v1_oci_spec
 
-after_deploy: docker rmi enterpriseconnect/agent:v1 -f && docker run -it enterpriseconnect/agent:v1 agent -ver
+after_deploy: docker rmi enterpriseconnect/agent:v1 -f && docker run -it enterpriseconnect/agent:v1 ./agent -ver
 
 notifications:  
   email:  
