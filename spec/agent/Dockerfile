@@ -48,4 +48,4 @@ CMD sed -i 's@{EC_AID}@'"$conf.aid"'@g' ~/${conf.mod}.yml \
  && sed -i 's@{EC_PXY}@'"$conf.pxy"'@g' ~/${conf.mod}.yml \
  && sed -i 's@{EC_PLG}@'"$conf.plg"'@g' ~/${conf.mod}.yml \
  && cat ./${conf.mod}.yml \
- && ./ecagent_linux_sys -cfg ${conf.mod}.yml
+ && ./agent -cfg ${conf.mod}.yml
