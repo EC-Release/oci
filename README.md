@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/Enterprise-connect/oci.svg?branch=v1.1beta_oci_spec)](https://travis-ci.com/Enterprise-connect/oci)
+[![Build Status](https://travis-ci.com/Enterprise-connect/oci.svg?branch=v1.1beta_oci_spec)](https://travis-ci.com/github/Enterprise-connect/oci/branches)
 
 # EC OCI Spec
 **It is recommneded running the containers specified in this repo in rootless mode for better security.**
