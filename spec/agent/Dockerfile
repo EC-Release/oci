@@ -28,7 +28,7 @@ RUN wget -O ./ecagent_linux_sys.tar.gz https://raw.githubusercontent.com/Enterpr
   && rm ./ecagent_linux_sys.tar.gz \
   && ls -al
 
-CMD sed -i 's@{EC_AID}@'"$conf.aid"'@g' ~/${conf.mod}.yml \
+CMD . sed -i 's@{EC_AID}@'"$conf.aid"'@g' ~/${conf.mod}.yml \
  && sed -i 's@{EC_TID}@'"$conf.tid"'@g' ~/${conf.mod}.yml \
  && sed -i 's@{EC_CID}@'"$conf.cid"'@g' ~/${conf.mod}.yml \
  && sed -i 's@{EC_CSC}@'"$conf.csc"'@g' ~/${conf.mod}.yml \
