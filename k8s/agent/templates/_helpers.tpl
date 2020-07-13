@@ -107,3 +107,14 @@ Generate service health port spec for client agent pods. Need review for gateway
   protocol: TCP
   name: {{ .Values.agtK8Config.svcHealthPortName }}
 {{- end -}}
+
+{{/*
+Specify agent launch command based on the revision from the global variable "releasetag"
+*/}}
+{{- define "agent.launchCmd" -}}
+{{- if or (eq .Values.global.agtK8Config.releaseTag "v1.1beta") (eq .Values.global.agtK8Config.releaseTag "v1.1") -}}
+["./agent","env"]
+{{- else -}}
+[]
+{{- end -}}
+{{- end -}}
