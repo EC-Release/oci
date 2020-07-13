@@ -23,7 +23,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           image: "enterpriseconnect/agent:{{ .Values.global.agtK8Config.releaseTag }}"
-          command: {{- include "agent.launchCmd" . }} 
+          command: {{ include "agent.launchCmd" . }} 
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
