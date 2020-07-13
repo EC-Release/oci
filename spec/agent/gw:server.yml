@@ -12,3 +12,4 @@ ec-config:
     rht: {EC_RHT}
     plg: {EC_PLG}
     hst: {EC_HST}
+    hca: {EC_HCA}
