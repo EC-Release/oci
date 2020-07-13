@@ -11,3 +11,4 @@ ec-config:
     tid: {EC_TID}
     hst: {EC_HST}
     gpt: {EC_GPT}
+    hca: {EC_HCA}
