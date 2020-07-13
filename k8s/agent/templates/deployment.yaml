@@ -23,7 +23,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           image: "enterpriseconnect/agent:{{ .Values.global.agtK8Config.releaseTag }}"
-          command: ["./agent", "-env"] 
+          command: {{ include "agent.launchCmd" . }} 
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -43,8 +43,10 @@ spec:
           env:
             {{- range (split "\n" .Values.global.agtConfig) }}
             {{- $a := split "=" . }}
+            {{- if and (not (eq $a._0 "")) ($a._0) }}
             - name: {{ $a._0|quote }}
               value: {{ $a._1|quote }}
+            {{- end }}
             {{- end -}}
       {{- with .Values.nodeSelector }}
       nodeSelector:
