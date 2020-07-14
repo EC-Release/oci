@@ -64,10 +64,19 @@ In the parent chart(s), there are some options avaialble to customise the agent 
 ...
 global:
   agtK8Config:
+    # some cluster instances require resource-spec for the deployment, e.g. GE Digital
+    # PCS CF1/CF3 Cluster, whereas some can simply ignore the usage.
+    resources:
+      limits:
+        cpu: 200m
+        memory: 1Gi
+      requests:
+        cpu: 200m
+        memory: 512Mi
     svcPortNum: 18080
     svcHealthPortNum: 18081
     #options v1.1beta|v1|v1beta
-    releaseTag: v1.1beta
+    releaseTag: v1
 ```
 
 #### Agent/Chart Configuration Conversion
