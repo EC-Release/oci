@@ -11,8 +11,8 @@ ec-config:
     oa2: {EC_OA2}
     dur: {EC_DUR}
     aid: {EC_AID}
-    rpt: {EC_RPT}
+    rpt: "{EC_RPT}"
     rht: {EC_RHT}
     plg: {EC_PLG}
     cps: {EC_CPS}
-    hca: {EC_HCA}
+    hca: "{EC_HCA}"
