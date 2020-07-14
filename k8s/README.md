@@ -65,7 +65,8 @@ In the parent chart(s), there are some options avaialble to customise the agent 
 global:
   agtK8Config:
     # some cluster instances require resource-spec for the deployment, e.g. GE Digital
-    # PCS CF1/CF3 Cluster, whereas some can simply ignore the usage.
+    # PCS CF1/CF3 Cluster, whereas some can simply ignore the usage. Users may comment
+    # out the "resources" section if it is not needed in your cluster.
     resources:
       limits:
         cpu: 200m
