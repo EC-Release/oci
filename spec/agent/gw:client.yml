@@ -1,7 +1,7 @@
 ec-config:
   conf:
     mod: gw:client
-    lpt: {EC_LPT}
+    lpt: "{EC_LPT}"
     zon: {EC_ZON}
     grp: {EC_GRP}
     sst: {EC_SST}
@@ -10,5 +10,5 @@ ec-config:
     aid: {EC_AID}
     tid: {EC_TID}
     hst: {EC_HST}
-    gpt: {EC_GPT}
-    hca: {EC_HCA}
+    gpt: "{EC_GPT}"
+    hca: "{EC_HCA}"
