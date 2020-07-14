@@ -59,7 +59,7 @@ $ helm dependency update example
 ```
 
 #### Update the agent usage
-In the parent chart(s), there are some options avaialble to customise the agent usage. The configuration below is also available in the example/ to the reference.
+In the parent chart(s), there are some options avaialble to customise the agent usage. The configuration below is also available in the example/values.yaml for the usage reference.
 ```yaml
 ...
 global:
