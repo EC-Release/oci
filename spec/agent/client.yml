@@ -9,7 +9,7 @@ ec-config:
     oa2: {EC_OA2}
     dur: {EC_DUR}
     dbg: {EC_DBG}
-    zon: {EC_ZON}
+    #zon: {EC_ZON}
     grp: {EC_GRP}
     cps: {EC_CPS}
     hca: {EC_HCA}
