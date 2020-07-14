@@ -39,7 +39,7 @@ spec:
               path: /health
               port: {{ .Values.agtK8Config.healthPortName }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- include "agent.podResource" . | nindent 12 }}
           env:
             {{- range (split "\n" .Values.global.agtConfig) }}
             {{- $a := split "=" . }}
