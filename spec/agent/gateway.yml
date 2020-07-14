@@ -1,7 +1,7 @@
 ec-config:
   conf:
     mod: gateway
-    gpt: {EC_GPT}
+    gpt: "{EC_GPT}"
     zon: {EC_ZON}
     grp: {EC_GRP}
     sst: {EC_SST}
@@ -9,4 +9,4 @@ ec-config:
     tkn: {EC_TKN}
     hst: {EC_HST}
     cps: {EC_CPS}
-    hca: {EC_HCA}
+    hca: "{EC_HCA}"
