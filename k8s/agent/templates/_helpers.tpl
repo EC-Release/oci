@@ -67,9 +67,12 @@ Generate container port spec for client agent. Need review for gateway usage
 */}}
 {{- define "agent.portSpec" -}}
 {{- range (split "\n" .Values.global.agtConfig) }}
-{{- if contains "lpt=:" . -}}
+{{- if contains "lpt=" . -}}
+{{- $a := (. replace ":" "") -}}
+{{- $b := ($a replace "'" "") -}}
+{{- $c := ($b replace "\"" "") -}}
 - name: {{ $.Values.agtK8Config.portName }}
-  containerPort: {{ (split "=:" . )._1 }}
+  containerPort: {{ (split "=" $c )._1 }}
   protocol: TCP
 {{- end -}}
 {{- end -}}
@@ -90,9 +93,12 @@ Generate container HEALTH port spec for client agent. Need review for gateway us
 */}}
 {{- define "agent.healthPortSpec" -}}
 {{- range (split "\n" .Values.global.agtConfig) }}
-{{- if contains "hca=:" . -}}
+{{- if contains "hca=" . -}}
+{{- $a := (. replace ":" "") -}}
+{{- $b := ($a replace "'" "") -}}
+{{- $c := ($b replace "\"" "") -}}
 - name: {{ $.Values.agtK8Config.healthPortName }}
-  containerPort: {{ (split "=:" . )._1 }}
+  containerPort: {{ (split "=" $c )._1 }}
   protocol: TCP
 {{- end -}}
 {{- end -}}
