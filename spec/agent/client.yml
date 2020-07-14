@@ -13,5 +13,6 @@ ec-config:
     grp: {EC_GRP}
     cps: {EC_CPS}
     hca: "{EC_HCA}"
+    lpt: {EC_LPT}
     #fup: agent_solaris_sparc64_sys:ayasuda_copy_example_2
     #fdw: ayasuda_copy_example_2:anotherfile_example
