@@ -18,12 +18,12 @@ USER root
 WORKDIR /root
 
 #arg is rewritten by docker build
-ARG EC_REV_V1=v1.hokkaido.212
+ARG EC_REV_V1BETA=v1beta.fukuoka.1725
 
 COPY ./*.yml ./
 COPY ./agent.sh ./
 
-RUN wget -O ./ecagent_linux_sys.tar.gz https://raw.githubusercontent.com/Enterprise-connect/sdk/${EC_REV_V1}/dist/ecagent_linux_sys.tar.gz \
+RUN wget -O ./ecagent_linux_sys.tar.gz https://raw.githubusercontent.com/Enterprise-connect/sdk/${EC_REV_V1BETA}/dist/ecagent_linux_sys.tar.gz \
   && tar -xvzf ./ecagent_linux_sys.tar.gz \
   && mv ecagent_linux_sys agent \
   && rm ./ecagent_linux_sys.tar.gz \
