@@ -59,15 +59,25 @@ $ helm dependency update example
 ```
 
 #### Update the agent usage
-In the parent chart(s), there are some options avaialble to customise the agent usage. The configuration below is also available in the example/ to the reference.
+In the parent chart(s), there are some options avaialble to customise the agent usage. The configuration below is also available in the example/values.yaml for the usage reference.
 ```yaml
 ...
 global:
   agtK8Config:
+    # some cluster instances require resource-spec for the deployment, e.g. GE Digital
+    # PCS CF1/CF3 Cluster, whereas some can simply ignore the usage. Users may comment
+    # out the "resources" section if it is not needed in your cluster.
+    resources:
+      limits:
+        cpu: 200m
+        memory: 1Gi
+      requests:
+        cpu: 200m
+        memory: 512Mi
     svcPortNum: 18080
     svcHealthPortNum: 18081
     #options v1.1beta|v1|v1beta
-    releaseTag: v1.1beta
+    releaseTag: v1
 ```
 
 #### Agent/Chart Configuration Conversion
