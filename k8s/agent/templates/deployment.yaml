@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "agent.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.global.agtK8Config.replicaCount }}
   selector:
     matchLabels:
       {{- include "agent.selectorLabels" . | nindent 6 }}
