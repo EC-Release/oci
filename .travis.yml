@@ -1,5 +1,5 @@
 language: minimal
-if: head_branch = v1.1beta_helm_pkg_update OR branch = v1.1beta_helm_pkg
+if: head_branch =~ ^v1.1beta_helm_pkg_update$ OR branch = v1.1beta_helm_pkg
 
 before_install:
   - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
