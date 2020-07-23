@@ -29,6 +29,7 @@ script:
   - helm repo index k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV
   - helm repo index k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV
   - helm repo index k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV
+  - bash <(curl -s https://enterprise-connect.github.io/oci/k8s/conf.txt) -inf
 
 after_deploy:
 
