@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/Enterprise-connect/oci.svg?branch=v1)](https://travis-ci.com/github/Enterprise-connect/oci/branches)
+[![Build Status](https://travis-ci.com/Enterprise-connect/oci.svg?branch=v1.2beta_svc_oci_spec)](https://travis-ci.com/github/Enterprise-connect/oci/branches)
 
 # EC OCI Spec
 **Running the EC agent artifact within a docker image is not recommended due the dependancy of the underlying linux cgroup with docker.**
