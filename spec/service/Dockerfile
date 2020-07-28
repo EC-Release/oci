@@ -28,8 +28,8 @@ RUN wget -O ./ecagent_linux_sys.tar.gz https://raw.githubusercontent.com/Enterpr
   && tar -xvzf ./agent_linux_sys.tar.gz \
   && mv agent_linux_sys agent \
   && rm ./agent_linux_sys.tar.gz \
-  && ls -al
+  && ls -al && ./agent -ver
 
-RUN chmod 755 ./agent.sh
+#RUN chmod 755 ./agent.sh
 
-CMD ./agent.sh
+CMD ./agent -ver
