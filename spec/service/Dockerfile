@@ -23,7 +23,7 @@ ARG EC_REV_V1_2BETA=v1.2beta.fukuoka.0
 #COPY ./*.yml ./
 #COPY ./agent.sh ./
 
-RUN apt install hub
+RUN apk install hub
 RUN wget -O ./ecagent_linux_sys.tar.gz https://raw.githubusercontent.com/Enterprise-connect/sdk/${EC_REV_V1_2BETA}/dist/agent/agent_linux_sys.tar.gz \
   && tar -xvzf ./agent_linux_sys.tar.gz \
   && mv agent_linux_sys agent \
