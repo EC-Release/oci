@@ -24,7 +24,7 @@ ARG EC_REV_V1_2BETA=v1.2beta.fukuoka.0
 #COPY ./agent.sh ./
 
 RUN apk add --no-cache git
-RUN apk add hub
+RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing hub
 RUN wget -O ./ecagent_linux_sys.tar.gz https://raw.githubusercontent.com/Enterprise-connect/sdk/${EC_REV_V1_2BETA}/dist/agent/agent_linux_sys.tar.gz \
   && tar -xvzf ./agent_linux_sys.tar.gz \
   && mv agent_linux_sys agent \
