@@ -18,16 +18,16 @@ USER root
 WORKDIR /root
 
 #arg is rewritten by docker build
-ARG EC_REV_V1BETA=v1beta.fukuoka.1725
+ARG EC_REV_V1_2BETA=v1.2beta.fukuoka.0
 
 COPY ./*.yml ./
 COPY ./agent.sh ./
 
 RUN apt install hub
-RUN wget -O ./ecagent_linux_sys.tar.gz https://raw.githubusercontent.com/Enterprise-connect/sdk/${EC_REV_V1BETA}/dist/ecagent_linux_sys.tar.gz \
-  && tar -xvzf ./ecagent_linux_sys.tar.gz \
-  && mv ecagent_linux_sys agent \
-  && rm ./ecagent_linux_sys.tar.gz \
+RUN wget -O ./ecagent_linux_sys.tar.gz https://raw.githubusercontent.com/Enterprise-connect/sdk/${EC_REV_V1_2BETA}/dist/agent/agent_linux_sys.tar.gz \
+  && tar -xvzf ./agent_linux_sys.tar.gz \
+  && mv agent_linux_sys agent \
+  && rm ./agent_linux_sys.tar.gz \
   && ls -al
 
 RUN chmod 755 ./agent.sh
