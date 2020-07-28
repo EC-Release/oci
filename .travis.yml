@@ -1,5 +1,5 @@
 language: minimal
-if: head_branch = v1beta_oci_spec_update OR branch = v1beta_oci_spec
+if: head_branch = v1.2beta_oci_spec_update OR branch = v1.2beta_oci_spec
 
 services:
   - docker
@@ -7,16 +7,16 @@ services:
 before_install:
 
 script:
-   - cd ./spec/agent && docker build -t enterpriseconnect/agent:v1beta --build-arg EC_REV_V1BETA=${EC_REV_V1BETA} .
+   - cd ./spec/service && docker build -t enterpriseconnect/service:v1.2beta --build-arg EC_REV_V1_2BETA=${EC_REV_V1_2BETA} .
    
 deploy:
   - provider: script
     skip_cleanup: true
-    script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push enterpriseconnect/agent:v1beta
+    script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push enterpriseconnect/service:v1.2beta
     on:
       branch: v1beta_oci_spec
 
-after_deploy: docker rmi enterpriseconnect/agent:v1beta -f && docker run -it enterpriseconnect/agent:v1beta ./agent -ver
+after_deploy: docker rmi enterpriseconnect/service:v1.2beta -f && docker run -it enterpriseconnect/service:v1.2beta ./agent -ver
 
 notifications:  
   email:  
