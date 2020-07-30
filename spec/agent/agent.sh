@@ -29,6 +29,10 @@ pxy=$(getProperty "conf.pxy")
 plg=$(getProperty "conf.plg")
 hca=$(getProperty "conf.hca")
 
+if [[ $pxy == *false* ]]; then
+  pxy=""
+fi
+
 sed -i "s|{EC_AID}|$aid|g" ~/${mod}.yml
 sed -i "s|{EC_TID}|$tid|g" ~/${mod}.yml
 sed -i "s|{EC_CID}|$cid|g" ~/${mod}.yml
