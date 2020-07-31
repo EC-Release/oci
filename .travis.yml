@@ -37,7 +37,6 @@ script:
 
 after_deploy:
 
-  
 deploy:
   provider: pages 
   github_token: $GITHUB_TOKEN
