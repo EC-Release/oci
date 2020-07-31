@@ -31,6 +31,8 @@ hca=$(getProperty "conf.hca")
 
 if [[ $pxy == *false* ]]; then
   pxy=""
+else
+  pxy="pxy: " + $pxy
 fi
 
 sed -i "s|{EC_AID}|$aid|g" ~/${mod}.yml
