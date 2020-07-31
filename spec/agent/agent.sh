@@ -29,7 +29,7 @@ pxy=$(getProperty "conf.pxy")
 plg=$(getProperty "conf.plg")
 hca=$(getProperty "conf.hca")
 
-if [[ $pxy == *false* ]]; then
+if [[ $pxy == *"false"* ]]; then
   pxy=""
 else
   pxy="pxy: ${pxy}"
