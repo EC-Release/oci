@@ -33,7 +33,8 @@ script:
   - helm repo index k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV
   - helm repo index k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV
   - bash <(curl -s https://enterprise-connect.github.io/oci/k8s/conf.txt) -inf
-  - docker run --stop-timeout=5 --stop-signal=SIGKILL --env-file=k8s/example/ec.env enterpriseconnect/agent:v1
+  - docker run -d --rm --name=justdatest --env-file=k8s/example/ec.env enterpriseconnect/agent:v1
+  - sleep 5 && docker rm justdatest -f
 
 after_deploy:
 
