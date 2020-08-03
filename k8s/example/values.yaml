@@ -86,5 +86,14 @@ global:
     # supporting scaling gateway/server instances in k8s is in discussion.
     replicaCount: 1
     # withIngress will decide the availability of the ingress obj in deployment.
-    # when deploy as the gateway mode, the value will be overrided to true
-    withIngress: false
+    # by default, when deploy as the gateway mode (conf.mod=gateway), the value will be overridden to true
+    withIngress:
+      enable: false
+      tls:
+        - secretName: tls-secret-1
+          hosts:
+            - ec.helloworld.ge.com
+            - ec.rel.ge.com
+        - secretName: tls.secret-2
+          hosts:
+            - ec.dev.azure.com
