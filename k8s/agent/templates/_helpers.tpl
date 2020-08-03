@@ -140,3 +140,43 @@ requests:
 {}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Extract the agent mode from the agent config
+*/}}
+{{- define "agent.mode" -}}
+{{- range (split "\n" .Values.global.agtConfig) -}}
+{{- if contains "mod=" . -}}
+{{- $a := (. | replace ":" "") -}}
+{{- $b := ($a | replace "'" "") -}}
+{{- $c := ($b | replace "\"" "") -}}
+{{- (split "=" $c )._1 -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Specify the agt ingress spec
+*/}}
+{{- define "agent.ingress" -}}
+  tls:
+  {{- range .Values.global.agtK8Config.withIngress.tls }}
+    - hosts:
+      {{- range .hosts }}
+        - {{ . | quote }}
+      {{- end }}
+      secretName: {{ .secretName }}
+  {{- end }}
+  rules:
+  {{- range .Values.global.agtK8Config.withIngress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+        {{- range .paths }}
+          - path: {{ . }}
+            backend:
+              serviceName: {{- include "agent.fullname" -}}
+              servicePort: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
+        {{- end }}
+  {{- end }}
+{{- end -}}
