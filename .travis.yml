@@ -1,6 +1,9 @@
 language: minimal
 if: head_branch =~ ^v1.1beta_helm_pkg_update$ OR branch = v1.1beta_helm_pkg
 
+services:
+  - docker
+  
 before_install:
   - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
@@ -30,10 +33,11 @@ script:
   - helm repo index k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV
   - helm repo index k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV
   - bash <(curl -s https://enterprise-connect.github.io/oci/k8s/conf.txt) -inf
+  - docker run -d --rm --name=justdatest --env-file=k8s/example/ec.env enterpriseconnect/agent:v1
+  - sleep 5 && docker logs justdatest && docker rm justdatest -f
 
 after_deploy:
 
-  
 deploy:
   provider: pages 
   github_token: $GITHUB_TOKEN
