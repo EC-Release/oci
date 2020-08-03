@@ -85,6 +85,6 @@ global:
     # replicaCount currently supports client instances only.
     # supporting scaling gateway/server instances in k8s is in discussion.
     replicaCount: 1
-    # enableIngress will decide the availability of the ingress obj in deployment.
+    # withIngress will decide the availability of the ingress obj in deployment.
     # when deploy as the gateway mode, the value will be overrided to true
-    enableIngress: false
+    withIngress: false
