@@ -7,7 +7,7 @@ services:
 before_install:
   - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
-script:
+script: 
   - helm version
   - echo $(pwd)
   - eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/agent+helper/Chart.yaml"
@@ -36,12 +36,12 @@ script:
   - docker run -d --rm --name=justdatest --env-file=k8s/example/ec.env enterpriseconnect/agent:v1
   - sleep 5 && docker logs justdatest && docker rm justdatest -f
 
-after_deploy:
+after_deploy: chmod 775 ./after_deploy.sh && ./after_deploy.sh
 
 deploy:
   provider: pages 
   github_token: $GITHUB_TOKEN
-  local_dir: .
+  local_dir: k8s/pkg
   target_branch: gh-pages
   verbose: true
   skip_cleanup: true
@@ -56,5 +56,6 @@ notifications:
     - prasad.alokam@ge.com
     - Simran.Choudhary@ge.com
     - Sheshank.Gujjari@ge.com
+    - ryan.howell@ge.com
     on_success: always  
     on_failure: always
