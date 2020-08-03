@@ -1,0 +1,60 @@
+language: minimal
+if: head_branch =~ ^v1.1beta_helm_pkg_update$ OR branch = v1.1beta_helm_pkg
+
+services:
+  - docker
+  
+before_install:
+  - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+
+script:
+  - helm version
+  - echo $(pwd)
+  - eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/agent+helper/Chart.yaml"
+  - eval "sed -i -e 's#<AGENT_CHART_REV>#${AGENT_CHART_REV}#g' k8s/agent/Chart.yaml"
+  - eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/agent/Chart.yaml"
+  - eval "sed -i -e 's#<AGENT_TLS_CHART_REV>#${AGENT_TLS_CHART_REV}#g' k8s/agent+tls/Chart.yaml"
+  - eval "sed -i -e 's#<AGENT_VLN_CHART_REV>#${AGENT_VLN_CHART_REV}#g' k8s/agent+vln/Chart.yaml"
+  - eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/example/Chart.yaml"
+  - eval "sed -i -e 's#<AGENT_CHART_REV>#${AGENT_CHART_REV}#g' k8s/example/Chart.yaml"
+  - cat k8s/agent+helper/Chart.yaml k8s/agent/Chart.yaml k8s/agent+tls/Chart.yaml k8s/agent+vln/Chart.yaml k8s/example/Chart.yaml
+  - mkdir -p k8s/pkg/agent/$AGENT_CHART_REV k8s/pkg/agent+helper/$AGENT_HELPER_REV k8s/pkg/agent+vln/$AGENT_VLN_REV k8s/pkg/agent+tls/$AGENT_TLS_REV
+  - ls -la k8s/pkg
+  - helm package k8s/agent+helper -d k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV
+  - helm dependency update k8s/agent
+  - helm package k8s/agent -d k8s/pkg/agent/$AGENT_CHART_REV
+  - helm package k8s/agent+tls -d k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV
+  - helm package k8s/agent+vln -d k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV
+  - echo test example spec
+  - helm dependency update k8s/example
+  - helm template k8s/example --debug --set-file global.agtConfig=k8s/example/ec.env
+  - helm repo index k8s/pkg/agent/$AGENT_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent/$AGENT_CHART_REV
+  - helm repo index k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV
+  - helm repo index k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV
+  - helm repo index k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV
+  - bash <(curl -s https://enterprise-connect.github.io/oci/k8s/conf.txt) -inf
+  - docker run -d --rm --name=justdatest --env-file=k8s/example/ec.env enterpriseconnect/agent:v1
+  - sleep 5 && docker logs justdatest && docker rm justdatest -f
+
+after_deploy:
+
+deploy:
+  provider: pages 
+  github_token: $GITHUB_TOKEN
+  local_dir: .
+  target_branch: gh-pages
+  verbose: true
+  skip_cleanup: true
+  keep_history: true
+  on:
+    branch: v1.1beta_helm_pkg
+
+notifications:  
+  email:  
+    recipients:  
+    - ec-research@ge.com
+    - prasad.alokam@ge.com
+    - Simran.Choudhary@ge.com
+    - Sheshank.Gujjari@ge.com
+    on_success: always  
+    on_failure: always

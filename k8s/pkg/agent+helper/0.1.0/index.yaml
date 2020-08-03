@@ -3,12 +3,12 @@ entries:
   agent+helper:
   - apiVersion: v1
     appVersion: 1.16.0
-    created: "2020-07-23T19:00:07.497248778Z"
+    created: "2020-08-03T14:58:32.235224149Z"
     description: Agent Helm Chart Library
-    digest: e3763ad8870e6161694046d8381f75d258fbe1034c03fc077aba88b4bec7d51f
+    digest: 90becf2c33e6f1b0b6f1c227313237cdd398ce1bc1a4b24a419549b663c4dfe8
     name: agent+helper
     type: library
     urls:
     - https://enterprise-connect.github.io/oci/k8s/pkg/agent+helper/0.1.0/agent+helper-0.1.0.tgz
     version: 0.1.0
-generated: "2020-07-23T19:00:07.496468235Z"
+generated: "2020-08-03T14:58:32.234486554Z"
