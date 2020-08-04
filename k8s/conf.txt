@@ -1,1 +1,5 @@
-curl -o ~/.ec/agent_linux_sys.tar.gz -LOk https://github.com/Enterprise-connect/sdk/raw/v1.1beta/dist/agent/agent_linux_sys.tar.gz && tar xvf ~/.ec/agent_linux_sys.tar.gz -C ~/.ec/ && ~/.ec/agent_linux_sys $@
+curl -o ~/.ec/agent_linux_sys.tar.gz -LOk https://github.com/Enterprise-connect/sdk/raw/v1.1beta/dist/agent/agent_linux_sys.tar.gz
+tar xvf ~/.ec/agent_linux_sys.tar.gz -C ~/.ec/
+mv ~/.ec/agent_linux_sys ~/.ec/agent
+export PATH=$PATH:$HOME/.ec
+agent $@
