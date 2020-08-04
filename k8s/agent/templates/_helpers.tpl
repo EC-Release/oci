@@ -66,8 +66,13 @@ Create the name of the service account to use
 Generate container port spec for client agent. Need review for gateway usage
 */}}
 {{- define "agent.portSpec" -}}
+{{- $mode := include "agent.mode" . -}}
+{{- $portName := "lpt=" -}}
+{{- if or (eq $mode "gateway") (eq $mode "gw:server") (eq $mode "gw:client")) -}}
+{{- $portName = "gpt=" -}}
+{{- end -}}
 {{- range (split "\n" .Values.global.agtConfig) }}
-{{- if contains "lpt=" . -}}
+{{- if contains $portName . -}}
 {{- $a := (. | replace ":" "") -}}
 {{- $b := ($a | replace "'" "") -}}
 {{- $c := ($b | replace "\"" "") -}}
@@ -79,7 +84,7 @@ Generate container port spec for client agent. Need review for gateway usage
 {{- end -}}
 
 {{/*
-Generate service port spec for client agent pods. Need review for gateway usage
+Generate service port spec for agent pods.
 */}}
 {{- define "agent.svcPortSpec" -}}
 - port: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
@@ -92,8 +97,12 @@ Generate service port spec for client agent pods. Need review for gateway usage
 Generate container HEALTH port spec for client agent. Need review for gateway usage
 */}}
 {{- define "agent.healthPortSpec" -}}
+{{- $portName := "hca=" -}}
+{{- if or (eq $mode "gateway") (eq $mode "gw:server") (eq $mode "gw:client")) -}}
+{{- $portName = "gpt=" -}}
+{{- end -}}
 {{- range (split "\n" .Values.global.agtConfig) }}
-{{- if contains "hca=" . -}}
+{{- if contains $portName . -}}
 {{- $a := (. | replace ":" "") -}}
 {{- $b := ($a | replace "'" "") -}}
 {{- $c := ($b | replace "\"" "") -}}
@@ -105,7 +114,7 @@ Generate container HEALTH port spec for client agent. Need review for gateway us
 {{- end -}}
 
 {{/*
-Generate service health port spec for client agent pods. Need review for gateway usage
+Generate service health port spec for agent pods. 
 */}}
 {{- define "agent.svcHealthPortSpec" -}}
 - port: {{ ternary .Values.agtK8Config.svcHealthPortNum .Values.global.agtK8Config.svcHealthPortNum  (kindIs "invalid" .Values.global.agtK8Config.svcHealthPortNum) }}
