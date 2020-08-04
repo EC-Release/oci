@@ -158,7 +158,6 @@ Extract the agent mode from the agent config
 {{/*
 Specify the agt ingress spec
 */}}
-{{- $serviceName := include "agent.fullname" . -}}
 {{- define "agent.ingress" -}}
   tls:
   {{- range .Values.global.agtK8Config.withIngress.tls }}
@@ -176,7 +175,7 @@ Specify the agt ingress spec
         {{- range $path := .paths }}
           - path: {{ $path | quote }}
             backend:
-              serviceName: {{ $serviceName | quote }}
+              serviceName: {{ include "agent.name" . }}
               servicePort: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
         {{- end }}
   {{- end }}
