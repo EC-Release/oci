@@ -85,7 +85,7 @@ global:
     # replicaCount currently supports client instances only.
     # supporting scaling gateway/server instances in k8s is in discussion.
     replicaCount: 1
-    # withIngress decides the availability of the ingress obj in deployment.
+    # withIngress decides the availability of the agt ingress obj in deployment.
     # by default, when deploy as the gateway mode (conf.mod=gateway), the value (enabled) will be overridden to true
     withIngress:
       enabled: false
@@ -94,7 +94,9 @@ global:
       hosts:
         - host: ec.http.helloworld.ge.com
           paths: ["/agent", "/health", "/v1", "/v1beta"]
-      # present if the agt is accessible via wss|https
+      # present if the agt is accessible via wss|https.
+      # example empty array below indicates no tls assignment is avaialble 
+      # tls: [] 
       tls:
         - secretName: tls-secret-1
           hosts: ["ec.helloworld.ge.com", "ec.rel.ge.com"]
