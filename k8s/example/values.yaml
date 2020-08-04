@@ -85,8 +85,8 @@ global:
     # replicaCount currently supports client instances only.
     # supporting scaling gateway/server instances in k8s is in discussion.
     replicaCount: 1
-    # withIngress will decide the availability of the ingress obj in deployment.
-    # by default, when deploy as the gateway mode (conf.mod=gateway), the value will be overridden to true
+    # withIngress decides the availability of the ingress obj in deployment.
+    # by default, when deploy as the gateway mode (conf.mod=gateway), the value (enabled) will be overridden to true
     withIngress:
       enabled: false
       # host utilised to make the agt accessible via non-tls traffic. 
