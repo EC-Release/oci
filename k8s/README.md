@@ -102,7 +102,7 @@ global:
 #### Agent/Chart Configuration Conversion
 ```bash
 # convert the ec config file into a chart-readable format and be ready for the chart deployment
-$ cd <path/to/example> && bash <(curl -s https://enterprise-connect.github.io/install/v1.1beta.linux64.txt) \
+$ cd <path/to/example> && bash <(wget -O - https://enterprise-connect.github.io/sdk/scripts/agt/v1.1beta.linux64.txt) \
 -cfg <conf.yaml> \
 -out <conf.env>
 ```
