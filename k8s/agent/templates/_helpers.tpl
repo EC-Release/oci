@@ -175,7 +175,7 @@ Specify the agt ingress spec
         {{- range .paths }}
           - path: {{ . }}
             backend:
-              serviceName: {{ include "agent.fullname" $. }}
+              serviceName: {{ include "agent.fullname" $val|quote }}
               servicePort: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
         {{- end }}
   {{- end }}
