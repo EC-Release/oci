@@ -169,6 +169,7 @@ Specify the agt ingress spec
   {{- end }}
   rules:
   {{ $serviceName := include "agent.fullname" . }}
+  {{ $servicePort := (ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum)) }}
   {{- range .Values.global.agtK8Config.withIngress.hosts }}
     - host: {{ .host | quote }}
       http:
@@ -177,7 +178,7 @@ Specify the agt ingress spec
           - path: {{ $path | quote }}
             backend:
               serviceName: {{ $serviceName | quote }}
-              servicePort: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
+              servicePort: {{ $servicePort }}
         {{- end }}
   {{- end }}
 {{- end -}}
