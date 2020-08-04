@@ -168,6 +168,7 @@ Specify the agt ingress spec
       secretName: {{ .secretName }}
   {{- end }}
   rules:
+  {{ $serviceName := include "agent.fullname" . }}
   {{- range .Values.global.agtK8Config.withIngress.hosts }}
     - host: {{ .host | quote }}
       http:
@@ -175,7 +176,7 @@ Specify the agt ingress spec
         {{- range $path := .paths }}
           - path: {{ $path | quote }}
             backend:
-              serviceName: {{ include "agent.name" . }}
+              serviceName: {{ $serviceName | quote }}
               servicePort: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
         {{- end }}
   {{- end }}
