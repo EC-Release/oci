@@ -15,5 +15,5 @@ metadata:
   annotations:
     {}
 spec:
-  {{- include "agent.ingress" . -}}
+  {{- include "agent.ingress" . | nindent 2 }}
 {{- end }}
