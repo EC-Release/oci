@@ -97,6 +97,7 @@ Generate service port spec for agent pods.
 Generate container HEALTH port spec for client agent. Need review for gateway usage
 */}}
 {{- define "agent.healthPortSpec" -}}
+{{- $mode := include "agent.mode" . -}}
 {{- $portName := "hca=" -}}
 {{- if or (eq $mode "gateway") (eq $mode "gw:server") (eq $mode "gw:client") -}}
 {{- $portName = "gpt=" -}}
