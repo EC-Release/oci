@@ -172,10 +172,10 @@ Specify the agt ingress spec
     - host: {{ .host | quote }}
       http:
         paths:
-        {{- range .paths }}
-          - path: {{ . }}
+        {{- range $path := .paths }}
+          - path: {{ $path|quote }}
             backend:
-              serviceName: {{ include "agent.fullname" $val|quote }}
+              serviceName: {{ include "agent.fullname" .|quote }}
               servicePort: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
         {{- end }}
   {{- end }}
