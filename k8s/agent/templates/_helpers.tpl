@@ -68,7 +68,7 @@ Generate container port spec for client agent. Need review for gateway usage
 {{- define "agent.portSpec" -}}
 {{- $mode := include "agent.mode" . -}}
 {{- $portName := "lpt=" -}}
-{{- if or (eq $mode "gateway") (eq $mode "gw:server") (eq $mode "gw:client")) -}}
+{{- if or (eq $mode "gateway") (eq $mode "gw:server") (eq $mode "gw:client") -}}
 {{- $portName = "gpt=" -}}
 {{- end -}}
 {{- range (split "\n" .Values.global.agtConfig) }}
@@ -98,7 +98,7 @@ Generate container HEALTH port spec for client agent. Need review for gateway us
 */}}
 {{- define "agent.healthPortSpec" -}}
 {{- $portName := "hca=" -}}
-{{- if or (eq $mode "gateway") (eq $mode "gw:server") (eq $mode "gw:client")) -}}
+{{- if or (eq $mode "gateway") (eq $mode "gw:server") (eq $mode "gw:client") -}}
 {{- $portName = "gpt=" -}}
 {{- end -}}
 {{- range (split "\n" .Values.global.agtConfig) }}
