@@ -159,6 +159,7 @@ Extract the agent mode from the agent config
 Specify the agt ingress spec
 */}}
 {{- define "agent.ingress" -}}
+{{- if .Values.global.agtK8Config.withIngress.tls -}}
 tls:
 {{- range .Values.global.agtK8Config.withIngress.tls }}
   - hosts:
@@ -166,6 +167,7 @@ tls:
     - {{ . | quote }}
     {{- end }}
     secretName: {{ .secretName }}
+{{- end -}}
 {{- end }}
 rules:
 {{- $serviceName := include "agent.fullname" . -}}
