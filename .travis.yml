@@ -33,8 +33,8 @@ script:
   - helm repo index k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV
   - helm repo index k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV --url https://enterprise-connect.github.io/oci/k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV
   - bash <(wget -O - https://enterprise-connect.github.io/sdk/scripts/agt/v1.1beta.linux64.txt) -inf
-  - docker run -d --rm --name=justdatest --env-file=k8s/example/ec.env enterpriseconnect/agent:v1
-  - sleep 1 && docker logs justdatest
+  - docker run -it --rm --name=justdatest --env-file=k8s/example/ec.env enterpriseconnect/agent:v1 > agt.log || cat agt.log
+  
 
 after_deploy: chmod 775 ./after_deploy.sh && ./after_deploy.sh
 
