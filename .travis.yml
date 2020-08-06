@@ -42,7 +42,7 @@ deploy:
   provider: pages 
   github_token: $GITHUB_TOKEN
   local_dir: k8s/pkg
-  target_branch: gh-pages
+  target_branch: disty
   verbose: true
   skip_cleanup: true
   keep_history: true
@@ -53,9 +53,6 @@ notifications:
   email:  
     recipients:  
     - ec-research@ge.com
-    - prasad.alokam@ge.com
-    - Simran.Choudhary@ge.com
-    - Sheshank.Gujjari@ge.com
-    - ryan.howell@ge.com
+    - enterprise-connect@ge.com
     on_success: always  
     on_failure: always
