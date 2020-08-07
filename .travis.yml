@@ -28,11 +28,11 @@ script:
   - echo test example spec
   - helm dependency update k8s/example
   - helm template k8s/example --debug --set-file global.agtConfig=k8s/example/ec.env
-  - helm repo index k8s/pkg/agent/$AGENT_CHART_REV --url https://enterprise-connect.github.io/oci/agent/$AGENT_CHART_REV
-  - helm repo index k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV --url https://enterprise-connect.github.io/oci/agent+helper/$AGENT_HELPER_CHART_REV
-  - helm repo index k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV --url https://enterprise-connect.github.io/oci/agent+tls/$AGENT_TLS_CHART_REV
-  - helm repo index k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV --url https://enterprise-connect.github.io/oci/agent+vln/$AGENT_VLN_CHART_REV
-  - bash <(wget -O - https://enterprise-connect.github.io/sdk/scripts/agt/v1.1beta.linux64.txt) -inf
+  - helm repo index k8s/pkg/agent/$AGENT_CHART_REV --url https://ec-release.github.io/oci/agent/$AGENT_CHART_REV
+  - helm repo index k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV --url https://ec-release.github.io/oci/agent+helper/$AGENT_HELPER_CHART_REV
+  - helm repo index k8s/pkg/agent+tls/$AGENT_TLS_CHART_REV --url https://ec-release.github.io/oci/agent+tls/$AGENT_TLS_CHART_REV
+  - helm repo index k8s/pkg/agent+vln/$AGENT_VLN_CHART_REV --url https://ec-release.github.io/oci/agent+vln/$AGENT_VLN_CHART_REV
+  - bash <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.1beta.linux64.txt) -inf
   - docker run -it --rm --name=justdatest --env-file=k8s/example/ec.env enterpriseconnect/agent:v1 > agt.log || cat agt.log
   
 
