@@ -46,6 +46,7 @@ agent+helper https://ec-release.github.io/oci/agent+helper/0.1.0
 agent        https://ec-release.github.io/oci/agent/0.1.3
 
 ```
+[Back to Contents](#contents)
 #### Update Dependency List
 ```yaml
 # add chart dependencies to example/Chart.yaml
@@ -68,7 +69,7 @@ dependencies:
 # update chart repo index after modify the list
 $ helm dependency update example
 ```
-
+[Back to Contents](#contents)
 #### Update the agent usage
 In the parent chart(s), there are some options avaialble to customise the agent usage. The configuration below is also available in the example/values.yaml for the usage reference.
 ```yaml
@@ -109,7 +110,7 @@ global:
           hosts: ["*.ec.https.ge.com", "ec.dev.azure.com"]
 
 ```
-
+[Back to Contents](#contents)
 #### Agent/Chart Configuration Conversion
 ```bash
 # convert the ec config file into a chart-readable format and be ready for the chart deployment
@@ -124,6 +125,7 @@ c:\> cd <path\to\mychart> ^
 && tar xvf agent_windows_sys.exe.tar.gz ^
 && agent_windows_sys.exe -cfg -cfg <conf.yaml> -out <conf.env>
 ```
+[Back to Contents](#contents)
 #### Install Plugin & Go
 ```bash
 # test charts template
@@ -219,8 +221,10 @@ spec:
 MANIFEST:
 ...
 ```
-
+[Back to Contents](#contents)
 ### chart developer
-
+[Back to Contents](#contents)
 ### Disclaimer
 <sup>Helm, Charts, and its subsidiary components are the trademark of, all right reserved by Cloud Native Compute Foundation, a Linux Foundation. Examples, plugins, chart/library packages in the sub-path of this repo are actively contributed and maintained by EC R&D team. The open source software in this subpath is licensed under [CC-By-4.0](https://creativecommons.org/licenses/by/4.0/) The software is not garanteed in a working state given any environements, ownership, and the usage may change from time-to-time depend on the project priority.</sup>
+
+[Back to Contents](#contents)
