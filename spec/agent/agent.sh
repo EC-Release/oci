@@ -57,4 +57,4 @@ sed -i "s|{EC_PLG}|$plg|g" ~/${mod}.yml
 sed -i "s|{EC_HCA}|$hca|g" ~/${mod}.yml
 
 cat ./${mod}.yml
-./agent -cfg ${mod}.yml
+agent -cfg ./${mod}.yml
