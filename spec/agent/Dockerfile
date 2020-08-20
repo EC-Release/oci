@@ -25,8 +25,12 @@ COPY ./*.sh ./
 
 RUN apk add --no-cache bash
 
+RUN cat << EOF > ~/.profile\n\
+export PATH=$PATH:~/.ec\n\
+EOF
+
 RUN chmod 755 ./agent.sh
 
 RUN ["/bin/bash", "-c", "source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.linux64.txt) -ver"]
 
-CMD ["export PATH=$PATH:~/.ec","./agent.sh"]
+CMD ["./agent.sh"]
