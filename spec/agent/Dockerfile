@@ -25,6 +25,6 @@ COPY ./*.sh ./
 
 RUN chmod 755 ./agent.sh ./bootstrap.sh
 
-RUN ./bootstrap.sh
+RUN ls -al && ./bootstrap.sh
 
 CMD ./agent.sh
