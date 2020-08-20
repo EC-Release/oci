@@ -23,8 +23,8 @@ ARG EC_REV_V1=v1.hokkaido.212
 COPY ./*.yml ./
 COPY ./*.sh ./
 
-RUN chmod 755 ./agent.sh ./bootstrap.sh
+RUN chmod 755 ./agent.sh
 
-RUN /bin/bash -c "source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.1beta.linux64.txt) -ver"
+RUN RUN apk add --no-cache bash && source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.1beta.linux64.txt) -ver
 
 CMD ./agent.sh
