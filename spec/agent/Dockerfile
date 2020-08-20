@@ -20,6 +20,8 @@ WORKDIR /root
 #arg is rewritten by docker build
 ARG EC_REV_V1=v1.hokkaido.212
 
+ENV ENV="/etc/profile"
+
 COPY ./*.yml ./
 COPY ./*.sh ./
 
