@@ -22,7 +22,7 @@ deploy:
 
 after_deploy: >-
   docker rmi enterpriseconnect/agent:v1 -f && docker run -it enterpriseconnect/agent:v1 agent -ver &&
-  docker rmi enterpriseconnect/plugins:v1 -f && docker run -it enterpriseconnect/plugins:v1 agent -info &&
+  docker rmi enterpriseconnect/plugins:v1 -f && docker run -it enterpriseconnect/plugins:v1 agent -inf &&
   ls -al
 notifications:  
   email:  
