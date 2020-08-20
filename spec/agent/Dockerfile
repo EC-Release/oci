@@ -33,4 +33,6 @@ RUN chmod 755 ./agent.sh
 
 RUN ["/bin/bash", "-c", "source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.linux64.txt) -ver"]
 
+RUN ln -s $HOME/.ec/agent /bin/agent
+
 CMD ["./agent.sh"]
