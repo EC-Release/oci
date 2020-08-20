@@ -25,9 +25,7 @@ COPY ./*.sh ./
 
 RUN apk add --no-cache bash
 
-RUN cat << EOF > ~/.profile \n\
-export PATH=$PATH:~/.ec\
-EOF
+RUN echo 'export PATH=$PATH:~/.ec' >> ~/.profile
 
 RUN chmod 755 ./agent.sh
 
