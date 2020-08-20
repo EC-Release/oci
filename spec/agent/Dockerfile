@@ -23,7 +23,7 @@ ARG EC_REV_V1=v1.hokkaido.212
 COPY ./*.yml ./
 COPY ./agent.sh ./
 
-RUN source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.linux64.txt) -ver
+RUN 'source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.linux64.txt) -ver'
 
 RUN chmod 755 ./agent.sh
 
