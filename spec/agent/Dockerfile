@@ -25,6 +25,6 @@ COPY ./*.sh ./
 
 RUN chmod 755 ./agent.sh ./bootstrap.sh
 
-RUN ls -al && ./bootstrap.sh
+RUN /bin/bash -c "source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.1beta.linux64.txt) -ver"
 
 CMD ./agent.sh
