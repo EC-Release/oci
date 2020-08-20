@@ -13,10 +13,10 @@ script:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: >
+    script: >-
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
       docker push enterpriseconnect/agent:v1 && 
-      docker push enterpriseconnect/plugins:v1 \
+      docker push enterpriseconnect/plugins:v1
     on:
       branch: v1_oci_spec
 
