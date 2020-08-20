@@ -17,9 +17,11 @@ MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 USER root
 WORKDIR /root
 
-RUN source <(wget -O - https://ec-release.github.io/sdk/scripts/plg/tls/v1.linux64.txt)
-RUN source <(wget -O - https://ec-release.github.io/sdk/scripts/plg/vln/v1.linux64.txt)
+RUN apk add --no-cache bash
 
-RUN chmod 755 ./agent.sh
+RUN ["/bin/bash","-c","source <(wget -O - https://ec-release.github.io/sdk/scripts/plg/tls/v1.linux64.txt) -ver"]
+RUN ["/bin/bash","-c","source <(wget -O - https://ec-release.github.io/sdk/scripts/plg/vln/v1.linux64.txt) -ver"]
+
+RUN ls -al && ls -al ~/.ec && chmod 755 ./agent.sh
 
 CMD ./agent.sh
