@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 
 function getProperty {
     PROP_KEY=$1
