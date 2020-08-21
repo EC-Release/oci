@@ -29,10 +29,32 @@ pxy=$(getProperty "conf.pxy")
 plg=$(getProperty "conf.plg")
 hca=$(getProperty "conf.hca")
 
+#plugin type. e.g. tls, vln, etc.
+ptp=$(getProperty "plg.typ")
+
 if [[ $pxy == *false* ]] || [[ $pxy == false ]]; then
   pxy=""
 else
   pxy="pxy: ${pxy}"
+fi
+
+
+if [[ $plg == *true* ]] || [[ $plg == true ]]; then
+  case $ptp in
+	tls)
+		echo "deploying tls plugin"
+        source ~/.ec/plg/tls/tls.sh
+        break
+		;;
+	vln)
+		echo "deploying vln plugin"
+		source ~/.ec/plg/vln/vln.sh
+        break
+		;;
+	*)
+		echo "no plugin type specified"
+		;;
+  esac
 fi
 
 sed -i "s|{EC_AID}|$aid|g" ~/${mod}.yml
