@@ -39,7 +39,7 @@ else
 fi
 
 
-if [[ $plg == *true* ]] || [[ $plg == true ]]; then
+if [[ $plg == *true* ] || [ $plg == true ]] && [[ $mod == "server" ] || [ $mod == "gw:server" ]]; then
   case $ptp in
 	tls)
 		echo "deploying tls plugin"
