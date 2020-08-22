@@ -41,19 +41,27 @@ fi
 
 if [[ $plg == *true* ] || [ $plg == true ]] && [[ $mod == "server" ] || [ $mod == "gw:server" ]]; then
   case $ptp in
-	tls)
-		echo "deploying tls plugin"
-        source ~/.ec/plg/tls/tls.sh
-        break
-		;;
-	vln)
-		echo "deploying vln plugin"
-		source ~/.ec/plg/vln/vln.sh
-        break
-		;;
-	*)
-		echo "no plugin type specified"
-		;;
+    tls)
+      echo "deploying tls plugin"
+      source ~/.ec/plg/tls/tls.sh
+      break;
+      ;;
+    *)
+      echo "no plugin type specified"
+      ;;
+  esac
+fi
+
+if [[ $plg == *true* ] || [ $plg == true ]] && [[ $mod == "client" ] || [ $mod == "gw:client" ]]; then
+  case $ptp in
+    vln)
+      echo "deploying vln plugin"
+      source ~/.ec/plg/vln/vln.sh
+      break
+      ;;
+    *)
+      echo "no plugin type specified"
+      ;;
   esac
 fi
 
