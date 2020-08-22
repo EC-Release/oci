@@ -20,7 +20,7 @@ plg.tls.lpt=7990
 plg.tls.cmd=./tls_linux_sys
 ```
 ### VLAN Config
-For VLAN, consider the example as follows
+For VLAN, consider the following example.
 ```env
 #agent
 conf.sst=https://sst0234.run.aws.ice.predix.io/v1/index/                                                                
