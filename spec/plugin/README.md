@@ -1,6 +1,6 @@
 # plugin spec usage
 ### TLS Config
-Beginning the TLS plugin by preparing an environment file e.g. ```ec.enc``` in following example
+Beginning the TLS plugin usage by preparing an environment file e.g. ```ec.enc``` in the following example
 ```env
 #agent
 conf.sst=https://sst0234.run.aws.ice.predix.io/v1/index/                                                                
@@ -37,6 +37,7 @@ plg.vln.ips=10.10.10.78/32,10.10.18.98/32
 plg.vln.cmd=./vln_linux_sys
 ```
 ### Launch with docker
+use the environment file created in the previous example and launch it via docker
 ```bash
 docker run -it --env-file=<the env file. e.g. ec.env> enterpriseconnect/plugins:v1
 ```
