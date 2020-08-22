@@ -77,7 +77,7 @@ sed -i "s|{EC_GRP}|$grp|g" ~/${mod}.yml
 sed -i "s|{EC_CPS}|$cps|g" ~/${mod}.yml
 sed -i "s|{EC_LPT}|$lpt|g" ~/${mod}.yml
 sed -i "s|{EC_GPT}|$gpt|g" ~/${mod}.yml
-sed -i "s|{EC_rpt}|$RPT|g" ~/${mod}.yml
+sed -i "s|{EC_RPT}|$rpt|g" ~/${mod}.yml
 sed -i "s|{EC_RHT}|$rht|g" ~/${mod}.yml
 sed -i "s|{EC_HST}|$hst|g" ~/${mod}.yml
 sed -i "s|{EC_SST}|$sst|g" ~/${mod}.yml
