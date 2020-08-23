@@ -114,14 +114,14 @@ global:
 #### Agent/Chart Configuration Conversion
 ```bash
 # convert the ec config file into a chart-readable format and be ready for the chart deployment
-$ cd <path/to/example> && source <(wget -O - https://enterprise-connect.github.io/sdk/scripts/agt/v1.1beta.linux64.txt) \
+$ cd <path/to/example> && source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.1beta.linux64.txt) \
 -cfg <conf.yaml> \
 -out <conf.env>
 ```
 ```batch
 :: for windows 10+
 c:\> cd <path\to\mychart> ^
-&& curl -LOk https://github.com/Enterprise-connect/sdk/raw/v1.1beta/dist/agent/agent_windows_sys.exe.tar.gz ^
+&& curl -LOk https://github.com/EC-Release/sdk/raw/v1.1beta/dist/agent/agent_windows_sys.exe.tar.gz ^
 && tar xvf agent_windows_sys.exe.tar.gz ^
 && agent_windows_sys.exe -cfg -cfg <conf.yaml> -out <conf.env>
 ```
