@@ -2,7 +2,7 @@
 ### TLS Config
 Beginning the TLS plugin usage by preparing an environment file e.g. ```ec.enc``` in the following example. For [the detail in the TLS setting here](https://github.com/EC-Release/sdk/tree/v1/plugins/tls#tls-plugin). 
 
-The TLS plugin can only be launched via the agent in "server" or "gw:server" mode.
+The TLS plugin can only be launched by agents in "server" or "gw:server" mode.
 ```env
 #server agent
 conf.sst=https://sst0234.run.aws.ice.predix.io/v1/index/                                                                
@@ -23,7 +23,7 @@ plg.tls.lpt=7990
 ### VLAN Config
 For VLAN, consider the following example. For [the detail of VLAN setting](https://github.com/EC-Release/sdk/tree/v1/plugins/vln#vlan-plugin)
 
-The VLAN plugin can only be launched via the agent in "client" or "gw:client" mode.
+The VLAN plugin can only be launched by agents in "client" or "gw:client" mode.
 ```env
 #client agent
 conf.sst=https://sst0234.run.aws.ice.predix.io/v1/index/                                                                
