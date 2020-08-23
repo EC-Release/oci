@@ -17,11 +17,9 @@ MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 USER root
 WORKDIR /root
 
-RUN apk add --no-cache bash
-
 RUN ["/bin/bash","-c","source <(wget -O - https://ec-release.github.io/sdk/scripts/plg/tls/v1.linux64.txt) -ver"]
 RUN ["/bin/bash","-c","source <(wget -O - https://ec-release.github.io/sdk/scripts/plg/vln/v1.linux64.txt) -ver"]
 
-RUN ls -al && ls -al ~/.ec && chmod 755 ./agent.sh
+RUN ls -al && ls -al ~/.ec && chmod 755 ./.ec/conf/agent.sh
 
-CMD ./agent.sh
+CMD ./.ec/conf/agent.sh
