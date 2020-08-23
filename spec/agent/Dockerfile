@@ -22,17 +22,14 @@ ARG EC_REV_V1=v1.hokkaido.212
 
 ENV ENV="/etc/profile"
 
-COPY ./*.yml ./
-COPY ./*.sh ./
-
 RUN apk add --no-cache bash
 
 RUN echo 'export PATH=$PATH:$HOME/.ec' >> /etc/profile
 
-RUN chmod 755 ./agent.sh
-
 RUN ["/bin/bash", "-c", "source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.linux64.txt) -ver"]
+
+RUN chmod 755 ./agent.sh
 
 RUN ln -s $HOME/.ec/agent /bin/agent
 
-CMD ["./agent.sh"]
+CMD ["~/.ec/conf/agent.sh"]
