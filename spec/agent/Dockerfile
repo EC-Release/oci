@@ -22,7 +22,7 @@ ARG EC_REV_V1=v1.hokkaido.212
 
 ENV ENV="/etc/profile"
 
-RUN apk add --no-cache bash
+RUN apk update && apk add --no-cache wget && apk add --no-cache bash 
 
 RUN echo 'export PATH=$PATH:$HOME/.ec' >> /etc/profile
 
