@@ -1,6 +1,6 @@
 # plugin spec usage
 ### TLS Config
-Beginning the TLS plugin usage by preparing an environment file e.g. ```ec.enc``` in the following example. For [the detail in the regard to the TLS setting here](https://github.com/EC-Release/sdk/tree/v1/plugins/tls#tls-plugin)
+Beginning the TLS plugin usage by preparing an environment file e.g. ```ec.enc``` in the following example. For [the detail in the TLS setting here](https://github.com/EC-Release/sdk/tree/v1/plugins/tls#tls-plugin)
 ```env
 #agent
 conf.sst=https://sst0234.run.aws.ice.predix.io/v1/index/                                                                
