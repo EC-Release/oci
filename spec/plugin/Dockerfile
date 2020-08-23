@@ -20,6 +20,6 @@ WORKDIR /root
 RUN ["/bin/bash","-c","source <(wget -O - https://ec-release.github.io/sdk/scripts/plg/tls/v1.linux64.txt) -ver"]
 RUN ["/bin/bash","-c","source <(wget -O - https://ec-release.github.io/sdk/scripts/plg/vln/v1.linux64.txt) -ver"]
 
-RUN ls -al && ls -al ~/.ec && chmod 755 ./.ec/conf/agent.sh
+RUN ls -al && ls -al ~/.ec && chmod 755 ~/.ec/conf/agent.sh
 
-CMD ./.ec/conf/agent.sh
+CMD ~/.ec/conf/agent.sh
