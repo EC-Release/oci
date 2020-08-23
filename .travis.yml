@@ -1,5 +1,5 @@
 language: minimal
-if: head_branch = v1_oci_spec_update OR branch = v1_oci_spec
+if: head_branch = v1beta_oci_spec_update OR branch = v1beta_oci_spec
 
 services:
   - docker
@@ -7,22 +7,22 @@ services:
 before_install:
 
 script:
-   - cd ./spec/agent && docker build -t enterpriseconnect/agent:v1 --build-arg EC_REV_V1=${EC_REV_V1} . && cd -
-   - cd ./spec/plugin && docker build -t enterpriseconnect/plugins:v1 --build-arg EC_REV_V1=${EC_REV_V1} . && cd -
+   - cd ./spec/agent && docker build -t enterpriseconnect/agent:v1beta --build-arg EC_REV_V1BETA=${EC_REV_V1BETA} . && cd -
+   - cd ./spec/plugin && docker build -t enterpriseconnect/plugins:v1beta --build-arg EC_REV_V1BETA=${EC_REV_V1BETA} . && cd -
    
 deploy:
   - provider: script
     skip_cleanup: true
     script: >-
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
-      docker push enterpriseconnect/agent:v1 && 
-      docker push enterpriseconnect/plugins:v1
+      docker push enterpriseconnect/agent:v1beta && 
+      docker push enterpriseconnect/plugins:v1beta
     on:
-      branch: v1_oci_spec
+      branch: v1beta_oci_spec
 
 after_deploy: >-
-  docker rmi enterpriseconnect/agent:v1 -f && docker run -it enterpriseconnect/agent:v1 agent -ver &&
-  docker rmi enterpriseconnect/plugins:v1 -f && docker run -it enterpriseconnect/plugins:v1 agent -inf &&
+  docker rmi enterpriseconnect/agent:v1beta -f && docker run -it enterpriseconnect/agent:v1beta agent -ver &&
+  docker rmi enterpriseconnect/plugins:v1beta -f && docker run -it enterpriseconnect/plugins:v1beta agent -inf &&
   ls -al
 notifications:  
   email:  
