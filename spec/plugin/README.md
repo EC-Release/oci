@@ -17,7 +17,6 @@ plg.tlc.scm=https
 plg.tlc.hst=yahoo.com                                                                                                                                         
 plg.tls.prt=443                                                                                                                                               
 plg.tls.lpt=7990
-plg.tls.cmd=./tls_linux_sys
 ```
 ### VLAN Config
 For VLAN, consider the following example. For [the detail of VLAN setting](https://github.com/EC-Release/sdk/tree/v1/plugins/vln#vlan-plugin)
@@ -34,7 +33,6 @@ conf.mod=client
 plg.typ=vln
 #vln ip list                                                                                                                                     
 plg.vln.ips=10.10.10.78/32,10.10.18.98/32
-plg.vln.cmd=./vln_linux_sys
 ```
 ### Launch with docker
 use the environment file created in the previous example and launch it via docker
