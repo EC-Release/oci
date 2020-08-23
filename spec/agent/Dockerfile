@@ -28,8 +28,8 @@ RUN echo 'export PATH=$PATH:$HOME/.ec' >> /etc/profile
 
 RUN ["/bin/bash", "-c", "source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.linux64.txt) -ver"]
 
-RUN chmod 755 ./agent.sh
+RUN chmod 755 ~/.ec/conf/agent.sh
 
-RUN ln -s $HOME/.ec/agent /bin/agent
+RUN ln -s ~/.ec/agent /bin/agent
 
 CMD ["~/.ec/conf/agent.sh"]
