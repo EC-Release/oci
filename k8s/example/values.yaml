@@ -102,3 +102,12 @@ global:
           hosts: ["ec.helloworld.ge.com", "ec.rel.ge.com"]
         - secretName: tls.secret-2
           hosts: ["*.ec.https.ge.com", "ec.dev.azure.com"]
+    # options below are applicable only in the agent+tls helm package. 
+    # this setting is intended to deploy the tls plugin alongside the agent
+    withPlugin:
+      enabled: false
+      schema: https 
+      hostname: twitter.com
+      tlsport: 443
+      proxy: http://traffic-manipulation.job.security.io:8080
+      port: 17990
