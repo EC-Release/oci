@@ -5,22 +5,23 @@
 replicaCount: 1
 
 image:
-  repository: enterpriseconnect/agent
+  repository: enterpriseconnect/plugin
   pullPolicy: Always
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+# EC deprecated
 serviceAccount:
   # Specifies whether a service account should be created
-  create: true
+  create: false
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name:
-
+  
 podSecurityContext: {}
   # fsGroup: 2000
 
@@ -36,6 +37,7 @@ service:
   type: ClusterIP
   port: 80
 
+# EC deprecated
 ingress:
   enabled: false
   annotations: {}
@@ -49,6 +51,7 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+# EC deprecated
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
@@ -66,3 +69,13 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+agtConfig: conf.env
+
+agtK8Config:
+  portName: agt-prt
+  svcPortName: agt-svc-prt
+  svcPortNum: 8080 
+  healthPortName: agt-h-prt
+  svcHealthPortName: agt-svc-h-prt
+  svcHealthPortNum: 8081
