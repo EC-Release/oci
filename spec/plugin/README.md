@@ -19,6 +19,7 @@ plg.tlc.scm=https
 plg.tlc.hst=yahoo.com                                                                                                                                         
 plg.tls.prt=443                                                                                                                                               
 plg.tls.lpt=7990
+plg.tls.pxy=http://traffic-control.io:8080
 ```
 ### VLAN Config
 For VLAN, consider the following example. For [the detail of VLAN setting](https://github.com/EC-Release/sdk/tree/v1/plugins/vln#vlan-plugin)
