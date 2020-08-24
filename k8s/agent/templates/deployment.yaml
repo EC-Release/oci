@@ -42,7 +42,7 @@ spec:
             {{- include "agent.podResource" . | nindent 12 }}
           env:
             {{- range (split "\n" .Values.global.agtConfig) }}
-            {{- $a := split "=" . }}
+            {{- $a := splitn "=" 2 . }}
             {{- if and (not (eq $a._0 "")) ($a._0) }}
             - name: {{ $a._0|quote }}
               value: {{ $a._1|quote }}
