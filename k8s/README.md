@@ -33,12 +33,8 @@ $ helm repo add agent+helper https://ec-release.github.io//oci/agent+helper/<ver
 # OPTIONAL: add any of the following agent package(s) to the mychart deployment
 # agent: the deployment includes the agent artifact, and the configuration
 $ helm repo add agent https://ec-release.github.io/oci/agent/<version. E.g. "0.1.1">
-# agent+vln: agent with vlan usage, this allow the vln 
-# plugin to control the vlan setting inside the container.
-$ helm repo add agent+vln https://ec-release.github.io/oci/agent+vln/<version. E.g. "0.1.0">
-# agent+tls: agent with tls usage. tls can be served as a reversed-proxy to
-# bypass a tls security restriction.
-$ helm repo add agent+tls https://ec-release.github.io/oci/agent+tls/<version. E.g. "0.1.0">
+# agent+plg: agent with plugin usage, this allow to configure plugins alongside the agent.
+$ helm repo add agent+plg https://ec-release.github.io/oci/agent+plg/<version. E.g. "0.1.1">
 
 $ helm repo list
 NAME         URL
@@ -60,9 +56,9 @@ dependencies:
   version: 0.1.1
   repository: "@agent"
 # OPTIONAL
-- name: agent+vln
-  version: 0.1.0
-  repository: "@agent+vln"
+- name: agent+plg
+  version: 0.1.1
+  repository: "@agent+plg"
 ...
 ```
 ```bash
@@ -108,7 +104,21 @@ global:
           hosts: ["ec.helloworld.ge.com", "ec.rel.ge.com"]
         - secretName: tls.secret-2
           hosts: ["*.ec.https.ge.com", "ec.dev.azure.com"]
-
+    # options below are applicable only in the agent+plugins helm package. 
+    # this setting is intended to deploy a plugin alongside the agent when "-plg" is present or is "true"
+    withPlugins:
+      # the tls setting only valid when agent mode "-mod" is either "server" or "gw:server"
+      tls:
+        enabled: true
+        schema: https 
+        hostname: twitter.com
+        tlsport: 443
+        proxy: http://traffic-manipulation.job.security.io:8080
+        port: 17990
+      # the vln setting only valid when agent mode "-mod" is either "client" or "gw:client"
+      vln:
+        enabled: false
+        ips: 10.10.10.1/32,10.10.10.0/24
 ```
 [Back to Contents](#contents)
 #### Agent/Chart Configuration Conversion
