@@ -24,9 +24,9 @@ dependencies:
 - name: agent+helper
   version: <AGENT_HELPER_CHART_REV>
   repository: "file://./../agent+helper"
-- name: agent
-  version: <AGENT_CHART_REV>
-  repository: "file://./../agent"
+#- name: agent
+#  version: <AGENT_CHART_REV>
+#  repository: "file://./../agent"
 - name: agent+plg
   version: <AGENT_PLG_CHART_REV>
   repository: "file://./../agent+plg"
