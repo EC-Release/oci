@@ -1,46 +1,53 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "agent+tls.fullname" . }}
+  name: {{ include "agent.fullname" . }}
   labels:
-    {{- include "agent+tls.labels" . | nindent 4 }}
+    {{- include "agent.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.global.agtK8Config.replicaCount }}
   selector:
     matchLabels:
-      {{- include "agent+tls.selectorLabels" . | nindent 6 }}
+      {{- include "agent.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "agent+tls.selectorLabels" . | nindent 8 }}
+        {{- include "agent.selectorLabels" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      serviceAccountName: {{ include "agent+tls.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
+          image: "enterpriseconnect/plugin:{{ .Values.global.agtK8Config.releaseTag }}"
+          command: {{ include "agent.launchCmd" . }} 
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
+            {{- include "agent.portSpec" . | nindent 12 }}
+            {{- include "agent.healthPortSpec" . | nindent 12 }}
           livenessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /health
+              port: {{ .Values.agtK8Config.healthPortName }}
           readinessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /health
+              port: {{ .Values.agtK8Config.healthPortName }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- include "agent.podResource" . | nindent 12 }}
+          env:
+            {{- range (split "\n" .Values.global.agtConfig) }}
+            {{- $a := splitn "=" 2 . }}
+            {{- if and (not (eq $a._1 "")) ($a._1) }}
+            - name: {{ $a._0|quote }}
+              value: {{ $a._1|quote }}
+            {{- end }}
+            {{- end -}}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
