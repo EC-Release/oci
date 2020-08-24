@@ -103,7 +103,7 @@ global:
         - secretName: tls.secret-2
           hosts: ["*.ec.https.ge.com", "ec.dev.azure.com"]
     # options below are applicable only in the agent+plugins helm package. 
-    # this setting is intended to deploy the tls plugin alongside the agent
+    # this setting is intended to deploy a plugin alongside the agent
     withPlugins:
       tls:
         enabled: true
