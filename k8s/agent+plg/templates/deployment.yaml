@@ -22,10 +22,7 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          {{- if tls }}
           image: "enterpriseconnect/plugin:{{ .Values.global.agtK8Config.releaseTag }}"
-          {{- elseif vln }}
-          {{- end -}}
           command: {{ include "agent.launchCmd" . }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -51,20 +48,24 @@ spec:
               value: {{ $a._1|quote }}
             {{- end }}
             {{- end -}}
-            {{- if tls }}
-            - name: {{ $a._0|quote }}
-              value: {{ $a._1|quote }}
-            - name: {{ $a._0|quote }}
-              value: {{ $a._1|quote }}
-            - name: {{ $a._0|quote }}
-              value: {{ $a._1|quote }}
-            {{- elsif vln }}
-            - name: {{ $a._0|quote }}
-              value: {{ $a._1|quote }}
-            - name: {{ $a._0|quote }}
-              value: {{ $a._1|quote }}
-            - name: {{ $a._0|quote }}
-              value: {{ $a._1|quote }}
+            {{- $mode := include "agent.mode" . -}}
+            {{- $hasPlugin := include "agent.hasPlugin" . -}}
+            {{- if (eq $hasPlugin "true") -}}
+            {{- if or ((eq $mode "server") (eq $mode "gw:server")) and (.Values.agtK8Config.withPlugins.tls.enabled) -}}
+            - name: plg.tlc.scm
+              value: {{ .Values.agtK8Config.withPlugins.tls.schema|quote }}
+            - name: plg.tlc.hst
+              value: {{ .Values.agtK8Config.withPlugins.tls.hostname|quote }}
+            - name: plg.tls.prt
+              value: {{ .Values.agtK8Config.withPlugins.tls.tlsport|quote }}
+            - name: plg.tls.pxy
+              value: {{ .Values.agtK8Config.withPlugins.tls.proxy|quote }}
+            - name: plg.tls.lpt
+              value: {{ .Values.agtK8Config.withPlugins.tls.port|quote }}
+            {{- else if or ((eq $mode "client") (eq $mode "gw:client")) and (.Values.agtK8Config.withPlugins.vln.enabled) -}}
+            - name: plg.vln.ips
+              value: {{ .Values.agtK8Config.withPlugins.vln.ips|quote }}
+            {{- end -}}
             {{- end -}}
       {{- with .Values.nodeSelector }}
       nodeSelector:
