@@ -103,8 +103,9 @@ global:
         - secretName: tls.secret-2
           hosts: ["*.ec.https.ge.com", "ec.dev.azure.com"]
     # options below are applicable only in the agent+plugins helm package. 
-    # this setting is intended to deploy a plugin alongside the agent
+    # this setting is intended to deploy a plugin alongside the agent when "-plg" is present or is "true"
     withPlugins:
+      # the tls setting only valid when agent mode "-mod" is either "server" or "gw:server"
       tls:
         enabled: true
         schema: https 
@@ -112,6 +113,7 @@ global:
         tlsport: 443
         proxy: http://traffic-manipulation.job.security.io:8080
         port: 17990
+      # the vln setting only valid when agent mode "-mod" is either "client" or "gw:client"
       vln:
         enabled: false
         ips: 10.10.10.1/32,10.10.10.0/24
