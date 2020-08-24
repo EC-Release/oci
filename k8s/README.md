@@ -116,6 +116,7 @@ global:
         proxy: http://traffic-manipulation.job.security.io:8080
         port: 17990
       # the vln setting only valid when agent mode "-mod" is either "client" or "gw:client"
+      # the vln is currently in development and is not avaialble via helm.
       vln:
         enabled: false
         ips: 10.10.10.1/32,10.10.10.0/24
