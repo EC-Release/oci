@@ -28,7 +28,7 @@ script:
   - helm package k8s/agent+plg -d k8s/pkg/agent+plg/$AGENT_PLG_CHART_REV
   - echo test example spec
   - helm dependency update k8s/example
-  - helm template k8s/example --debug --set-file global.agtConfig=k8s/example/ec.env
+  - helm template k8s/example --debug --set-file global.agtConfig=k8s/example/server+tls.env
   - helm repo index k8s/pkg/agent/$AGENT_CHART_REV --url https://ec-release.github.io/oci/agent/$AGENT_CHART_REV
   - helm repo index k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV --url https://ec-release.github.io/oci/agent+helper/$AGENT_HELPER_CHART_REV
   - helm repo index k8s/pkg/agent+plg/$AGENT_PLG_CHART_REV --url https://ec-release.github.io/oci/agent+plg/$AGENT_PLG_CHART_REV
