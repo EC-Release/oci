@@ -22,4 +22,4 @@ RUN ["/bin/bash","-c","source <(wget -O - https://ec-release.github.io/sdk/scrip
 
 RUN ls -al && ls -al ~/.ec && chmod 755 ~/.ec/conf/agent.sh
 
-CMD ~/.ec/conf/agent.sh
+CMD ["./.ec/conf/agent.sh"]
