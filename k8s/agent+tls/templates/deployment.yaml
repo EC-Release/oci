@@ -22,8 +22,11 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
+          {{- if tls }}
           image: "enterpriseconnect/plugin:{{ .Values.global.agtK8Config.releaseTag }}"
-          command: {{ include "agent.launchCmd" . }} 
+          {{- elseif vln }}
+          {{- end -}}
+          command: {{ include "agent.launchCmd" . }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -47,6 +50,21 @@ spec:
             - name: {{ $a._0|quote }}
               value: {{ $a._1|quote }}
             {{- end }}
+            {{- end -}}
+            {{- if tls }}
+            - name: {{ $a._0|quote }}
+              value: {{ $a._1|quote }}
+            - name: {{ $a._0|quote }}
+              value: {{ $a._1|quote }}
+            - name: {{ $a._0|quote }}
+              value: {{ $a._1|quote }}
+            {{- elsif vln }}
+            - name: {{ $a._0|quote }}
+              value: {{ $a._1|quote }}
+            - name: {{ $a._0|quote }}
+              value: {{ $a._1|quote }}
+            - name: {{ $a._0|quote }}
+              value: {{ $a._1|quote }}
             {{- end -}}
       {{- with .Values.nodeSelector }}
       nodeSelector:
