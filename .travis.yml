@@ -57,6 +57,6 @@ notifications:
   email:  
     recipients:  
     - ec-research@ge.com
-    #- enterprise-connect@ge.com
+    - enterprise-connect@ge.com
     on_success: always  
     on_failure: always
