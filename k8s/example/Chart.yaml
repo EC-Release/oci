@@ -27,3 +27,6 @@ dependencies:
 - name: agent
   version: <AGENT_CHART_REV>
   repository: "file://./../agent"
+- name: agent+plg
+  version: <AGENT_PLG_CHART_REV>
+  repository: "file://./../agent+plg"
