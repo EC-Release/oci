@@ -22,6 +22,7 @@ script:
   - ls -la k8s/pkg
   - helm package k8s/agent+helper -d k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV
   - helm dependency update k8s/agent
+  - helm dependency update k8s/agent+plg
   - helm package k8s/agent -d k8s/pkg/agent/$AGENT_CHART_REV
   - helm package k8s/agent+plg -d k8s/pkg/agent+plg/$AGENT_PLG_CHART_REV
   - echo test example spec
