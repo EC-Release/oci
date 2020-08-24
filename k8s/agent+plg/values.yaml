@@ -4,6 +4,7 @@
 
 replicaCount: 1
 
+# EC deprecated
 image:
   repository: enterpriseconnect/plugin
   pullPolicy: Always
