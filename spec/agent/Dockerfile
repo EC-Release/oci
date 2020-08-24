@@ -32,4 +32,4 @@ RUN chmod 755 ~/.ec/conf/agent.sh
 
 RUN ln -s ~/.ec/agent /bin/agent
 
-CMD ["~/.ec/conf/agent.sh"]
+CMD ["./.ec/conf/agent.sh"]
