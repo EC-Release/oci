@@ -71,3 +71,102 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Generate container port spec for webportal.
+*/}}
+{{- define "webportal.portSpec" -}}
+{{- $mode := include "webportal.mode" . -}}
+{{- $portName := "apt=" -}}
+{{- range (split "\n" .Values.global.agtConfig) }}
+{{- if contains $portName . -}}
+{{- $a := (. | replace ":" "") -}}
+{{- $b := ($a | replace "'" "") -}}
+{{- $c := ($b | replace "\"" "") -}}
+- name: {{ $.Values.agtK8Config.portName }}
+  containerPort: {{ (split "=" $c )._1 }}
+  protocol: TCP
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Generate service port spec for webportal pods.
+*/}}
+{{- define "webportal.svcPortSpec" -}}
+- port: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
+  targetPort: {{ .Values.agtK8Config.portName }}
+  protocol: TCP
+  name: {{ .Values.agtK8Config.svcPortName }}
+{{- end -}}
+
+{{/*
+Specify agent launch command based on the revision from the global variable "releasetag"
+*/}}
+{{- define "agent.launchCmd" -}}
+{{- if or (eq .Values.global.agtK8Config.releaseTag "v1.1beta") (eq .Values.global.agtK8Config.releaseTag "v1.1") -}}
+["./agent","env"]
+{{- else -}}
+[]
+{{- end -}}
+{{- end -}}
+
+{{/*
+Specify the resource in the targeted cluster, if any
+*/}}
+{{- define "agent.podResource" -}}
+{{- if .Values.global.agtK8Config.resources -}}
+limits:
+  cpu: {{ .Values.global.agtK8Config.resources.limits.cpu }}
+  memory: {{ .Values.global.agtK8Config.resources.limits.memory }}
+requests:
+  cpu: {{ .Values.global.agtK8Config.resources.requests.cpu }}
+  memory: {{ .Values.global.agtK8Config.resources.requests.memory }}
+{{- else -}}
+{}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Extract the agent mode from the agent config
+*/}}
+{{- define "webportal.mode" -}}
+{{- range (split "\n" .Values.global.agtConfig) -}}
+{{- if contains "mod=" . -}}
+{{- $a := (. | replace ":" "") -}}
+{{- $b := ($a | replace "'" "") -}}
+{{- $c := ($b | replace "\"" "") -}}
+{{- (split "=" $c )._1 -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Specify the agt ingress spec
+*/}}
+{{- define "webportal.ingress" -}}
+{{- if .Values.global.agtK8Config.withIngress.tls -}}
+tls:
+{{- range .Values.global.agtK8Config.withIngress.tls }}
+  - hosts:
+    {{- range .hosts }}
+    - {{ . | quote }}
+    {{- end }}
+    secretName: {{ .secretName }}
+{{- end -}}
+{{- end }}
+rules:
+{{- $serviceName := include "webportal.fullname" . -}}
+{{- $servicePort := (ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum)) -}}
+{{- range .Values.global.agtK8Config.withIngress.hosts }}
+  - host: {{ .host | quote }}
+    http:
+      paths:
+      {{- range $path := .paths }}
+        - path: {{ $path | quote }}
+          backend:
+            serviceName: {{ $serviceName | quote }}
+            servicePort: {{ $servicePort }}
+      {{- end }}
+{{- end }}
+{{- end -}}
