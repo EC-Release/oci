@@ -9,7 +9,7 @@ ec-config:
     - validate: oaep
       scope: ["app.auth","cluster.user"]
       isOwner: false
-      privateKey: ${EC_PVTKEY_3}
-      publicCrt: ${EC_PUBKEY_3}
+      privateKey: ${EC_PVTKEY}
+      publicCrt: ${EC_PUBKEY}
       description: "decription #2 for reference only"
   
