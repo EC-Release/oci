@@ -20,7 +20,7 @@ WORKDIR /root
 #arg is rewritten by docker build
 ARG EC_REV_V1_2BETA=v1.2beta.fukuoka.0
 
-COPY ./conf.yaml /root/conf.yaml
+COPY ./config.yaml /root/config.yaml
 
 RUN apk add --no-cache git
 RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing hub
@@ -30,4 +30,4 @@ RUN wget -O ./agent_linux_sys.tar.gz https://raw.githubusercontent.com/EC-Releas
   && rm ./agent_linux_sys.tar.gz \
   && ls -al && ./agent -ver
 
-CMD ./agent -cfg conf.yaml
+CMD ./agent -cfg config.yaml
