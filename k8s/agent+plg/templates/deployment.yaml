@@ -21,7 +21,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ include "agent.name" . }}
           image: "enterpriseconnect/plugin:{{ .Values.global.agtK8Config.releaseTag }}"
           command: {{ include "agent.launchCmd" . }}
           securityContext:
