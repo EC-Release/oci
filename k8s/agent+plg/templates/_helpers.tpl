@@ -15,7 +15,7 @@
 
 {{- define "agent.name" -}}
 {{- $name_p := default $.Chart.Name $.Values.nameOverride -}}
-{{- $name := ($name_p | replace "+" ".") -}}
+{{- $name := ($name_p | replace "+" "-") -}}
 {{- $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
