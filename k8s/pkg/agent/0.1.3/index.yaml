@@ -3,12 +3,12 @@ entries:
   agent:
   - apiVersion: v1
     appVersion: v1.1beta
-    created: "2020-08-26T10:09:20.183030412Z"
+    created: "2020-08-26T19:32:12.651261416Z"
     description: The Agent Helm chart example for Kubernet
-    digest: f3c15efca6e412b1f5d31c8696b72592aaf058b34b227d9f3d4658e8870c68a0
+    digest: e3795a78af65809f69de6616d7b5f127fd7fac0821a5af4558de3afb55c9989f
     name: agent
     type: application
     urls:
     - https://ec-release.github.io/oci/agent/0.1.3/agent-0.1.3.tgz
     version: 0.1.3
-generated: "2020-08-26T10:09:20.181118017Z"
+generated: "2020-08-26T19:32:12.649417338Z"
