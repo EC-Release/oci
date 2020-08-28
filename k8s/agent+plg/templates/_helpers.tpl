@@ -171,8 +171,11 @@ Extract the agent mode from the agent config
 {{- range (split "\n" .Values.global.agtConfig) -}}
 {{- if contains "mod=" . -}}
 {{- $a := (. | replace ":" "") -}}
+{{- $a }}
 {{- $b := ($a | replace "'" "") -}}
+{{- $b }}
 {{- $c := ($b | replace "\"" "") -}}
+{{- $c }}
 {{- (split "=" $c )._1 -}}
 {{- end -}}
 {{- end -}}
