@@ -7,7 +7,7 @@ services:
 before_install:
 
 script:
-   - cd ./spec/service && docker build -t enterpriseconnect/service:v1.2beta --build-arg EC_REV_V1_2BETA=${EC_REV_V1_2BETA} .
+   - cd ./spec/service && docker build -t enterpriseconnect/service:v1.2beta --build-arg EC_REV_V1_2BETA=${EC_REV_V1_2BETA} . && docker run -it enterpriseconnect/service:v1.2beta agent -ver
    
 deploy:
   - provider: script
