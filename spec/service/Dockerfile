@@ -17,17 +17,12 @@ MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 USER root
 WORKDIR /root
 
-#arg is rewritten by docker build
-ARG EC_REV_V1_2BETA=v1.2beta.fukuoka.0
-
 COPY ./config.yaml /root/config.yaml
 
 RUN apk add --no-cache git
 RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing hub
-RUN wget -O ./agent_linux_sys.tar.gz https://raw.githubusercontent.com/EC-Release/sdk/${EC_REV_V1_2BETA}/dist/agent/agent_linux_sys.tar.gz \
-  && tar -xvzf ./agent_linux_sys.tar.gz \
-  && mv agent_linux_sys agent \
-  && rm ./agent_linux_sys.tar.gz \
-  && ls -al && ./agent -ver
+#TODO: Use v1.2beta agent once available
+#RUN ["/bin/bash", "-c", "source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.2beta.linux64.txt) -ver"]
+RUN ["/bin/bash", "-c", "source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.1beta.linux64.txt) -ver"]
 
 CMD ./agent -cfg config.yaml
