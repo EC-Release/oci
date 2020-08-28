@@ -215,8 +215,6 @@ Extract the plugin flag setting (-plg) from the agent config
 {{- range (split "\n" .Values.global.agtConfig) -}}
 {{- if contains "plg=true" . -}}
 true
-{{- else -}}
-false
 {{- end -}}
 {{- end -}}
 {{- end -}}
