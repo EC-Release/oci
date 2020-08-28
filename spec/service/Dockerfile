@@ -17,12 +17,8 @@ MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 USER root
 WORKDIR /root
 
-COPY ./config.yaml /root/config.yaml
-
 RUN apk update && apk add --no-cache wget && apk add --no-cache bash 
 
-#TODO: Use v1.2beta agent once available
-#RUN ["/bin/bash", "-c", "source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.2beta.linux64.txt) -ver"]
-RUN ["/bin/bash", "-c", "source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.1beta.linux64.txt) -ver"]
+RUN ["/bin/bash", "-c", "source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.2beta.linux64.txt) -ver"]
 
-CMD ./agent -cfg config.yaml
+CMD agent -cfg .ec/conf/service.yml
