@@ -19,8 +19,8 @@ WORKDIR /root
 
 COPY ./config.yaml /root/config.yaml
 
-RUN apk add --no-cache git bash
-RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing hub
+RUN apk update && apk add --no-cache wget && apk add --no-cache bash 
+
 #TODO: Use v1.2beta agent once available
 #RUN ["/bin/bash", "-c", "source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.2beta.linux64.txt) -ver"]
 RUN ["/bin/bash", "-c", "source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.1beta.linux64.txt) -ver"]
