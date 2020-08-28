@@ -1,5 +1,5 @@
 language: minimal
-if: head_branch = v1_oci_spec_update OR branch = v1_oci_spec
+if: head_branch =~ ^v1_oci_spec_update$ OR branch = v1_oci_spec
 
 services:
   - docker
