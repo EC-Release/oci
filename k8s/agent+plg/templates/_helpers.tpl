@@ -168,7 +168,14 @@ requests:
 Extract the agent mode from the agent config
 */}}
 {{- define "agent.mode" -}}
-server
+{{- range (split "\n" .Values.global.agtConfig) -}}
+{{- if contains "mod=" . -}}
+{{- $a := (. | replace ":" "") -}}
+{{- $b := ($a | replace "'" "") -}}
+{{- $c := ($b | replace "\"" "") -}}
+{{- (split "=" $c )._1 -}}
+{{- end -}}
+{{- end -}}
 {{- end -}}
 
 {{/*
