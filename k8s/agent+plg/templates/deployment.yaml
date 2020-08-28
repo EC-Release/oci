@@ -57,18 +57,18 @@ spec:
             - name: plg.typ
               value: tls
             - name: plg.tlc.scm
-              value: {{ .Values.agtK8Config.withPlugins.tls.schema|quote }}
+              value: {{ .Values.global.agtK8Config.withPlugins.tls.schema|quote }}
             - name: plg.tlc.hst
-              value: {{ .Values.agtK8Config.withPlugins.tls.hostname|quote }}
+              value: {{ .Values.global.agtK8Config.withPlugins.tls.hostname|quote }}
             - name: plg.tls.prt
-              value: {{ .Values.agtK8Config.withPlugins.tls.tlsport|quote }}
+              value: {{ .Values.global.agtK8Config.withPlugins.tls.tlsport|quote }}
             - name: plg.tls.pxy
-              value: {{ .Values.agtK8Config.withPlugins.tls.proxy|quote }}
+              value: {{ .Values.global.agtK8Config.withPlugins.tls.proxy|quote }}
             - name: plg.tls.lpt
-              value: {{ .Values.agtK8Config.withPlugins.tls.port|quote }}
-            {{- else if or ((eq $mode "client") (eq $mode "gw:client")) and (.Values.agtK8Config.withPlugins.vln.enabled) -}}
+              value: {{ .Values.global.agtK8Config.withPlugins.tls.port|quote }}
+            {{- else if or ((eq $mode "client") (eq $mode "gw:client")) and (.Values.global.agtK8Config.withPlugins.vln.enabled) -}}
             - name: plg.vln.ips
-              value: {{ .Values.agtK8Config.withPlugins.vln.ips|quote }}
+              value: {{ .Values.global.agtK8Config.withPlugins.vln.ips|quote }}
             - name: plg.typ
               value: vln
             {{- end -}}
