@@ -48,8 +48,6 @@ spec:
               value: {{ $a._1|quote }}
             {{- end }}
             {{- end -}}
-            # agent.mode: {{ include "agent.mode" . }}
-            # agent.hasPlugin: {{ include "agent.hasPlugin" . }}
             {{- $mode := include "agent.mode" . -}}
             {{- $hasPlugin := include "agent.hasPlugin" . -}}
             {{- if (eq $hasPlugin "true") -}}
