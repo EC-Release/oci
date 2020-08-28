@@ -51,7 +51,7 @@ spec:
             {{- $mode := include "agent.mode" . -}}
             {{- $hasPlugin := include "agent.hasPlugin" . -}}
             {{- if (eq $hasPlugin "true") -}}
-            {{- if and (.Values.global.agtK8Config.withPlugins.tls.enabled) (or (eq $mode "server") (eq $mode "gw:server")) -}}
+            {{- if and (.Values.global.agtK8Config.withPlugins.tls.enabled) (or (eq $mode "server") (eq $mode "gw:server")) }}
             - name: plg.typ
               value: tls
             - name: plg.tlc.scm
