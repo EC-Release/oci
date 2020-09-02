@@ -9,6 +9,7 @@ before_install:
 
 script:
    - cd ./spec/web-ui && docker build -t enterpriseconnect/webui:v1.1beta --build-arg WEBUI_BRANCH=${WEBUI_BRANCH} .
+   - docker run -it enterpriseconnect/webui:v1.1beta ./webui
    
 deploy:
   - provider: script
