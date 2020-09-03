@@ -1,22 +1,24 @@
 language: minimal
 if: head_branch =~ ^v1.1beta_webportal_oci_spec_update$ OR branch = v1.1beta_webportal_oci_spec
 
+
 services:
   - docker
   
 before_install:
 
 script:
-   - cd ./spec/agent && docker build -t enterpriseconnect/agent:v1.1beta --build-arg EC_REV_V1_1BETA=${EC_REV_V1_1BETA} .
+   - cd ./spec/web-ui && docker build -t enterpriseconnect/webui:v1.1beta --build-arg WEBUI_BRANCH=${WEBUI_BRANCH} .
+   - docker run -it enterpriseconnect/webui:v1.1beta ./webui
    
 deploy:
   - provider: script
     cleanup: false
-    script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push enterpriseconnect/agent:v1.1beta
+    script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push enterpriseconnect/webui:v1.1beta
     on:
-      branch: v1.1beta_oci_spec
+      branch: v1.1beta_webportal_oci_spec
 
-after_deploy: docker rmi enterpriseconnect/agent:v1.1beta -f && docker run -it enterpriseconnect/agent:v1.1beta ./agent -ver
+after_deploy: docker rmi enterpriseconnect/webui:v1.1beta -f && docker run -it enterpriseconnect/webui:v1.1beta ./webui -ver
 
 notifications:  
   email:  
