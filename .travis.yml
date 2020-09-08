@@ -1,5 +1,5 @@
 language: minimal
-if: head_branch = v1beta_oci_spec_update OR branch = v1beta_oci_spec
+if: head_branch =~ ^v1beta_svc_oci_spec_update$ OR branch = v1beta_svc_oci_spec
 
 services:
   - docker
@@ -7,23 +7,20 @@ services:
 before_install:
 
 script:
-   - cd ./spec/agent && docker build -t enterpriseconnect/agent:v1beta --build-arg EC_REV_V1BETA=${EC_REV_V1BETA} .
+   - cd ./spec/service && docker build -t enterpriseconnect/service:v1beta --build-arg CF_USER=${CF_USER} --build-arg CF_PWD=${CF_PWD} --build-arg EC_REV=${EC_REV} --build-arg BUILD_NUMBER=${BUILD_NUMBER} --build-arg PROJECT_NAME=${PROJECT_NAME} --build-arg ADMIN_USR=${ADMIN_USR} --build-arg ADMIN_PWD=${ADMIN_PWD} --build-arg ZAC_UAA=${ZAC_UAA} --build-arg ZAC_URL=${ZAC_URL} --build-arg ZAC_SERVICE_ID=${ZAC_SERVICE_ID} --build-arg ZAC_CLIENT_ID=${ZAC_CLIENT_ID} --build-arg ZAC_CLIENT_SECRET=${ZAC_CLIENT_SECRET} --build-arg NUREGO_FEATURE_ID=${NUREGO_FEATURE_ID} --build-arg NUREGO_API_KEY=${NUREGO_API_KEY} --build-arg NR_KEY=${NR_KEY} .
    
 deploy:
   - provider: script
     skip_cleanup: true
-    script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push enterpriseconnect/agent:v1beta
+    script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push enterpriseconnect/service:v1beta
     on:
       branch: v1beta_oci_spec
 
-after_deploy: docker rmi enterpriseconnect/agent:v1beta -f && docker run -it enterpriseconnect/agent:v1beta ./agent -ver
+after_deploy: docker rmi enterpriseconnect/service:v1beta -f && docker run -it enterpriseconnect/service:v1beta
 
 notifications:  
   email:  
     recipients:  
     - ec-research@ge.com
-    - prasad.alokam@ge.com
-    - Simran.Choudhary@ge.com
-    - Sheshank.Gujjari@ge.com
     on_success: always  
     on_failure: always
