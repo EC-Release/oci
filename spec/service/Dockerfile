@@ -3,6 +3,7 @@ FROM node:alpine
 MAINTAINER Gayatri Tagade "gayatri.tagade@ge.com"
 
 ENV SERVICE_BRANCH=v1beta
+ENV ENV=v1beta.sendai.1080
 
 WORKDIR /build
 
@@ -24,6 +25,13 @@ ARG ZAC_CLIENT_SECRET
 ARG NUREGO_FEATURE_ID
 ARG NUREGO_API_KEY
 ARG NR_KEY
+ARG NUREGO_TKN_INS
+ARG NUREGO_TKN_PWD
+ARG NUREGO_TKN_USR
+ARG NUREGO_USAGE_FEATURE_ID
+
+ENV NUREGO_ENDPOINT=https://am-staging.nurego.com/v1
+ENV NUREGO_TKN_URL=https://am-staging.nurego.com/v1/auth/token
 
 # COPY ./conf.yaml /build/conf.yaml
 RUN wget https://$ACCESS_TOKEN@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service/-/archive/v1beta/ec-px-service-v1beta.tar.gz \
