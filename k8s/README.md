@@ -121,7 +121,7 @@ global:
         # the remote keypair indicates the vlan deployment strategy. When default to true,
         # the vlan setup will ignore the "ips" setting, and instead simulate only the "ports"-
         # setting via a series of service/pod remotely for the client application.
-        # Otherwise the setup will employ the plugin with the ips/ports setting, and have a direct-
+        # Otherwise the setup will deploy the plugin artifact along with the ips/ports setting, and have a direct-
         # interaction with the local loopback interface at the parental pod. 
         remote: true
         ports: [8000,8001,8002,8003]
