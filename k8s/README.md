@@ -123,7 +123,7 @@ global:
         # setting via a series of service/pod remote to the client application. In the remote-
         # scenario, it is subject to the client app's configuration in its respective pod in order-
         # to make the "ips" setting work correcly. Otherwise the setup will deploy the plugin artifact-
-        # along with the ips/ports setting, and have a direct interaction with the local loopback-
+        # along with the ips/ports setting, and assume the direct interaction with the local loopback-
         # interface at the parental pod. 
         remote: true
         ports: [8000,8001,8002,8003]
