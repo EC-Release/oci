@@ -68,6 +68,8 @@ $ helm dependency update example
 [Back to Contents](#contents)
 #### Update the agent usage
 In the parent chart(s), there are some options avaialble to customise the agent usage. The configuration below is also available in the example/values.yaml for the usage reference.
+
+For plugins-relate usage in detail, please refer to the [TLS docs](https://github.com/EC-Release/sdk/tree/v1/plugins/tls), and for [VLAN docs](https://github.com/EC-Release/sdk/tree/v1/plugins/vln)
 ```yaml
 ...
 global:
@@ -129,6 +131,7 @@ global:
         ports: [8000,8001,8002,8003]
         ips: ["10.10.10.0/30","8.8.8.100","8.8.8.101","8.8.8.102"]
 ```
+
 [Back to Contents](#contents)
 #### Agent/Chart Configuration Conversion
 ```bash
