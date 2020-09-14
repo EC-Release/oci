@@ -118,7 +118,7 @@ global:
       # the vln setting only valid when agent mode "-mod" is either "client" or "gw:client"
       vln:
         enabled: false
-        # the remote keypair indicates the vlan deployment strategy. When default to true,
+        # the "remote" keypair indicates the vlan deployment strategy. When default to true,
         # the vlan setup will ignore the "ips" setting, and instead simulate only the "ports"-
         # setting via a series of service/pod remote to the client application. In the remote-
         # useage, to make the "ips" setting working correcly, it is up to the client application's-
