@@ -116,10 +116,12 @@ global:
         proxy: http://traffic-manipulation.job.security.io:8080
         port: 17990
       # the vln setting only valid when agent mode "-mod" is either "client" or "gw:client"
-      # the vln is currently in development and is not avaialble via helm.
       vln:
         enabled: false
-        ips: 10.10.10.1/32,10.10.10.0/24
+        # the remote keypair indicates the vlan deployment strategy. When set to true, the vlan setup will ignore the "ips" setting, and instead simulate the "ports" via a series of service/pod remotely for the client application. Otherwise the setup will employ the plugin with the ips/ports setting, and have a direct interaction with the local loopback interface at the parental pod. 
+        remote: true
+        ports: [8000,8001,8002,8003]
+        ips: ["10.10.10.0/30","8.8.8.100","8.8.8.101","8.8.8.102"]
 ```
 [Back to Contents](#contents)
 #### Agent/Chart Configuration Conversion
