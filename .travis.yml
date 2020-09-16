@@ -16,7 +16,7 @@ deploy:
     skip_cleanup: true
     script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push enterpriseconnect/service:v1beta
     on:
-      branch: v1beta_oci_spec
+      branch: v1beta_svc_oci_spec
 
 after_deploy: docker rmi enterpriseconnect/service:v1beta -f && docker run -it enterpriseconnect/service:v1beta
 
