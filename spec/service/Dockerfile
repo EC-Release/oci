@@ -35,8 +35,8 @@ ARG NUREGO_TKN_URL
 
 COPY ./ec-px-service /build/ec-px-service
 
-CMD chmod 755 ./build.sh
-CMD ./build.sh -app $EC_APP_NAME -host $EC_SERVICE_HOST_SUB_DOMAIN \
+CMD chmod 755 ec-px-service/build.sh
+CMD sh ./ec-px-service/build.sh -app $EC_APP_NAME -host $EC_SERVICE_HOST_SUB_DOMAIN \
 -p $PROXY_URL -r $EC_REV \
 -b $BUILD_NUMBER -e $PROJECT_NAME \
 -ecadm $ADMIN_USR -ecpwd $ADMIN_PWD \
