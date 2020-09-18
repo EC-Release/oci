@@ -64,11 +64,15 @@ spec:
               value: {{ .Values.global.agtK8Config.withPlugins.tls.proxy|quote }}
             - name: plg.tls.lpt
               value: {{ .Values.global.agtK8Config.withPlugins.tls.port|quote }}
-            {{- else if or ((eq $mode "client") (eq $mode "gw:client")) and (.Values.global.agtK8Config.withPlugins.vln.enabled) -}}
+            - name: conf.rpt
+              value: {{ include "agent.hasRPT" . }}
+            {{- else if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (or (eq $mode "client") (eq $mode "gw:client")) -}}
+            - name: plg.typ
+              value: vln
             - name: conf.vln
               value: true
-            - name: conf.rpt
-              value: "7990,7991,7992,7993"
+            {{- include "vln.ports" . | nindent 12 }}
+            {{- include "vln.ips" . | nindent 12 }}
             {{- end -}}
             {{- end -}}
       {{- with .Values.nodeSelector }}
