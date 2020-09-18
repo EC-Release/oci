@@ -218,3 +218,50 @@ true
 {{- end -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Extract the VLAN flag setting (-vln) from the agent config
+*/}}
+{{- define "agent.hasVLAN" -}}
+{{- range (split "\n" .Values.global.agtConfig) -}}
+{{- if contains "vln=true" . -}}
+true
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Extract the Remote Port List flag setting (-rpt) from the agent config
+*/}}
+{{- define "agent.hasRPT" -}}
+{{- range (split "\n" .Values.global.agtConfig) -}}
+{{- if contains "rpt=" . -}}
+true
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Compile the vln port list from the values.yaml and agtConfig
+*/}}
+{{- define "vln.ports" -}}
+{{- $isRPTExists := include "agent.hasRPT" . -}}
+{{- if not $isRPTExists -}}
+- name: conf.rpt
+{{- if .Values.global.agtK8Config.withPlugins.vln.ports -}}
+  value: {{ (join "," .Values.global.agtK8Config.withPlugins.vln.ports) | quote }}
+{{- else -}}
+  value: "0"
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Get the vln ips list from the chart values.yaml
+*/}}
+{{- define "vln.ips" -}}
+{{- if and (.Values.global.agtK8Config.withPlugins.vln.ports (not (eq .Values.global.agtK8Config.withPlugins.vln.remote true))) -}}
+- name: plg.vln.ips
+  value: {{ (join "," .Values.global.agtK8Config.withPlugins.vln.ports) | quote }}
+{{- end -}}
+{{- end -}}
