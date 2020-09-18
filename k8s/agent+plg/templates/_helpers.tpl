@@ -84,14 +84,23 @@ Generate container port spec for client agent. Need review for gateway usage
 {{- if or (eq $mode "gateway") (eq $mode "gw:server") (eq $mode "gw:client") -}}
 {{- $portName = "gpt=" -}}
 {{- end -}}
-{{- range (split "\n" .Values.global.agtConfig) }}
-{{- if contains $portName . -}}
+{{- range (split "\n" .Values.global.agtConfig) -}}
 {{- $a := (. | replace ":" "") -}}
 {{- $b := ($a | replace "'" "") -}}
 {{- $c := ($b | replace "\"" "") -}}
-- name: {{ $.Values.agtK8Config.portName }}
+{{- if contains $portName $c -}}
+- name: {{ printf "%s-%s" $.Values.agtK8Config.portName 0 }}
   containerPort: {{ (split "=" $c )._1 }}
   protocol: TCP
+{{- else if and (contains "rpt=" $c) (or (eq $mode "gw:client") (eq $mode "client")) -}}
+{{- $d := (split "rpt=" $c )._1 }}
+{{- $e := 1 -}}
+{{- range (split "," $d }}
+- name: {{ printf "%s-%s" $.Values.agtK8Config.portName $e }}
+  containerPort: {{- . -}}
+  protocol: TCP
+{{- $e = $e + 1 -}}
+{{- end -}}
 {{- end -}}
 {{- end -}}
 {{- end -}}
@@ -101,9 +110,26 @@ Generate service port spec for agent pods.
 */}}
 {{- define "agent.svcPortSpec" -}}
 - port: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
-  targetPort: {{ .Values.agtK8Config.portName }}
+  targetPort: {{ printf "%s-%s" .Values.agtK8Config.portName 0  }}
   protocol: TCP
-  name: {{ .Values.agtK8Config.svcPortName }}
+  name: {{ printf "%s-%s" .Values.agtK8Config.svcPortName 0 }}
+{{- $mode := include "agent.mode" . -}}
+{{- range (split "\n" .Values.global.agtConfig) -}}
+{{- $a := (. | replace ":" "") -}}
+{{- $b := ($a | replace "'" "") -}}
+{{- $c := ($b | replace "\"" "") -}}
+{{- if and (contains "rpt=" $c) (or (eq $mode "gw:client") (eq $mode "client")) -}}
+{{- $d := (split "rpt=" $c )._1 }}
+{{- $e := 1 -}}
+{{- range (split "," $d }}
+- port: {{ . }}
+  targetPort: {{ printf "%s-%s" $.Values.agtK8Config.portName $e }}
+  protocol: TCP
+  name: {{ printf "%s-%s" .Values.agtK8Config.svcPortName $e }}
+{{- $e = $e + 1 -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
 {{- end -}}
 
 {{/*
