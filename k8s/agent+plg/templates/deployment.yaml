@@ -65,10 +65,10 @@ spec:
             - name: plg.tls.lpt
               value: {{ .Values.global.agtK8Config.withPlugins.tls.port|quote }}
             {{- else if or ((eq $mode "client") (eq $mode "gw:client")) and (.Values.global.agtK8Config.withPlugins.vln.enabled) -}}
-            - name: plg.vln.ips
-              value: {{ .Values.global.agtK8Config.withPlugins.vln.ips|quote }}
-            - name: plg.typ
-              value: vln
+            - name: conf.vln
+              value: true
+            - name: conf.rpt
+              value: "7990,7991,7992,7993"
             {{- end -}}
             {{- end -}}
       {{- with .Values.nodeSelector }}
