@@ -131,6 +131,7 @@ global:
         remote: true
         # The "ports" keypair will be overridden by the default "agtConfig" setting, if specified. E.g. "conf.rpt=<port1,port2..portn>"
         ports: [8000,8001,8002,8003]
+        # The "ips" keypair is ignored when set "remote" to true
         ips: ["10.10.10.0/30","8.8.8.100","8.8.8.101","8.8.8.102"]
 ```
 
