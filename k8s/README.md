@@ -119,6 +119,7 @@ global:
         port: 17990
       # the vln setting only valid when agent mode "-mod" is either "client" or "gw:client"
       vln:
+        # The "enabled" keypair will be overridden by the "agtConfig" setting, if specified. E.g. "conf.vln=true"
         enabled: false
         # the "remote" keypair indicates the vlan deployment strategy. When default to true,
         # the vlan setup will ignore the "ips" setting, and instead simulate only the "ports"-
@@ -126,8 +127,9 @@ global:
         # scenario, it is subject to the client app's configuration in its respective pod in order-
         # to make the "ips" setting work correcly. Otherwise the setup will deploy the plugin artifact-
         # along with the ips/ports setting, and assume the direct interaction with the local loopback-
-        # interface at the parental pod. 
+        # interface at the parental pod.
         remote: true
+        # The "ports" keypair will be overridden by the default "agtConfig" setting, if specified. E.g. "conf.rpt=<port1,port2..portn>"
         ports: [8000,8001,8002,8003]
         ips: ["10.10.10.0/30","8.8.8.100","8.8.8.101","8.8.8.102"]
 ```
