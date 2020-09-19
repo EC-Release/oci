@@ -54,8 +54,8 @@ script:
   #k8 simulating test
   - printf "\n\n*** test server with tls template\n\n"
   - helm template k8s/example --debug --set-file global.agtConfig=k8s/example/server+tls.env
-  - printf "\n\n*** test client with vln template\n\n"
-  - helm install k8s/example --debug --set-file global.agtConfig=k8s/example/client+vln.env
+  - printf "\n\n*** install client with vln template in minikube\n\n"
+  - helm install k8s/example --debug --set-file global.agtConfig=k8s/example/client+vln.env --generate-name
   - printf "\n\n*** test gateway agt template\n\n"
   - helm template k8s/example --debug --set-file global.agtConfig=k8s/example/gateway.env
   - printf "\n\n*** pkg indexing\n\n"
