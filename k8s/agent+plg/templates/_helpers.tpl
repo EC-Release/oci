@@ -110,7 +110,7 @@ Generate service port spec for agent pods.
 */}}
 {{- define "agent.svcPortSpec" -}}
 - port: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
-  targetPort: {{ printf "%s-%s" .Values.agtK8Config.portName 0  }}
+  targetPort: {{ printf "%s-%d" .Values.agtK8Config.portName 0  }}
   protocol: TCP
   name: {{ printf "%s-%d" .Values.agtK8Config.svcPortName 0 }}
 {{- $mode := include "agent.mode" . -}}
@@ -125,7 +125,7 @@ Generate service port spec for agent pods.
 - port: {{ . }}
   targetPort: {{ printf "%s-%d" $.Values.agtK8Config.portName $e }}
   protocol: TCP
-  name: {{ printf "%s-%s" .Values.agtK8Config.svcPortName $e }}
+  name: {{ printf "%s-%d" .Values.agtK8Config.svcPortName $e }}
 {{- $e = (add $e 1) -}}
 {{- end -}}
 {{- end -}}
