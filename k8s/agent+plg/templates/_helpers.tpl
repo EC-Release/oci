@@ -126,7 +126,7 @@ Generate service port spec for agent pods.
   targetPort: {{ printf "%s-%s" $.Values.agtK8Config.portName $e }}
   protocol: TCP
   name: {{ printf "%s-%s" .Values.agtK8Config.svcPortName $e }}
-{{- $e = (add $e + 1) -}}
+{{- $e = (add $e 1) -}}
 {{- end -}}
 {{- end -}}
 {{- end -}}
