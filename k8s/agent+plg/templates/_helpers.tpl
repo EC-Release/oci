@@ -99,7 +99,7 @@ Generate container port spec for client agent. Need review for gateway usage
 - name: {{ printf "%s-%s" $.Values.agtK8Config.portName $e }}
   containerPort: {{- . -}}
   protocol: TCP
-{{- $e = $e + 1 -}}
+{{- $e = (add $e 1) -}}
 {{- end -}}
 {{- end -}}
 {{- end -}}
