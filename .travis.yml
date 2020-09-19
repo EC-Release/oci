@@ -1,12 +1,9 @@
 language: minimal
 if: head_branch =~ ^v1.1beta_helm_pkg_update$ OR branch = v1.1beta_helm_pkg
 
-dist: xenial
-
 services:
   - docker
 
-sudo: required
 env:
   global:
     - CHANGE_MINIKUBE_NONE_USER=true
@@ -22,10 +19,10 @@ before_install:
 before_script:
   - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
   - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.7.0/bin/linux/amd64/kubectl && \
-    sudo mv kubectl /usr/local/bin/
+    mv kubectl /usr/local/bin/
   - curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && \
-    sudo mv minikube /usr/local/bin/
-  - sudo minikube start --vm-driver=none --kubernetes-version=v1.7.0
+    mv minikube /usr/local/bin/
+  - minikube start --vm-driver=none --kubernetes-version=v1.7.0
   - minikube update-context
   - JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; \
     until kubectl get nodes -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1; done
