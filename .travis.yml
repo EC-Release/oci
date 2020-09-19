@@ -27,7 +27,8 @@ before_script:
   - "sudo chown -R travis: /home/travis/.minikube/"
   - eval "$(minikube docker-env --profile=minikube)" && export DOCKER_CLI='docker'
 
-script: 
+script:
+  - kubectl cluster-info
   - helm version
   - echo $(pwd)
   - eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/agent+helper/Chart.yaml"
