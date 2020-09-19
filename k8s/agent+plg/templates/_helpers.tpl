@@ -121,12 +121,12 @@ Generate service port spec for agent pods.
 {{- if and (contains "rpt=" $c) (or (eq $mode "gw:client") (eq $mode "client")) -}}
 {{- $d := (split "rpt=" $c )._1 }}
 {{- $e := 1 -}}
-{{- range (split "," $d }}
+{{- range (split "," $d) }}
 - port: {{ . }}
   targetPort: {{ printf "%s-%s" $.Values.agtK8Config.portName $e }}
   protocol: TCP
   name: {{ printf "%s-%s" .Values.agtK8Config.svcPortName $e }}
-{{- $e = $e + 1 -}}
+{{- $e = (add $e + 1) -}}
 {{- end -}}
 {{- end -}}
 {{- end -}}
