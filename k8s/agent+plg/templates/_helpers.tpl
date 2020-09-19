@@ -95,7 +95,7 @@ Generate container port spec for client agent. Need review for gateway usage
 {{- else if and (contains "rpt=" $c) (or (eq $mode "gw:client") (eq $mode "client")) -}}
 {{- $d := (split "rpt=" $c )._1 }}
 {{- $e := 1 -}}
-{{- range (split "," $d }}
+{{- range (split "," $d) }}
 - name: {{ printf "%s-%s" $.Values.agtK8Config.portName $e }}
   containerPort: {{- . -}}
   protocol: TCP
