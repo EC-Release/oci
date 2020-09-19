@@ -17,7 +17,7 @@ env:
     - KUBECONFIG=$HOME/.kube/config
 
 before_install:
-- sudo apt-get -qq -y reinstall coreutils
+- sudo apt-get -qq -y install coreutils
 
 before_script:
   - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
