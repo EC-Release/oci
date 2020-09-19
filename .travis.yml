@@ -14,17 +14,20 @@ env:
     - KUBECONFIG=$HOME/.kube/config
 
 before_install:
-- sudo apt-get -qq -y install coreutils
+- sudo apt-get -qq -y install conntrack
 
 before_script:
   - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+  - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.18.1/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+  - curl -Lo minikube https://storage.googleapis.com/minikube/releases/v1.8.1/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+  - mkdir -p $HOME/.kube $HOME/.minikube
+  - touch $KUBECONFIG
+  - sudo minikube start --profile=minikube --vm-driver=none --kubernetes-version=v1.18.1
+  - minikube update-context --profile=minikube
+  - "sudo chown -R travis: /home/travis/.minikube/"
+  - eval "$(minikube docker-env --profile=minikube)" && export DOCKER_CLI='docker'
 
 script: 
-  - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.7.0/bin/linux/amd64/kubectl && mv kubectl /usr/local/bin/
-  - curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && mv minikube /usr/local/bin/
-  - minikube start --vm-driver=none --kubernetes-version=v1.7.0
-  - minikube update-context
-  - JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; until kubectl get nodes -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1; done
   - helm version
   - echo $(pwd)
   - eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/agent+helper/Chart.yaml"
