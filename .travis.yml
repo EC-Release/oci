@@ -67,7 +67,7 @@ script:
   - docker run -it --rm --name=justdatest --env-file=k8s/example/gateway.env enterpriseconnect/agent:v1beta > agt.log || cat agt.log
   # test tls plugin 
   - docker run -it --rm -d --name=justatest --env-file=k8s/example/server+tls.env enterpriseconnect/plugins:v1 && sleep 10 && docker logs justatest 
-  - docker run -it --rm -d --name=justanothertest --env-file=k8s/example/client+vln.env enterpriseconnect/plugins:v1beta && sleep 10 && docker logs justanothertest
+  #- docker run -it --rm -d --name=justanothertest --env-file=k8s/example/client+vln.env enterpriseconnect/plugins:v1beta && sleep 10 && docker logs justanothertest
 
 after_deploy: chmod 775 ./after_deploy.sh && ./after_deploy.sh
 
