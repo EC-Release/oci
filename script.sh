@@ -32,12 +32,14 @@ helm template k8s/example --debug --set-file global.agtConfig=k8s/example/gatewa
 printf "\n\n\n*** test client with vln template\n\n"
 helm template k8s/example --debug --set-file global.agtConfig=k8s/example/client+vln.env --generate-name
   
-printf "\n\n\n*** test agt mode w/ docker\n\n"
+printf "\n\n\n*** test v1 agt mode w/ docker\n\n"
 docker run -it --rm --name=justdatest --env-file=k8s/example/gateway.env enterpriseconnect/agent:v1 > agt.log || cat agt.log
+printf "\n\n\n*** test v1beta agt mode w/ docker\n\n"
 docker run -it --rm --name=justdatest --env-file=k8s/example/gateway.env enterpriseconnect/agent:v1beta > agt.log || cat agt.log
 
-printf "\n\n\n*** test tls/vln plugins w/ docker\n\n"
+printf "\n\n\n*** test server+tls plugin w/ docker\n\n"
 docker run -it --rm -d --name=justatest --env-file=k8s/example/server+tls.env enterpriseconnect/plugins:v1 && sleep 10 && docker logs justatest 
+printf "\n\n\n*** test client+vln plugin w/ docker\n\n"
 docker run -it --rm -d --name=justanothertest --env-file=k8s/example/client+vln.env enterpriseconnect/plugins:v1beta && sleep 10 && docker logs justanothertest
 
 printf "\n\n\n*** installing minikube for simulating test \n\n"
