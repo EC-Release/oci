@@ -37,10 +37,10 @@ docker run -it --rm --name=justdatest --env-file=k8s/example/gateway.env enterpr
 printf "\n\n\n*** test v1beta agt mode w/ docker\n\n"
 docker run -it --rm --name=justdatest --env-file=k8s/example/gateway.env enterpriseconnect/agent:v1beta > agt.log || cat agt.log
 
-printf "\n\n\n*** test server+tls plugin w/ docker\n\n"
+printf "\n\n\n*** test server+tls v1 plugin w/ docker\n\n"
 docker run -it --rm -d --name=justatest --env-file=k8s/example/server+tls.env enterpriseconnect/plugins:v1 && sleep 10 && docker logs justatest 
-printf "\n\n\n*** test client+vln plugin w/ docker\n\n"
-docker run -it --rm -d --name=justanothertest --env-file=k8s/example/client+vln.env enterpriseconnect/plugins:v1beta && sleep 10 && docker logs justanothertest
+printf "\n\n\n*** test client+vln v1 plugin w/ docker\n\n"
+docker run -it --rm -d --name=justanothertest --env-file=k8s/example/client+vln.env enterpriseconnect/plugins:v1 && sleep 10 && docker logs justanothertest
 
 printf "\n\n\n*** installing minikube for simulating test \n\n"
 curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.18.1/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
