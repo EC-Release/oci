@@ -22,57 +22,8 @@ before_script:
   - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
 script:
-  - kubectl cluster-info
-  - helm version
-  - echo $(pwd)
-  - eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/agent+helper/Chart.yaml"
-  - eval "sed -i -e 's#<AGENT_CHART_REV>#${AGENT_CHART_REV}#g' k8s/agent/Chart.yaml"
-  - eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/agent/Chart.yaml"
-  - eval "sed -i -e 's#<AGENT_PLG_CHART_REV>#${AGENT_PLG_CHART_REV}#g' k8s/agent+plg/Chart.yaml"
-  - eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/agent+plg/Chart.yaml"
-  - eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/example/Chart.yaml"
-  - eval "sed -i -e 's#<AGENT_PLG_CHART_REV>#${AGENT_PLG_CHART_REV}#g' k8s/example/Chart.yaml"
-  - eval "sed -i -e 's#<AGENT_CHART_REV>#${AGENT_CHART_REV}#g' k8s/example/Chart.yaml"
-  - cat k8s/agent+helper/Chart.yaml k8s/agent/Chart.yaml k8s/agent+plg/Chart.yaml k8s/example/Chart.yaml
-  - mkdir -p k8s/pkg/agent/$AGENT_CHART_REV k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV k8s/pkg/agent+plg/$AGENT_PLG_CHART_REV
-  - ls -la k8s/pkg
-  - helm package k8s/agent+helper -d k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV
-  - helm dependency update k8s/agent
-  - helm dependency update k8s/agent+plg
-  - helm package k8s/agent -d k8s/pkg/agent/$AGENT_CHART_REV
-  - helm package k8s/agent+plg -d k8s/pkg/agent+plg/$AGENT_PLG_CHART_REV
-  - echo test example spec
-  - helm dependency update k8s/example
-  #k8 simulating test
-  - printf "\n\n*** installing minikube\n\n"
-  - curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.18.1/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
-  - curl -Lo minikube https://storage.googleapis.com/minikube/releases/v1.8.1/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
-  - mkdir -p $HOME/.kube $HOME/.minikube
-  - touch $KUBECONFIG
-  - sudo minikube start --profile=minikube --vm-driver=none --kubernetes-version=v1.18.1
-  - minikube update-context --profile=minikube
-  - "sudo chown -R travis: /home/travis/.minikube/"
-  - eval "$(minikube docker-env --profile=minikube)" && export DOCKER_CLI='docker'
+  - chmod 775 ./script.sh && ./script.sh
   
-  - printf "\n\n*** test server with tls template\n\n"
-  - helm template k8s/example --debug --set-file global.agtConfig=k8s/example/server+tls.env
-  - printf "\n\n*** install client with vln template in minikube\n\n"
-  - helm install k8s/example --debug --set-file global.agtConfig=k8s/example/client+vln.env --generate-name
-  - printf "\n\n*** test gateway agt template\n\n"
-  - helm template k8s/example --debug --set-file global.agtConfig=k8s/example/gateway.env
-  - printf "\n\n*** verify logs in minikube\n\n"
-  - kubectl logs -p $(kubectl get deployments|grep agent-plg|awk '{print $1}'|head -n 1) --since=5m
-  - printf "\n\n*** pkg indexing\n\n"
-  - helm repo index k8s/pkg/agent/$AGENT_CHART_REV --url https://ec-release.github.io/oci/agent/$AGENT_CHART_REV
-  - helm repo index k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV --url https://ec-release.github.io/oci/agent+helper/$AGENT_HELPER_CHART_REV
-  - helm repo index k8s/pkg/agent+plg/$AGENT_PLG_CHART_REV --url https://ec-release.github.io/oci/agent+plg/$AGENT_PLG_CHART_REV
-  # test agt modes
-  - docker run -it --rm --name=justdatest --env-file=k8s/example/gateway.env enterpriseconnect/agent:v1 > agt.log || cat agt.log
-  - docker run -it --rm --name=justdatest --env-file=k8s/example/gateway.env enterpriseconnect/agent:v1beta > agt.log || cat agt.log
-  # test tls plugin 
-  - docker run -it --rm -d --name=justatest --env-file=k8s/example/server+tls.env enterpriseconnect/plugins:v1 && sleep 10 && docker logs justatest 
-  #- docker run -it --rm -d --name=justanothertest --env-file=k8s/example/client+vln.env enterpriseconnect/plugins:v1beta && sleep 10 && docker logs justanothertest
-
 after_deploy: chmod 775 ./after_deploy.sh && ./after_deploy.sh
 
 deploy:
