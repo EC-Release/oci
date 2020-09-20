@@ -40,7 +40,7 @@ docker run -it --rm --env-file=k8s/example/gateway.env enterpriseconnect/agent:v
 printf "\n\n\n*** test server+tls v1 plugin w/ docker\n\n"
 docker run -it --rm -d --name server-tls --env-file=k8s/example/server+tls.env enterpriseconnect/plugins:v1 && sleep 5 && docker logs server-tls 
 printf "\n\n\n*** test client+vln v1 plugin w/ docker\n\n"
-docker run -it --rm -d --name client-vln --env-file=k8s/example/client+vln.env enterpriseconnect/plugins:v1 && sleep 5 && docker logs client-vln
+docker run -it --rm --name client-vln --env-file=k8s/example/client+vln.env enterpriseconnect/plugins:v1 > client-vln.log || cat client-vln.log
 
 printf "\n\n\n*** installing minikube for simulating test \n\n"
 curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.18.1/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
