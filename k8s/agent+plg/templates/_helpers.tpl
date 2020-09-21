@@ -288,6 +288,6 @@ Get the vln ips list from the chart values.yaml
 {{- define "vln.ips" -}}
 {{- if and (.Values.global.agtK8Config.withPlugins.vln.ips (not (eq .Values.global.agtK8Config.withPlugins.vln.remote true))) -}}
 - name: plg.vln.ips
-  value: {{ (join "," .Values.global.agtK8Config.withPlugins.vln.ports) | quote }}
+  value: {{ (join "," .Values.global.agtK8Config.withPlugins.vln.ips) | quote }}
 {{- end -}}
 {{- end -}}
