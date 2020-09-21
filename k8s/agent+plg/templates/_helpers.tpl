@@ -286,7 +286,7 @@ Compile the vln port list from the values.yaml and agtConfig
 Get the vln ips list from the chart values.yaml
 */}}
 {{- define "vln.ips" -}}
-{{- if and (eq (typeOf .Values.global.agtK8Config.withPlugins.vln.ips) "slice") (not (eq .Values.global.agtK8Config.withPlugins.vln.remote true))) -}}
+{{- if and (eq (typeOf .Values.global.agtK8Config.withPlugins.vln.ips) "slice") (not (eq .Values.global.agtK8Config.withPlugins.vln.remote true)) -}}
 - name: plg.vln.ips
   value: {{ (join "," .Values.global.agtK8Config.withPlugins.vln.ips) | quote }}
 {{- end -}}
