@@ -3,16 +3,6 @@ kubectl cluster-info
 helm version
 echo $(pwd)
 
-printf "\n\n\n*** installing minikube for simulating test \n\n"
-curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.18.1/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/v1.8.1/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
-mkdir -p $HOME/.kube $HOME/.minikube
-touch $KUBECONFIG
-sudo minikube start --profile=minikube --vm-driver=none --kubernetes-version=v1.18.1
-minikube update-context --profile=minikube
-"sudo chown -R travis: /home/travis/.minikube/"
-eval "$(minikube docker-env --profile=minikube)" && export DOCKER_CLI='docker'
-
 printf "\n\n\n*** update the pkg chart params \n\n"
 eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/agent+helper/Chart.yaml"
 eval "sed -i -e 's#<AGENT_CHART_REV>#${AGENT_CHART_REV}#g' k8s/agent/Chart.yaml"
@@ -50,8 +40,18 @@ docker run -it --rm --env-file=k8s/example/gateway.env enterpriseconnect/agent:v
 printf "\n\n\n*** test server+tls v1 plugin w/ docker\n\n"
 docker run -it --rm -d --name server-tls --env-file=k8s/example/server+tls.env enterpriseconnect/plugins:v1 && sleep 5 && docker logs server-tls 
 printf "\n\n\n*** test client+vln v1 plugin w/ docker\n\n"
-docker run -it --rm --name client-vln --env-file=k8s/example/client+vln.env enterpriseconnect/plugins:v1 > client-vln.log || cat client-vln.log
+docker run -it --rm -d --name client-vln --env-file=k8s/example/client+vln.env enterpriseconnect/plugins:v1 && sleep 5 && docker logs client-vln 
   
+printf "\n\n\n*** installing minikube for simulating test \n\n"
+curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.18.1/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/v1.8.1/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+mkdir -p $HOME/.kube $HOME/.minikube
+touch $KUBECONFIG
+sudo minikube start --profile=minikube --vm-driver=none --kubernetes-version=v1.18.1
+minikube update-context --profile=minikube
+"sudo chown -R travis: /home/travis/.minikube/"
+eval "$(minikube docker-env --profile=minikube)" && export DOCKER_CLI='docker'
+
 printf "\n\n\n*** install client with vln template in minikube\n\n"
 helm install k8s/example --debug --set-file global.agtConfig=k8s/example/client+vln.env --generate-name
 printf "\n\n\n*** verify logs in minikube\n\n"
