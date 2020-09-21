@@ -66,7 +66,7 @@ spec:
               value: {{ .Values.global.agtK8Config.withPlugins.tls.port|quote }}
             - name: conf.rpt
               value: {{ include "agent.hasRPT" . }}
-            {{- else if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (or (eq $mode "client") (eq $mode "gw:client")) -}}
+            {{- else if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (or (eq $mode "client") (eq $mode "gw:client")) }}
             - name: plg.typ
               value: vln
             {{- include "vln.ports" . | nindent 12 }}
