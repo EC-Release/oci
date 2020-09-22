@@ -1,46 +1,29 @@
+# author: apolo.yasuda@ge.com
+
 language: minimal
 if: head_branch =~ ^v1.1beta_helm_pkg_update$ OR branch = v1.1beta_helm_pkg
 
 services:
   - docker
-  
+
+env:
+  global:
+    - CHANGE_MINIKUBE_NONE_USER=true
+    - MINIKUBE_WANTUPDATENOTIFICATION=false
+    - MINIKUBE_WANTREPORTERRORPROMPT=false
+    - MINIKUBE_HOME=$HOME
+    - CHANGE_MINIKUBE_NONE_USER=true
+    - KUBECONFIG=$HOME/.kube/config
+
 before_install:
+- sudo apt-get -qq -y install conntrack
+
+before_script:
   - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
-script: 
-  - helm version
-  - echo $(pwd)
-  - eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/agent+helper/Chart.yaml"
-  - eval "sed -i -e 's#<AGENT_CHART_REV>#${AGENT_CHART_REV}#g' k8s/agent/Chart.yaml"
-  - eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/agent/Chart.yaml"
-  - eval "sed -i -e 's#<AGENT_PLG_CHART_REV>#${AGENT_PLG_CHART_REV}#g' k8s/agent+plg/Chart.yaml"
-  - eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/agent+plg/Chart.yaml"
-  - eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/example/Chart.yaml"
-  - eval "sed -i -e 's#<AGENT_PLG_CHART_REV>#${AGENT_PLG_CHART_REV}#g' k8s/example/Chart.yaml"
-  - eval "sed -i -e 's#<AGENT_CHART_REV>#${AGENT_CHART_REV}#g' k8s/example/Chart.yaml"
-  - cat k8s/agent+helper/Chart.yaml k8s/agent/Chart.yaml k8s/agent+plg/Chart.yaml k8s/example/Chart.yaml
-  - mkdir -p k8s/pkg/agent/$AGENT_CHART_REV k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV k8s/pkg/agent+plg/$AGENT_PLG_CHART_REV
-  - ls -la k8s/pkg
-  - helm package k8s/agent+helper -d k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV
-  - helm dependency update k8s/agent
-  - helm dependency update k8s/agent+plg
-  - helm package k8s/agent -d k8s/pkg/agent/$AGENT_CHART_REV
-  - helm package k8s/agent+plg -d k8s/pkg/agent+plg/$AGENT_PLG_CHART_REV
-  - echo test example spec
-  - helm dependency update k8s/example
-  #k8 simulating test
-  - helm template k8s/example --debug --set-file global.agtConfig=k8s/example/server+plg.env
-  - helm repo index k8s/pkg/agent/$AGENT_CHART_REV --url https://ec-release.github.io/oci/agent/$AGENT_CHART_REV
-  - helm repo index k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV --url https://ec-release.github.io/oci/agent+helper/$AGENT_HELPER_CHART_REV
-  - helm repo index k8s/pkg/agent+plg/$AGENT_PLG_CHART_REV --url https://ec-release.github.io/oci/agent+plg/$AGENT_PLG_CHART_REV
-  - bash <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.1beta.linux64.txt) -inf
-  # test agt modes
-  - docker run -it --rm --name=justdatest --env-file=k8s/example/gateway.env enterpriseconnect/agent:v1 > agt.log || cat agt.log
-  - docker run -it --rm --name=justdatest --env-file=k8s/example/gateway.env enterpriseconnect/agent:v1beta > agt.log || cat agt.log
-  # test tls plugin 
-  - docker run -it --rm -d --name=justatest --env-file=k8s/example/server+tls.env enterpriseconnect/plugins:v1 && sleep 10 && docker logs justatest 
-  - docker run -it --rm -d --name=justanothertest --env-file=k8s/example/server+tls.env enterpriseconnect/plugins:v1beta && sleep 10 && docker logs justanothertest
-
+script:
+  - chmod 775 ./script.sh && ./script.sh
+  
 after_deploy: chmod 775 ./after_deploy.sh && ./after_deploy.sh
 
 deploy:

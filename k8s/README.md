@@ -68,6 +68,8 @@ $ helm dependency update example
 [Back to Contents](#contents)
 #### Update the agent usage
 In the parent chart(s), there are some options avaialble to customise the agent usage. The configuration below is also available in the example/values.yaml for the usage reference.
+
+For plugins-relate usage in detail, please refer to the [TLS docs](https://github.com/EC-Release/sdk/tree/v1/plugins/tls), and for [VLAN docs](https://github.com/EC-Release/sdk/tree/v1/plugins/vln)
 ```yaml
 ...
 global:
@@ -116,11 +118,23 @@ global:
         proxy: http://traffic-manipulation.job.security.io:8080
         port: 17990
       # the vln setting only valid when agent mode "-mod" is either "client" or "gw:client"
-      # the vln is currently in development and is not avaialble via helm.
       vln:
+        # The "enabled" keypair will be overridden by the "agtConfig" setting, if specified. E.g. "conf.vln=true"
         enabled: false
-        ips: 10.10.10.1/32,10.10.10.0/24
+        # the "remote" keypair indicates the vlan deployment strategy. When default to true,
+        # the vlan setup will ignore the "ips" setting, and instead simulate only the "ports"-
+        # setting via a series of service/pod remote to the client application. In the remote-
+        # scenario, it is subject to the client app's configuration in its respective pod in order-
+        # to make the "ips" setting work correcly. Otherwise the setup will deploy the plugin artifact-
+        # along with the ips/ports setting, and assume the direct interaction with the local loopback-
+        # interface at the parental pod.
+        remote: true
+        # The "ports" keypair will be overridden by the default "agtConfig" setting, if specified. E.g. "conf.rpt=<port1,port2..portn>"
+        ports: [8000,8001,8002,8003]
+        # The "ips" keypair is ignored when set "remote" to true
+        ips: ["10.10.10.0/30","8.8.8.100","8.8.8.101","8.8.8.102"]
 ```
+
 [Back to Contents](#contents)
 #### Agent/Chart Configuration Conversion
 ```bash

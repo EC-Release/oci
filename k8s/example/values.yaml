@@ -88,7 +88,7 @@ global:
     # withIngress decides the availability of the agt ingress obj in deployment.
     # by default, when deploy as the gateway mode (conf.mod=gateway), the value (enabled) will be overridden to true
     withIngress:
-      enabled: false
+      enabled: true
       # host utilised to make the agt accessible via non-tls traffic. 
       # it is also possible for the co-existence and the overlap of both tls/non-tls routings (hosts/tls)
       hosts:
@@ -115,5 +115,17 @@ global:
         port: 17990
       # the vln setting only valid when agent mode "-mod" is either "client" or "gw:client"
       vln:
-        enabled: false
-        ips: 10.10.10.1/32,10.10.10.0/24
+        # The "enabled" keypair will be overridden by the "agtConfig" setting, if specified. E.g. "conf.vln=true"
+        enabled: true
+        # the "remote" keypair indicates the vlan deployment strategy. When default to true,
+        # the vlan setup will ignore the "ips" setting, and instead simulate only the "ports"-
+        # setting via a series of service/pod remote to the client application. In the remote-
+        # scenario, it is subject to the client app's configuration in its respective pod in order-
+        # to make the "ips" setting work correcly. Otherwise the setup will deploy the plugin artifact-
+        # along with the ips/ports setting, and assume the direct interaction with the local loopback-
+        # interface at the parental pod.
+        remote: true
+        # The "ports" keypair will be overridden by the default "agtConfig" setting, if specified. E.g. "conf.rpt=<port1,port2..portn>"
+        ports: [8000,8001,8002,8003]
+        # The "ips" keypair is ignored when set "remote" to true
+        ips: ["10.10.10.0/30","8.8.8.100","8.8.8.101","8.8.8.102"]

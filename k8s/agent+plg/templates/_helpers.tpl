@@ -84,14 +84,23 @@ Generate container port spec for client agent. Need review for gateway usage
 {{- if or (eq $mode "gateway") (eq $mode "gw:server") (eq $mode "gw:client") -}}
 {{- $portName = "gpt=" -}}
 {{- end -}}
-{{- range (split "\n" .Values.global.agtConfig) }}
-{{- if contains $portName . -}}
+{{- range (split "\n" .Values.global.agtConfig) -}}
 {{- $a := (. | replace ":" "") -}}
 {{- $b := ($a | replace "'" "") -}}
 {{- $c := ($b | replace "\"" "") -}}
-- name: {{ $.Values.agtK8Config.portName }}
+{{- if contains $portName $c -}}
+- name: {{ printf "%s-%d" $.Values.agtK8Config.portName 0 }}
   containerPort: {{ (split "=" $c )._1 }}
   protocol: TCP
+{{- else if and (contains "rpt=" $c) (or (eq $mode "gw:client") (eq $mode "client")) -}}
+{{- $d := (split "rpt=" $c )._1 }}
+{{- $e := 1 -}}
+{{- range (split "," $d) }}
+- name: {{ printf "%s-%d" $.Values.agtK8Config.portName $e }}
+  containerPort: {{ . | trim }}
+  protocol: TCP
+{{- $e = (add $e 1) -}}
+{{- end -}}
 {{- end -}}
 {{- end -}}
 {{- end -}}
@@ -101,9 +110,26 @@ Generate service port spec for agent pods.
 */}}
 {{- define "agent.svcPortSpec" -}}
 - port: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
-  targetPort: {{ .Values.agtK8Config.portName }}
+  targetPort: {{ printf "%s-%d" .Values.agtK8Config.portName 0  }}
   protocol: TCP
-  name: {{ .Values.agtK8Config.svcPortName }}
+  name: {{ printf "%s-%d" .Values.agtK8Config.svcPortName 0 }}
+{{- $mode := include "agent.mode" . -}}
+{{- range (split "\n" .Values.global.agtConfig) -}}
+{{- $a := (. | replace ":" "") -}}
+{{- $b := ($a | replace "'" "") -}}
+{{- $c := ($b | replace "\"" "") -}}
+{{- if and (contains "rpt=" $c) (or (eq $mode "gw:client") (eq $mode "client")) -}}
+{{- $d := (split "rpt=" $c )._1 }}
+{{- $e := 1 -}}
+{{- range (split "," $d) }}
+- port: {{ . }}
+  targetPort: {{ printf "%s-%d" $.Values.agtK8Config.portName $e }}
+  protocol: TCP
+  name: {{ printf "%s-%d" $.Values.agtK8Config.svcPortName $e }}
+{{- $e = (add $e 1) -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
 {{- end -}}
 
 {{/*
@@ -216,5 +242,52 @@ Extract the plugin flag setting (-plg) from the agent config
 {{- if contains "plg=true" . -}}
 true
 {{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Extract the VLAN flag setting (-vln) from the agent config
+*/}}
+{{- define "agent.hasVLAN" -}}
+{{- range (split "\n" .Values.global.agtConfig) -}}
+{{- if contains "vln=true" . -}}
+true
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Extract the Remote Port List flag setting (-rpt) from the agent config
+*/}}
+{{- define "agent.hasRPT" -}}
+{{- range (split "\n" .Values.global.agtConfig) -}}
+{{- if contains "rpt=" . -}}
+true
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Compile the vln port list from the values.yaml and agtConfig
+*/}}
+{{- define "vln.ports" -}}
+{{- $isRPTExists := include "agent.hasRPT" . -}}
+{{- if not $isRPTExists -}}
+- name: conf.rpt
+{{- if eq (typeOf .Values.global.agtK8Config.withPlugins.vln.ports) "slice" -}}
+  value: {{ (join "," .Values.global.agtK8Config.withPlugins.vln.ports) | quote }}
+{{- else -}}
+  value: "0"
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Get the vln ips list from the chart values.yaml
+*/}}
+{{- define "vln.ips" -}}
+{{- if and (eq (typeOf .Values.global.agtK8Config.withPlugins.vln.ips) "slice") (not (eq .Values.global.agtK8Config.withPlugins.vln.remote true)) -}}
+- name: plg.vln.ips
+  value: {{ (join "," .Values.global.agtK8Config.withPlugins.vln.ips) | quote }}
 {{- end -}}
 {{- end -}}
