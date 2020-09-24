@@ -30,7 +30,6 @@ global:
         nodeSelector: {}
         tolerations: []
         affinity: {}
-        agtConfig: conf.env
         agtK8Config:
           portName: agt-prt
           svcPortName: agt-svc-prt
