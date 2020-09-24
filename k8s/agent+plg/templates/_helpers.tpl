@@ -345,9 +345,9 @@ Get the vln ips list from the chart values.yaml
     {{- if and (.Values.global.agtK8Config.withPlugins.tls.enabled) (or (eq $mode "server") (eq $mode "gw:server")) }}
     - name: plg.typ
       value: tls
-    - name: plg.tlc.scm
+    - name: plg.tls.scm
       value: {{ .Values.global.agtK8Config.withPlugins.tls.schema|quote }}
-    - name: plg.tlc.hst
+    - name: plg.tls.hst
       value: {{ .Values.global.agtK8Config.withPlugins.tls.hostname|quote }}
     - name: plg.tls.prt
       value: {{ .Values.global.agtK8Config.withPlugins.tls.tlsport|quote }}
