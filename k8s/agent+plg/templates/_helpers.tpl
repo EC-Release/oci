@@ -286,7 +286,7 @@ true
    */}}
 {{- define "agent.tlsPluginType" -}}
 {{- $pTyp := include "agent.hasTLSPluginType" . -}}
-{{- if not $pTyp" -}}
+{{- if not $pTyp -}}
 - name: "plg.typ"
   value: "tls"
 {{- end -}}
@@ -311,7 +311,7 @@ true
    */}}
 {{- define "agent.vlnPluginType" -}}
 {{- $pTyp := include "agent.hasVLNPluginType" . -}}
-{{- if not $pTyp" -}}
+{{- if not $pTyp -}}
 - name: "plg.typ"
   value: "vln"
 {{- end -}}
