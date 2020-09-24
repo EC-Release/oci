@@ -267,19 +267,53 @@ true
 {{- end -}}
 {{- end -}}
 
-
 {{/*
-   * Extract the plugin flag "plg.typ" from the agent config
+   * verify if there already exists a tls plugin flag
    */}}
-{{- define "agent.PluginType" -}}
+{{- define "agent.hasTLSPluginType" -}}
 {{- range (split "\n" .Values.global.agtConfig) -}}
-{{- if not (contains "plg.typ=" .) -}}
 {{- $a := (. | replace ":" "") -}}
 {{- $b := ($a | replace "'" "") -}}
 {{- $c := ($b | replace "\"" "") -}}
-- name: plg.typ
-  value: {{- (split "=" $c )._1 | quote -}}
+{{- if contains "plg.typ=tls" $c -}}
+true
 {{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+   * set the tls env var if there does not exist a vln plugin flag
+   */}}
+{{- define "agent.tlsPluginType" -}}
+{{- $pTyp := include "agent.hasTLSPluginType" . -}}
+{{- if not $pTyp" -}}
+- name: "plg.typ"
+  value: "tls"
+{{- end -}}
+{{- end -}}
+
+{{/*
+   * verify if there already exists a vln plugin flag
+   */}}
+{{- define "agent.hasVLNPluginType" -}}
+{{- range (split "\n" .Values.global.agtConfig) -}}
+{{- $a := (. | replace ":" "") -}}
+{{- $b := ($a | replace "'" "") -}}
+{{- $c := ($b | replace "\"" "") -}}
+{{- if contains "plg.typ=vln" $c -}}
+true
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+   * set the vln env var if there does not exist a vln plugin flag
+   */}}
+{{- define "agent.vlnPluginType" -}}
+{{- $pTyp := include "agent.hasVLNPluginType" . -}}
+{{- if not $pTyp" -}}
+- name: "plg.typ"
+  value: "vln"
 {{- end -}}
 {{- end -}}
 
@@ -343,8 +377,7 @@ Get the vln ips list from the chart values.yaml
     {{- $hasPlugin := include "agent.hasPlugin" . -}}
     {{- if (eq $hasPlugin "true") -}}
     {{- if and (.Values.global.agtK8Config.withPlugins.tls.enabled) (or (eq $mode "server") (eq $mode "gw:server")) }}
-    - name: plg.typ
-      value: tls
+    {{- include "agent.tlsPluginType" . | nindent 4 -}}
     - name: plg.tls.scm
       value: {{ .Values.global.agtK8Config.withPlugins.tls.schema|quote }}
     - name: plg.tls.hst
@@ -358,7 +391,7 @@ Get the vln ips list from the chart values.yaml
     - name: conf.rpt
       value: {{ include "agent.hasRPT" . }}
     {{- else if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (or (eq $mode "client") (eq $mode "gw:client")) }}
-    {{- include "agent.PluginType" . | nindent 4 -}}
+    {{- include "agent.vlnPluginType" . | nindent 4 -}}
     {{- include "vln.ports" . | nindent 4 -}}
     {{- include "vln.ips" . | nindent 4 -}}
     - name: test
