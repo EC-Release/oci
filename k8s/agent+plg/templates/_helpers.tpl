@@ -314,7 +314,7 @@ Get the vln ips list from the chart values.yaml
       path: /health
       port: {{ .Values.agtK8Config.healthPortName }}
   resources:
-    {{ include "agent.podResource" . | nindent 2 }}
+    {{- include "agent.podResource" . | nindent 4 }}
   env:
     {{- range (split "\n" .Values.global.agtConfig) }}
     {{- $a := splitn "=" 2 . }}
