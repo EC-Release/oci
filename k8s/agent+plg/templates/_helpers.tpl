@@ -303,8 +303,8 @@ Get the vln ips list from the chart values.yaml
     {{- toYaml .Values.securityContext}}
   imagePullPolicy: {{ .Values.image.pullPolicy }}
   ports:
-    {{ include "agent.portSpec" . | nindent 4 }}
-    {{ include "agent.healthPortSpec" . | nindent 4 }}
+    {{- include "agent.portSpec" . | nindent 4 }}
+    {{- include "agent.healthPortSpec" . | nindent 4 }}
   livenessProbe:
     httpGet:
       path: /health
@@ -314,7 +314,7 @@ Get the vln ips list from the chart values.yaml
       path: /health
       port: {{ .Values.agtK8Config.healthPortName }}
   resources:
-    {{- include "agent.podResource" . }}
+    {{ include "agent.podResource" . | nindent 2 }}
   env:
     {{- range (split "\n" .Values.global.agtConfig) }}
     {{- $a := splitn "=" 2 . }}
