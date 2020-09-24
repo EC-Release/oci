@@ -347,7 +347,7 @@ Get the vln ips list from the chart values.yaml
    */}}
 {{- define "agent.plugins" -}}
 - name: {{ include "agent.name" . }}
-  image: "enterpriseconnect/plugins:{{ .Values.global.agtK8Config.releaseTag }}
+  image: enterpriseconnect/plugins:{{ .Values.global.agtK8Config.releaseTag }}
   command: {{ include "agent.launchCmd" . }}
   securityContext:
     {{- toYaml .Values.securityContext}}
@@ -394,8 +394,6 @@ Get the vln ips list from the chart values.yaml
     {{- include "agent.vlnPluginType" . | nindent 4 -}}
     {{- include "vln.ports" . | nindent 4 -}}
     {{- include "vln.ips" . | nindent 4 -}}
-    - name: test
-      value: test
     {{- end -}}
     {{- end -}}
 {{- end -}}
