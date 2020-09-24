@@ -349,8 +349,8 @@ Get the vln ips list from the chart values.yaml
 - name: {{ include "agent.name" . }}
   image: enterpriseconnect/plugins:{{ .Values.global.agtK8Config.releaseTag }}
   command: {{ include "agent.launchCmd" . }}
-  securityContext:
-    {{- toYaml .Values.securityContext}}
+  securityContext: 
+    {{ toYaml .Values.securityContext}}
   imagePullPolicy: {{ .Values.image.pullPolicy }}
   ports:
     {{- include "agent.portSpec" . | nindent 4 }}
