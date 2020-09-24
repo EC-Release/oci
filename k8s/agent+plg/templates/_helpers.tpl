@@ -267,6 +267,22 @@ true
 {{- end -}}
 {{- end -}}
 
+
+{{/*
+   * Extract the plugin flag "plg.typ" from the agent config
+   */}}
+{{- define "agent.PluginType" -}}
+{{- range (split "\n" .Values.global.agtConfig) -}}
+{{- if contains "plg.typ=" . -}}
+{{- $a := (. | replace ":" "") -}}
+{{- $b := ($a | replace "'" "") -}}
+{{- $c := ($b | replace "\"" "") -}}
+- name: plg.typ
+  value: {{- (split "=" $c )._1 | quote -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
 {{/*
 Compile the vln port list from the values.yaml and agtConfig
 */}}
@@ -342,10 +358,7 @@ Get the vln ips list from the chart values.yaml
     - name: conf.rpt
       value: {{ include "agent.hasRPT" . }}
     {{- else if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (or (eq $mode "client") (eq $mode "gw:client")) }}
-    - name: plg.typ
-      value: vln
-    - name: test
-      value: test
+    {{- include "agent.PluginType" . | nindent 4 -}}
     {{- include "vln.ports" . | nindent 4 -}}
     {{- include "vln.ips" . | nindent 4 -}}
     - name: test
