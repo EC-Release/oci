@@ -303,8 +303,8 @@ Get the vln ips list from the chart values.yaml
     {{- toYaml .Values.securityContext}}
   imagePullPolicy: {{ .Values.image.pullPolicy }}
   ports:
-    {{- include "agent.portSpec" . }}
-    {{- include "agent.healthPortSpec" . }}
+    {{ include "agent.portSpec" . }}
+    {{ include "agent.healthPortSpec" . }}
   livenessProbe:
     httpGet:
       path: /health
@@ -344,8 +344,8 @@ Get the vln ips list from the chart values.yaml
     {{- else if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (or (eq $mode "client") (eq $mode "gw:client")) }}
     - name: plg.typ
       value: vln
-    {{- include "vln.ports" . }}
-    {{- include "vln.ips" . }}
+    {{ include "vln.ports" . }}
+    {{ include "vln.ips" . }}
     {{- end -}}
     {{- end -}}
 {{- end -}}
