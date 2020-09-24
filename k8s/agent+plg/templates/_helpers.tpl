@@ -291,3 +291,61 @@ Get the vln ips list from the chart values.yaml
   value: {{ (join "," .Values.global.agtK8Config.withPlugins.vln.ips) | quote }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+   * container wrapper
+   */}}
+{{- define "agent.plugins" -}}
+- name: {{ include "agent.name" . }}
+  image: "enterpriseconnect/plugins:{{ .Values.global.agtK8Config.releaseTag }}
+  command: {{ include "agent.launchCmd" . }}
+  securityContext:
+    {{- toYaml .Values.securityContext}}
+  imagePullPolicy: {{ .Values.image.pullPolicy }}
+  ports:
+    {{- include "agent.portSpec" . }}
+    {{- include "agent.healthPortSpec" . }}
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: {{ .Values.agtK8Config.healthPortName }}
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: {{ .Values.agtK8Config.healthPortName }}
+  resources:
+    {{- include "agent.podResource" . }}
+  env:
+    {{- range (split "\n" .Values.global.agtConfig) }}
+    {{- $a := splitn "=" 2 . }}
+    {{- if and (not (eq $a._1 "")) ($a._1) }}
+    - name: {{ $a._0|quote }}
+      value: {{ $a._1|quote }}
+    {{- end }}
+    {{- end -}}
+    {{- $mode := include "agent.mode" . -}}
+    {{- $hasPlugin := include "agent.hasPlugin" . -}}
+    {{- if (eq $hasPlugin "true") -}}
+    {{- if and (.Values.global.agtK8Config.withPlugins.tls.enabled) (or (eq $mode "server") (eq $mode "gw:server")) }}
+    - name: plg.typ
+      value: tls
+    - name: plg.tlc.scm
+      value: {{ .Values.global.agtK8Config.withPlugins.tls.schema|quote }}
+    - name: plg.tlc.hst
+      value: {{ .Values.global.agtK8Config.withPlugins.tls.hostname|quote }}
+    - name: plg.tls.prt
+      value: {{ .Values.global.agtK8Config.withPlugins.tls.tlsport|quote }}
+    - name: plg.tls.pxy
+      value: {{ .Values.global.agtK8Config.withPlugins.tls.proxy|quote }}
+    - name: plg.tls.lpt
+      value: {{ .Values.global.agtK8Config.withPlugins.tls.port|quote }}
+    - name: conf.rpt
+      value: {{ include "agent.hasRPT" . }}
+    {{- else if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (or (eq $mode "client") (eq $mode "gw:client")) }}
+    - name: plg.typ
+      value: vln
+    {{- include "vln.ports" . }}
+    {{- include "vln.ips" . }}
+    {{- end -}}
+    {{- end -}}
+{{- end -}}
