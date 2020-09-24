@@ -344,8 +344,8 @@ Get the vln ips list from the chart values.yaml
     {{- else if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (or (eq $mode "client") (eq $mode "gw:client")) }}
     - name: plg.typ
       value: vln
-    {{ include "vln.ports" . }}
-    {{ include "vln.ips" . }}
+    {{ include "vln.ports" . | nindent 4 }}
+    {{ include "vln.ips" . | nindent 4 }}
     {{- end -}}
     {{- end -}}
 {{- end -}}
