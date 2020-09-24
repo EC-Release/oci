@@ -273,7 +273,7 @@ true
    */}}
 {{- define "agent.PluginType" -}}
 {{- range (split "\n" .Values.global.agtConfig) -}}
-{{- if contains "plg.typ=" . -}}
+{{- if not contains "plg.typ=" . -}}
 {{- $a := (. | replace ":" "") -}}
 {{- $b := ($a | replace "'" "") -}}
 {{- $c := ($b | replace "\"" "") -}}
