@@ -1,39 +1,38 @@
 ---
 global:
   shared:
-    plugins:
-      vln:
-        replicaCount: 1
-        image:
-          repository: enterpriseconnect/plugins
-          pullPolicy: Always
-        imagePullSecrets: []
-        nameOverride: ''
-        fullnameOverride: ''
-        serviceAccount:
-          create: false
-          annotations: {}
-          name: 
-        podSecurityContext: {}
-        securityContext: {}
-        service:
-          type: ClusterIP
-          port: 80
-        ingress:
-          enabled: false
-          annotations: {}
-          hosts:
-          - host: chart-example.local
-            paths: []
-          tls: []
-        resources: {}
-        nodeSelector: {}
-        tolerations: []
-        affinity: {}
-        agtK8Config:
-          portName: agt-prt
-          svcPortName: agt-svc-prt
-          svcPortNum: 8080
-          healthPortName: agt-h-prt
-          svcHealthPortName: agt-svc-h-prt
-          svcHealthPortNum: 8081
+    agt-plugins:
+      replicaCount: 1
+      image:
+        repository: enterpriseconnect/plugins
+        pullPolicy: Always
+      imagePullSecrets: []
+      nameOverride: ''
+      fullnameOverride: ''
+      serviceAccount:
+        create: false
+        annotations: {}
+        name: 
+      podSecurityContext: {}
+      securityContext: {}
+      service:
+        type: ClusterIP
+        port: 80
+      ingress:
+        enabled: false
+        annotations: {}
+        hosts:
+        - host: chart-example.local
+          paths: []
+        tls: []
+      resources: {}
+      nodeSelector: {}
+      tolerations: []
+      affinity: {}
+      agtK8Config:
+        portName: agt-prt
+        svcPortName: agt-svc-prt
+        svcPortNum: 8080
+        healthPortName: agt-h-prt
+        svcHealthPortName: agt-svc-h-prt
+        svcHealthPortNum: 8081
