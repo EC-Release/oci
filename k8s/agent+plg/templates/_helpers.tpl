@@ -346,8 +346,8 @@ Get the vln ips list from the chart values.yaml
       value: vln
     - name: test
       value: test
-    {{- include "vln.ports" . | nindent 4 }}
-    {{- include "vln.ips" . | nindent 4 }}
+    {{- include "vln.ports" . | nindent 4 -}}
+    {{- include "vln.ips" . | nindent 4 -}}
     - name: test
       value: test
     {{- end -}}
