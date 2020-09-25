@@ -13,4 +13,3 @@ spec:
   selector:
     {{- include "agent.selectorLabels" . | nindent 4 }}
 {{- end -}}
-{{- end -}}
