@@ -1,7 +1,7 @@
 ---
 global:
   shared:
-    agtPlugins:
+    agtPlugin:
       replicaCount: 1
       image:
         repository: enterpriseconnect/plugins
