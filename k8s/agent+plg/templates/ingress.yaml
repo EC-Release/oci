@@ -1,7 +1,7 @@
 {{- $agtMode := include "agent.mode" . -}}
 {{- if or (eq $agtMode "gateway") (.Values.global.agtK8Config.withIngress.enabled) -}}
 {{- $fullName := include "agent.fullname" . -}}
-{{- $svcPort := .Values.agtK8Config.svcPortNum -}}
+{{- $svcPort := .Values.global.shared.agtPlugin.gtK8Config.svcPortNum -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
