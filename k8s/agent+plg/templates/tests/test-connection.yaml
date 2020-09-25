@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "agent.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "agent.fullname" . }}:{{ .Values.global.shared.agtPlugin.service.port }}']
   restartPolicy: Never
