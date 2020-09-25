@@ -124,7 +124,7 @@ global:
         # to make the "ips" setting work correcly. Otherwise the setup will deploy the plugin artifact-
         # along with the ips/ports setting, and assume the direct interaction with the local loopback-
         # interface at the parental pod.
-        remote: true
+        remote: false
         # The "ports" keypair will be overridden by the default "agtConfig" setting, if specified. E.g. "conf.rpt=<port1,port2..portn>"
         ports: [8000,8001,8002,8003]
         # The "ips" keypair is ignored when set "remote" to true
