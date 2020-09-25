@@ -11,7 +11,7 @@
    */}}
 
 {{- define "agent.name" -}}
-{{- $name_p := default $.Chart.Name $.Values.global.shared.agtPlugin.nameOverride -}}
+{{- $name_p := default .Chart.Name .Values.global.shared.agtPlugin.nameOverride -}}
 {{- $name := ($name_p | replace "+" "-") -}}
 {{- $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
@@ -22,14 +22,14 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "agent.fullname" -}}
-{{- if $.Values.global.shared.agtPlugin.fullnameOverride -}}
-{{- $.Values.global.shared.agtPlugin.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+{{- if .Values.global.shared.agtPlugin.fullnameOverride -}}
+{{- .Values.global.shared.agtPlugin.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
 {{- $name := include "agent.name" . }}
-{{- if contains $name $.Release.Name -}}
-{{- $.Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- if contains $name .Release.Name -}}
+{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
-{{- printf "%s-%s" $.Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
 {{- end -}}
