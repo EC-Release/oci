@@ -343,23 +343,34 @@ Get the vln ips list from the chart Values.global.shared.agt-plugins.yaml
    * container wrapper
    */}}
 {{- define "agent.plugins" -}}
-- name: {{ include "agent.name" . }}
+{{- $contrName := .contrDictContrName -}}
+{{- $contrReleaseTag := .contrDictReleaseTag -}}
+{{- $contrCmd := [] -}}
+{{- $contrSecurityContext := .contrDictSecurityContext -}}
+
+
+{{- $contrName := include "agent.name" . -}}
+{{- $contrReleaseTag := .Values.global.agtK8Config.releaseTag -}}
+{{- $contrCmd := include "agent.launchCmd" . -}}
+{{- $contrSecurityContext := .Values.global.shared.agtPlugin.securityContext -}}
+
+- name: {{- $contrName }}
   image: enterpriseconnect/plugins:{{ .Values.global.agtK8Config.releaseTag }}
   command: {{ include "agent.launchCmd" . }}
   securityContext: 
     {{ toYaml .Values.global.shared.agtPlugin.securityContext}}
-  imagePullPolicy: {{ .Values.global.shared.agtPlugin.image.pullPolicy }}
+  imagePullPolicy: Always
   ports:
     {{- include "agent.portSpec" . | nindent 4 }}
     {{- include "agent.healthPortSpec" . | nindent 4 }}
   livenessProbe:
     httpGet:
       path: /health
-      port: {{ .Values.global.shared.agtPlugin.agtK8Config.healthPortName }}
+      port: {{ .Values.global.agtK8Config.healthPortName }}
   readinessProbe:
     httpGet:
       path: /health
-      port: {{ .Values.global.shared.agtPlugin.agtK8Config.healthPortName }}
+      port: {{ .Values.global.agtK8Config.healthPortName }}
   resources:
     {{- include "agent.podResource" . | nindent 4 }}
   env:
