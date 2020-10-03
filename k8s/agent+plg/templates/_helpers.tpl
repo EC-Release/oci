@@ -343,27 +343,25 @@ Get the vln ips list from the chart values.yaml
 {{- end -}}
 
 {{/*
-   * container wrapper
+   * agent plugin container wrapper
    */}}
 {{- define "agent.plugins" -}}
-
-{{- $contrName := .contrDictContrName -}}
-{{- $contrReleaseTag := .contrDictReleaseTag -}}
-{{- $contrCmd := [] -}}
-{{- $contrSecurityContext := .contrDictSecurityContext -}}
-
 {{- $contrName := include "agent.name" . -}}
 {{- $contrReleaseTag := .Values.global.agtK8Config.releaseTag -}}
 {{- $contrCmd := include "agent.launchCmd" . -}}
 {{- $contrSecurityContext := .Values.global.shared.agtPlugin.securityContext -}}
-
-
-- name: {{ include "agent.name" . }}
-  image: enterpriseconnect/plugins:{{ .Values.global.agtK8Config.releaseTag }}
-  command: {{ include "agent.launchCmd" . }}
+{{- if and .Values.global.agtK8Config.withPlugins.vln.enabled (not .Values.global.agtK8Config.withPlugins.vln.remote) -}}
+{{- $contrName = .contrDictContrName -}}
+{{- $contrReleaseTag = .contrDictReleaseTag -}}
+{{- $contrCmd = [] -}}
+{{- $contrSecurityContext = .contrDictSecurityContext -}}
+{{- end -}}
+- name: {{ $contrName|quote }}
+  image: enterpriseconnect/plugins:{{ $contrReleaseTag }}
+  command: {{ $contrCmd }}
   securityContext: 
-    {{ toYaml .Values.securityContext}}
-  imagePullPolicy: {{ .Values.image.pullPolicy }}
+    {{ $contrSecurityContext | nindent 4 }}
+  imagePullPolicy: Always
   ports:
     {{- include "agent.portSpec" . | nindent 4 }}
     {{- include "agent.healthPortSpec" . | nindent 4 }}
