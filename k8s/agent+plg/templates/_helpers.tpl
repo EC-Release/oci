@@ -1,3 +1,5 @@
+{{/* vim: set filetype=mustache: */}}
+
 {{/*
    * Copyright (c) 2020 General Electric Company. All rights reserved.
    *
@@ -9,9 +11,10 @@
    *
    * author: apolo.yasuda@ge.com
    */}}
+   
 
 {{- define "agent.name" -}}
-{{- $name_p := default $.Chart.Name $.Values.global.shared.agt-plugins.nameOverride -}}
+{{- $name_p := default $.Chart.Name $.Values.nameOverride -}}
 {{- $name := ($name_p | replace "+" "-") -}}
 {{- $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
@@ -22,8 +25,8 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "agent.fullname" -}}
-{{- if $.Values.global.shared.agt-plugins.fullnameOverride -}}
-{{- $.Values.global.shared.agt-plugins.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+{{- if $.Values.fullnameOverride -}}
+{{- $.Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
 {{- $name := include "agent.name" . }}
 {{- if contains $name $.Release.Name -}}
@@ -65,10 +68,10 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Create the name of the service account to use
 */}}
 {{- define "agent.serviceAccountName" -}}
-{{- if .Values.global.shared.agt-plugins.serviceAccount.create -}}
-    {{ default (include "agent.fullname" .) .Values.global.shared.agt-plugins.serviceAccount.name }}
+{{- if .Values.serviceAccount.create -}}
+    {{ default (include "agent.fullname" .) .Values.serviceAccount.name }}
 {{- else -}}
-    {{ default "default" .Values.global.shared.agt-plugins.serviceAccount.name }}
+    {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
 
@@ -86,14 +89,14 @@ Generate container port spec for client agent. Need review for gateway usage
 {{- $b := ($a | replace "'" "") -}}
 {{- $c := ($b | replace "\"" "") -}}
 {{- if contains $portName $c -}}
-- name: {{ printf "%s-%d" $.Values.global.shared.agt-plugins.agtK8Config.portName 0 }}
+- name: {{ printf "%s-%d" $.Values.agtK8Config.portName 0 }}
   containerPort: {{ (split "=" $c )._1 }}
   protocol: TCP
 {{- else if and (contains "rpt=" $c) (or (eq $mode "gw:client") (eq $mode "client")) -}}
 {{- $d := (split "rpt=" $c )._1 }}
 {{- $e := 1 -}}
 {{- range (split "," $d) }}
-- name: {{ printf "%s-%d" $.Values.global.shared.agt-plugins.agtK8Config.portName $e }}
+- name: {{ printf "%s-%d" $.Values.agtK8Config.portName $e }}
   containerPort: {{ . | trim }}
   protocol: TCP
 {{- $e = (add $e 1) -}}
@@ -106,10 +109,10 @@ Generate container port spec for client agent. Need review for gateway usage
 Generate service port spec for agent pods.
 */}}
 {{- define "agent.svcPortSpec" -}}
-- port: {{ ternary .Values.global.shared.agt-plugins.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
-  targetPort: {{ printf "%s-%d" .Values.global.shared.agt-plugins.agtK8Config.portName 0  }}
+- port: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
+  targetPort: {{ printf "%s-%d" .Values.agtK8Config.portName 0  }}
   protocol: TCP
-  name: {{ printf "%s-%d" .Values.global.shared.agt-plugins.agtK8Config.svcPortName 0 }}
+  name: {{ printf "%s-%d" .Values.agtK8Config.svcPortName 0 }}
 {{- $mode := include "agent.mode" . -}}
 {{- range (split "\n" .Values.global.agtConfig) -}}
 {{- $a := (. | replace ":" "") -}}
@@ -120,9 +123,9 @@ Generate service port spec for agent pods.
 {{- $e := 1 -}}
 {{- range (split "," $d) }}
 - port: {{ . }}
-  targetPort: {{ printf "%s-%d" $.Values.global.shared.agt-plugins.agtK8Config.portName $e }}
+  targetPort: {{ printf "%s-%d" $.Values.agtK8Config.portName $e }}
   protocol: TCP
-  name: {{ printf "%s-%d" $.Values.global.shared.agt-plugins.agtK8Config.svcPortName $e }}
+  name: {{ printf "%s-%d" $.Values.agtK8Config.svcPortName $e }}
 {{- $e = (add $e 1) -}}
 {{- end -}}
 {{- end -}}
@@ -143,7 +146,7 @@ Generate container HEALTH port spec for client agent. Need review for gateway us
 {{- $a := (. | replace ":" "") -}}
 {{- $b := ($a | replace "'" "") -}}
 {{- $c := ($b | replace "\"" "") -}}
-- name: {{ $.Values.global.shared.agt-plugins.agtK8Config.healthPortName }}
+- name: {{ $.Values.agtK8Config.healthPortName }}
   containerPort: {{ (split "=" $c )._1 }}
   protocol: TCP
 {{- end -}}
@@ -154,10 +157,10 @@ Generate container HEALTH port spec for client agent. Need review for gateway us
 Generate service health port spec for agent pods. 
 */}}
 {{- define "agent.svcHealthPortSpec" -}}
-- port: {{ ternary .Values.global.shared.agt-plugins.agtK8Config.svcHealthPortNum .Values.global.agtK8Config.svcHealthPortNum  (kindIs "invalid" .Values.global.agtK8Config.svcHealthPortNum) }}
-  targetPort: {{ .Values.global.shared.agt-plugins.agtK8Config.healthPortName }}
+- port: {{ ternary .Values.agtK8Config.svcHealthPortNum .Values.global.agtK8Config.svcHealthPortNum  (kindIs "invalid" .Values.global.agtK8Config.svcHealthPortNum) }}
+  targetPort: {{ .Values.agtK8Config.healthPortName }}
   protocol: TCP
-  name: {{ .Values.global.shared.agt-plugins.agtK8Config.svcHealthPortName }}
+  name: {{ .Values.agtK8Config.svcHealthPortName }}
 {{- end -}}
 
 {{/*
@@ -217,7 +220,7 @@ tls:
 {{- end }}
 rules:
 {{- $serviceName := include "agent.fullname" . -}}
-{{- $servicePort := (ternary .Values.global.shared.agt-plugins.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum)) -}}
+{{- $servicePort := (ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum)) -}}
 {{- range .Values.global.agtK8Config.withIngress.hosts }}
   - host: {{ .host | quote }}
     http:
@@ -315,7 +318,7 @@ true
 {{- end -}}
 
 {{/*
-Compile the vln port list from the Values.global.shared.agt-plugins.yaml and agtConfig
+Compile the vln port list from the values.yaml and agtConfig
 */}}
 {{- define "vln.ports" -}}
 {{- $isRPTExists := include "agent.hasRPT" . -}}
@@ -330,7 +333,7 @@ Compile the vln port list from the Values.global.shared.agt-plugins.yaml and agt
 {{- end -}}
 
 {{/*
-Get the vln ips list from the chart Values.global.shared.agt-plugins.yaml
+Get the vln ips list from the chart values.yaml
 */}}
 {{- define "vln.ips" -}}
 {{- if and (eq (typeOf .Values.global.agtK8Config.withPlugins.vln.ips) "slice") (not (eq .Values.global.agtK8Config.withPlugins.vln.remote true)) -}}
@@ -343,34 +346,35 @@ Get the vln ips list from the chart Values.global.shared.agt-plugins.yaml
    * container wrapper
    */}}
 {{- define "agent.plugins" -}}
+
 {{- $contrName := .contrDictContrName -}}
 {{- $contrReleaseTag := .contrDictReleaseTag -}}
 {{- $contrCmd := [] -}}
 {{- $contrSecurityContext := .contrDictSecurityContext -}}
-
 
 {{- $contrName := include "agent.name" . -}}
 {{- $contrReleaseTag := .Values.global.agtK8Config.releaseTag -}}
 {{- $contrCmd := include "agent.launchCmd" . -}}
 {{- $contrSecurityContext := .Values.global.shared.agtPlugin.securityContext -}}
 
-- name: {{- $contrName }}
+
+- name: {{ include "agent.name" . }}
   image: enterpriseconnect/plugins:{{ .Values.global.agtK8Config.releaseTag }}
   command: {{ include "agent.launchCmd" . }}
   securityContext: 
-    {{ toYaml .Values.global.shared.agtPlugin.securityContext}}
-  imagePullPolicy: Always
+    {{ toYaml .Values.securityContext}}
+  imagePullPolicy: {{ .Values.image.pullPolicy }}
   ports:
     {{- include "agent.portSpec" . | nindent 4 }}
     {{- include "agent.healthPortSpec" . | nindent 4 }}
   livenessProbe:
     httpGet:
       path: /health
-      port: {{ .Values.global.agtK8Config.healthPortName }}
+      port: {{ .Values.agtK8Config.healthPortName }}
   readinessProbe:
     httpGet:
       path: /health
-      port: {{ .Values.global.agtK8Config.healthPortName }}
+      port: {{ .Values.agtK8Config.healthPortName }}
   resources:
     {{- include "agent.podResource" . | nindent 4 }}
   env:
