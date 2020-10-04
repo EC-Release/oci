@@ -1,5 +1,5 @@
 {{- $agtMode := include "agent.mode" . -}}
-{{- if or (eq $agtMode "gateway") (.Values.global.agtK8Config.withIngress.enabled) -}}
+{{- if or (eq $agtMode "gateway") (eq $agtMode "gw:client") (eq $agtMode "gw:server") (.Values.global.agtK8Config.withIngress.enabled) -}}
 {{- $fullName := include "agent.fullname" . -}}
 {{- $svcPort := .Values.global.shared.agtPlugin.agtK8Config.svcPortNum -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
