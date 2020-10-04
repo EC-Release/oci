@@ -5,12 +5,10 @@
 {{- $contrName := include "agent.name" . -}}
 {{- $contrReleaseTag := .Values.global.agtK8Config.releaseTag -}}
 {{- $contrCmd := include "agent.launchCmd" . -}}
-{{- $contrSecurityContext := .Values.global.shared.agtPlugin.securityContext -}}
+{{- $contrSecurityContext := .Values.global.agtK8Config.securityContext -}}
 {{- if and .Values.global.agtK8Config.withPlugins.vln.enabled (not .Values.global.agtK8Config.withPlugins.vln.remote) -}}
 {{- $contrName = .contrDictContrName -}}
-{{- $contrReleaseTag = .contrDictReleaseTag -}}
 {{- $contrCmd = "[]" -}}
-{{- $contrSecurityContext = .contrDictSecurityContext -}}
 {{- end -}}
 - name: {{ $contrName|quote }}
   image: enterpriseconnect/plugins:{{ $contrReleaseTag }}
