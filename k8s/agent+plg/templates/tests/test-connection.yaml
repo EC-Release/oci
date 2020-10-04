@@ -1,3 +1,4 @@
+{{- if not (and (eq .Values.global.agtK8Config.withPlugins.vln.remote false) (eq .Values.global.agtK8Config.withPlugins.vln.enabled true)) -}}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -11,5 +12,6 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "agent.fullname" . }}:{{ .Values.global.shared.agtPlugin.service.port }}']
+      args: ['{{ include "agent.fullname" . }}:{{ .Values.service.port }}']
   restartPolicy: Never
+{{- end -}}
