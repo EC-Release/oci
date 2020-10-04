@@ -353,7 +353,7 @@ Get the vln ips list from the chart values.yaml
 {{- if and .Values.global.agtK8Config.withPlugins.vln.enabled (not .Values.global.agtK8Config.withPlugins.vln.remote) -}}
 {{- $contrName = .contrDictContrName -}}
 {{- $contrReleaseTag = .contrDictReleaseTag -}}
-{{- $contrCmd = [] -}}
+{{- $contrCmd = "[]" -}}
 {{- $contrSecurityContext = .contrDictSecurityContext -}}
 {{- end -}}
 - name: {{ $contrName|quote }}
