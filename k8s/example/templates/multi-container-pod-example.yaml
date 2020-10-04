@@ -5,7 +5,7 @@ metadata:
 spec:
   restartPolicy: Never
   containers:
-    {{- include "agent.plugins" (dict "contrDictContrName" "agtPluginContr" "contrDictReleaseTag" "v1beta" "contrDictSecurityContext" .Values.global.agtK8Config.releaseTag) | nindent 4 }}
+    {{- include "agent.plugins" (dict "contrDictContrName" "agtPluginContr") | nindent 4 }}
     - name: nginx-container
       image: nginx
       command: ["/bin/sh"]
