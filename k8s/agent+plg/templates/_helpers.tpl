@@ -146,7 +146,7 @@ Generate container HEALTH port spec for client agent. Need review for gateway us
 {{- $a := (. | replace ":" "") -}}
 {{- $b := ($a | replace "'" "") -}}
 {{- $c := ($b | replace "\"" "") -}}
-- name: {{ $.Values.agtK8Config.healthPortName }}
+- name: {{ $.healthPortName }}
   containerPort: {{ (split "=" $c )._1 }}
   protocol: TCP
 {{- end -}}
