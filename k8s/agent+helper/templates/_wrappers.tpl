@@ -5,6 +5,9 @@
 {{- $contrName := "" -}}
 {{- $contrReleaseTag := .Values.global.agtK8Config.releaseTag -}}
 {{- $contrSecurityContext := .Values.global.agtK8Config.securityContext -}}
+{{- $portName := "agt-prt" -}}
+{{- $healthPortName := "agt-h-prt" -}}
+
 {{- if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (not .Values.global.agtK8Config.withPlugins.vln.remote) -}}
 {{- $contrName = .contrDictContrName -}}
 {{- else -}}
@@ -17,16 +20,16 @@
     {{ toYaml $contrSecurityContext | nindent 4 }}
   imagePullPolicy: Always
   ports:
-    {{- include "agent.portSpec" (merge (dict "portName" "agt-prt") .) | nindent 4 }}
-    {{- include "agent.healthPortSpec" (merge (dict "healthPortName" "agt-h-prt") .) | nindent 4 }}
+    {{- include "agent.portSpec" (merge (dict "portName" $portName) .) | nindent 4 }}
+    {{- include "agent.healthPortSpec" (merge (dict "healthPortName" $healthPortName) .) | nindent 4 }}
   livenessProbe:
     httpGet:
       path: /health
-      port: {{ .Values.agtK8Config.healthPortName }}
+      port: {{ $healthPortName }}
   readinessProbe:
     httpGet:
       path: /health
-      port: {{ .Values.agtK8Config.healthPortName }}
+      port: {{ $healthPortName }}
   resources:
     {{- include "agent.podResource" . | nindent 4 }}
   env:
