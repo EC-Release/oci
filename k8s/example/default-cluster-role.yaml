@@ -2,8 +2,8 @@ kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
-  name: service-reader
+  name: default
 rules:
 - apiGroups: [""] # "" indicates the core API group
-  resources: ["services"]
+  resources: ["services","pods"]
   verbs: ["get", "watch", "list"]
