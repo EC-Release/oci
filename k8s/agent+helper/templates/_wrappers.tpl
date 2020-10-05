@@ -3,9 +3,9 @@
    */}}
 {{- define "agent.plugins" -}}
 {{- $contrName := "" -}}
-{{- $contrReleaseTag := .Values.global.agtK8Config.releaseTag -}}
-{{- $contrSecurityContext := .Values.global.agtK8Config.securityContext -}}
-{{- if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (not .Values.global.agtK8Config.withPlugins.vln.remote) -}}
+{{- $contrReleaseTag := $.Values.global.agtK8Config.releaseTag -}}
+{{- $contrSecurityContext := $.Values.global.agtK8Config.securityContext -}}
+{{- if and ($.Values.global.agtK8Config.withPlugins.vln.enabled) (not $.Values.global.agtK8Config.withPlugins.vln.remote) -}}
 {{- $contrName = .contrDictContrName -}}
 {{- else -}}
 {{- $contrName = include "agent.name" . -}}
