@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: hello-agt-container-usage
 spec:
-  restartPolicy: Never
+  restartPolicy: Always
   containers:
     {{- include "agent.plugins" (merge (dict "contrDictContrName" "agt-plugin-contr") .) | nindent 4 }}
     - name: nginx-container
