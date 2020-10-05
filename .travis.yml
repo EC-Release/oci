@@ -13,7 +13,7 @@ script:
    - rm -Rf pkg && mv v1beta.fukuoka.1725.lib/lib/go/pkg pkg
    - ls -al && echo ${CI_PROJECT_DIR} && ls -al pkg
    - chmod 755 dind.sh
-   - docker run --network host -e CI_COMMIT_BRANCH=${CI_COMMIT_BRANCH} -e API_BUILD_REV=${TRAVIS_BUILD_NUMBER} -e CI_DEFAULT_BRANCH=${CI_DEFAULT_BRANCH} -e GITHUB_TKN=${GITHUB_TKN} -e CI_JOB_ID=${CI_JOB_ID} -v $(pwd):/build enterpriseconnect/build:v1beta
+   - docker run --network host -e CI_COMMIT_BRANCH=${CI_COMMIT_BRANCH} -e API_BUILD_REV=${TRAVIS_BUILD_NUMBER} -e CI_DEFAULT_BRANCH=${CI_DEFAULT_BRANCH} -e GITHUB_TKN=${GITHUB_TKN} -e CI_JOB_ID=${CI_JOB_ID} -v $(pwd):/build enterpriseconnect/build:v1beta &
    - mv agent api_linux
    - cd ..
    - cp ./auth-api/api_linux ./spec/service
