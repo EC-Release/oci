@@ -7,7 +7,6 @@
 {{- $contrSecurityContext := .Values.global.agtK8Config.securityContext -}}
 {{- $portName := "agt-prt" -}}
 {{- $healthPortName := "agt-h-prt" -}}
-
 {{- if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (not .Values.global.agtK8Config.withPlugins.vln.remote) -}}
 {{- $contrName = .contrDictContrName -}}
 {{- else -}}
