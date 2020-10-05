@@ -17,8 +17,8 @@
     {{ toYaml $contrSecurityContext | nindent 4 }}
   imagePullPolicy: Always
   ports:
-    {{- include "agent.portSpec" . | nindent 4 }}
-    {{- include "agent.healthPortSpec" . | nindent 4 }}
+    {{- include "agent.portSpec" (merge (dict "portName" "agt-prt") .) | nindent 4 }}
+    {{- include "agent.healthPortSpec" (merge (dict "portName" "agt-prt" "svcPortName" "agt-svc-prt") .) | nindent 4 }}
   livenessProbe:
     httpGet:
       path: /health
