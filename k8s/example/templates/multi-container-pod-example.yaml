@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: hello-agt-container-usage
+  name: hello_agt_container_usage
 spec:
   restartPolicy: Never
   containers:
