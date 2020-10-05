@@ -2,11 +2,13 @@
    * agent plugin container wrapper
    */}}
 {{- define "agent.plugins" -}}
-{{- $contrName := include "agent.name" . -}}
+{{- $contrName := "" -}}
 {{- $contrReleaseTag := .Values.global.agtK8Config.releaseTag -}}
 {{- $contrSecurityContext := .Values.global.agtK8Config.securityContext -}}
-{{- if and .Values.global.agtK8Config.withPlugins.vln.enabled (not .Values.global.agtK8Config.withPlugins.vln.remote) -}}
+{{- if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (not .Values.global.agtK8Config.withPlugins.vln.remote) -}}
 {{- $contrName = .contrDictContrName -}}
+{{- else -}}
+{{- $contrName = include "agent.name" . -}}
 {{- end -}}
 - name: {{ $contrName|quote }}
   image: enterpriseconnect/plugins:{{ $contrReleaseTag }}
