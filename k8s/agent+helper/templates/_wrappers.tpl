@@ -4,7 +4,7 @@
 {{- define "agent.plugins" -}}
 {{- $contrName := "" -}}
 {{- $contrReleaseTag := .Values.global.agtK8Config.releaseTag -}}
-{{- $contrSecurityContext := .Values.global.agtK8Config.securityContext -}}
+{{- $contrSecurityContext := .Values.global.agtK8Config.withPlugins.vln.securityContext -}}
 {{- $portName := "agt-prt" -}}
 {{- $healthPortName := "agt-h-prt" -}}
 {{- if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (not .Values.global.agtK8Config.withPlugins.vln.remote) -}}
