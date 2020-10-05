@@ -3,10 +3,22 @@ if: head_branch =~ ^v1beta_svc_oci_spec_update$ OR branch = v1beta_svc_oci_spec
 
 services:
   - docker
+
+variables:
+  AGT_LIB: v1beta.fukuoka.1725.lib
+  AGT_BUILD_IMG: enterpriseconnect/build:v1beta
   
 before_install:
+  - wget https://github.com/EC-Release/sdk/archive/${AGT_LIB}.tar.gz
+  - mkdir ${AGT_LIB} && tar -xzvf ${AGT_LIB}.tar.gz --strip 1 -C ${AGT_LIB}
+  - rm -Rf pkg && mv ${AGT_LIB}/lib/go/pkg pkg
+  - ls -al && echo ${CI_PROJECT_DIR} && ls -al pkg
 
 script:
+   - ls -al pkg/linux_amd64
+   - docker run --network host -e CI_COMMIT_BRANCH=${CI_COMMIT_BRANCH} -e API_BUILD_REV=${TRAVIS_BUILD_NUMBER} -e CI_DEFAULT_BRANCH=${CI_DEFAULT_BRANCH} -e GITHUB_TKN=${GITHUB_TKN} -e CI_JOB_ID=${CI_JOB_ID} -v $(pwd):/build ${AGT_BUILD_IMG}
+   - mv agent api_linux
+   - cp ./api_linux ./spec/service
    - cd ./spec/service
    - git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service.git
    - docker build -t enterpriseconnect/service:v1beta --build-arg PROXY_URL=${PROXY_URL} --build-arg ACCESS_TOKEN=${ACCESS_TOKEN} --build-arg CF_USER=${CF_USER} --build-arg CF_PWD=${CF_PWD} --build-arg EC_REV=${EC_REV} --build-arg BUILD_NUMBER=${TRAVIS_BUILD_NUMBER} --build-arg PROJECT_NAME=${PROJECT_NAME} --build-arg ADMIN_USR=${ADMIN_USR} --build-arg ADMIN_PWD=${ADMIN_PWD} --build-arg ZAC_UAA=${ZAC_UAA} --build-arg ZAC_URL=${ZAC_URL} --build-arg ZAC_SERVICE_ID=${ZAC_SERVICE_ID} --build-arg ZAC_CLIENT_ID=${ZAC_CLIENT_ID} --build-arg ZAC_CLIENT_SECRET=${ZAC_CLIENT_SECRET} --build-arg NUREGO_FEATURE_ID=${NUREGO_FEATURE_ID} --build-arg NUREGO_API_KEY=${NUREGO_API_KEY} --build-arg NR_KEY=${NR_KEY} --build-arg NUREGO_TKN_INS=${NUREGO_TKN_INS} --build-arg NUREGO_TKN_PWD=${NUREGO_TKN_PWD} --build-arg NUREGO_TKN_USR=${NUREGO_TKN_USR} --build-arg NUREGO_USAGE_FEATURE_ID=${NUREGO_USAGE_FEATURE_ID} --build-arg EC_APP_NAME=${EC_APP_NAME} --build-arg EC_SERVICE_HOST_SUB_DOMAIN=${EC_SERVICE_HOST_SUB_DOMAIN} --build-arg NUREGO_ENDPOINT=${NUREGO_ENDPOINT} --build-arg NUREGO_TKN_URL=${NUREGO_TKN_URL} .
