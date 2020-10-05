@@ -4,17 +4,15 @@
 {{- define "agent.plugins" -}}
 {{- $contrName := include "agent.name" . -}}
 {{- $contrReleaseTag := .Values.global.agtK8Config.releaseTag -}}
-{{- $contrCmd := include "agent.launchCmd" . -}}
 {{- $contrSecurityContext := .Values.global.agtK8Config.securityContext -}}
 {{- if and .Values.global.agtK8Config.withPlugins.vln.enabled (not .Values.global.agtK8Config.withPlugins.vln.remote) -}}
 {{- $contrName = .contrDictContrName -}}
-{{- $contrCmd = "[]" -}}
 {{- end -}}
 - name: {{ $contrName|quote }}
   image: enterpriseconnect/plugins:{{ $contrReleaseTag }}
-  command: {{ $contrCmd }}
+  command: {{ include "agent.launchCmd" . }}
   securityContext: 
-    {{ $contrSecurityContext | nindent 4 }}
+    {{ toYaml $contrSecurityContext | nindent 4 }}
   imagePullPolicy: Always
   ports:
     {{- include "agent.portSpec" . | nindent 4 }}
