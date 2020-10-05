@@ -107,7 +107,7 @@ global:
     withPlugins:
       # the tls setting only valid when agent mode "-mod" is either "server" or "gw:server"
       tls:
-        enabled: true
+        enabled: false
         schema: https 
         hostname: twitter.com
         tlsport: 443
