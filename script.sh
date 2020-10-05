@@ -51,6 +51,8 @@ sudo minikube start --profile=minikube --vm-driver=none --kubernetes-version=v1.
 minikube update-context --profile=minikube
 "sudo chown -R travis: /home/travis/.minikube/"
 eval "$(minikube docker-env --profile=minikube)" && export DOCKER_CLI='docker'
+kubectl create -f k8s/example/default-cluster-role.yaml
+kubectl create clusterrolebinding service-reader-pod --clusterrole=service-reader  --serviceaccount=default:default
 
 printf "\n\n\n*** install client with vln template in minikube\n\n"
 helm install k8s/example --debug --set-file global.agtConfig=k8s/example/client+vln.env --generate-name
