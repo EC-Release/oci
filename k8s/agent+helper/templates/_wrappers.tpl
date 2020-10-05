@@ -16,7 +16,7 @@
   image: enterpriseconnect/plugins:{{ $contrReleaseTag }}
   command: {{ include "agent.launchCmd" . }}
   securityContext: 
-    {{ toYaml $contrSecurityContext | nindent 4 }}
+    {{- toYaml $contrSecurityContext | nindent 4 }}
   imagePullPolicy: Always
   ports:
     {{- include "agent.portSpec" (merge (dict "portName" $portName) .) | nindent 4 }}
