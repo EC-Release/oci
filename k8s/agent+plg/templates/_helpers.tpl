@@ -89,14 +89,14 @@ Generate container port spec for client agent. Need review for gateway usage
 {{- $b := ($a | replace "'" "") -}}
 {{- $c := ($b | replace "\"" "") -}}
 {{- if contains $portName $c -}}
-- name: {{ printf "%s-%d" .portName 0 }}
+- name: {{ printf "%s-%d" $.portName 0 }}
   containerPort: {{ (split "=" $c )._1 }}
   protocol: TCP
 {{- else if and (contains "rpt=" $c) (or (eq $mode "gw:client") (eq $mode "client")) -}}
 {{- $d := (split "rpt=" $c )._1 }}
 {{- $e := 1 -}}
 {{- range (split "," $d) }}
-- name: {{ printf "%s-%d" .portName $e }}
+- name: {{ printf "%s-%d" $.portName $e }}
   containerPort: {{ . | trim }}
   protocol: TCP
 {{- $e = (add $e 1) -}}
