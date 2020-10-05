@@ -18,7 +18,7 @@
   imagePullPolicy: Always
   ports:
     {{- include "agent.portSpec" (merge (dict "portName" "agt-prt") .) | nindent 4 }}
-    {{- include "agent.healthPortSpec" (merge (dict "portName" "agt-prt" "svcPortName" "agt-svc-prt") .) | nindent 4 }}
+    {{- include "agent.healthPortSpec" (merge (dict "portName" "agt-prt" "healthPortName" "agt-h-prt") .) | nindent 4 }}
   livenessProbe:
     httpGet:
       path: /health
