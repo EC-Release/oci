@@ -32,12 +32,12 @@
   resources:
     {{- include "agent.podResource" . | nindent 4 }}
   env:
-    {{- range (split "\n" .Values.global.agtConfig) -}}
-    {{- $a := splitn "=" 2 . -}}
-    {{- if and (not (eq $a._1 "")) ($a._1) -}}
+    {{- range (split "\n" .Values.global.agtConfig) }}
+    {{- $a := splitn "=" 2 . }}
+    {{- if and (not (eq $a._1 "")) ($a._1) }}
     - name: {{ $a._0|quote }}
       value: {{ $a._1|quote }}
-    {{- end -}}
+    {{- end }}
     {{- end -}}
     {{- $mode := include "agent.mode" . -}}
     {{- $hasPlugin := include "agent.hasPlugin" . -}}
@@ -56,7 +56,7 @@
       value: {{ .Values.global.agtK8Config.withPlugins.tls.port|quote }}
     - name: conf.rpt
       value: {{ include "agent.hasRPT" . }}
-    {{- else if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (or (eq $mode "client") (eq $mode "gw:client")) -}}
+    {{- else if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (or (eq $mode "client") (eq $mode "gw:client")) }}
     {{- include "agent.vlnPluginType" . | nindent 4 -}}
     {{- include "vln.ports" . | nindent 4 -}}
     {{- include "vln.ips" . | nindent 4 -}}
