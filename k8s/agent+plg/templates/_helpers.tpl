@@ -89,14 +89,14 @@ Generate container port spec for client agent. Need review for gateway usage
 {{- $b := ($a | replace "'" "") -}}
 {{- $c := ($b | replace "\"" "") -}}
 {{- if contains $portName $c -}}
-- name: {{ printf "%s-%d" $.Values.agtK8Config.portName 0 }}
+- name: {{ printf "%s-%d" .portName 0 }}
   containerPort: {{ (split "=" $c )._1 }}
   protocol: TCP
 {{- else if and (contains "rpt=" $c) (or (eq $mode "gw:client") (eq $mode "client")) -}}
 {{- $d := (split "rpt=" $c )._1 }}
 {{- $e := 1 -}}
 {{- range (split "," $d) }}
-- name: {{ printf "%s-%d" $.Values.agtK8Config.portName $e }}
+- name: {{ printf "%s-%d" .portName $e }}
   containerPort: {{ . | trim }}
   protocol: TCP
 {{- $e = (add $e 1) -}}
@@ -112,7 +112,7 @@ Generate service port spec for agent pods.
 - port: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
   targetPort: {{ printf "%s-%d" .Values.agtK8Config.portName 0  }}
   protocol: TCP
-  name: {{ printf "%s-%d" .Values.agtK8Config.svcPortName 0 }}
+  name: {{ printf "%s-%d" .svcPortName 0 }}
 {{- $mode := include "agent.mode" . -}}
 {{- range (split "\n" .Values.global.agtConfig) -}}
 {{- $a := (. | replace ":" "") -}}
@@ -123,9 +123,9 @@ Generate service port spec for agent pods.
 {{- $e := 1 -}}
 {{- range (split "," $d) }}
 - port: {{ . }}
-  targetPort: {{ printf "%s-%d" $.Values.agtK8Config.portName $e }}
+  targetPort: {{ printf "%s-%d" $.portName $e }}
   protocol: TCP
-  name: {{ printf "%s-%d" $.Values.agtK8Config.svcPortName $e }}
+  name: {{ printf "%s-%d" $.svcPortName $e }}
 {{- $e = (add $e 1) -}}
 {{- end -}}
 {{- end -}}
