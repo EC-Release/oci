@@ -20,7 +20,6 @@ RUN go get github.com/gorilla/websocket
 RUN go get github.com/pborman/uuid
 RUN go get github.com/fatih/color
 RUN go get github.com/fullsailor/pkcs7
-RUN go get golang.org/x/tools/cmd/godoc
 RUN go get github.com/vishvananda/netlink
 RUN go get github.com/mwitkow/go-http-dialer
 RUN go get github.com/golang/protobuf/proto
