@@ -263,8 +263,6 @@ Extract the Remote Port List flag setting (-rpt) from the agent config
 {{- range (split "\n" .Values.global.agtConfig) -}}
 {{- if contains "rpt=" . -}}
 true
-{{- else -}}
-false
 {{- end -}}
 {{- end -}}
 {{- end -}}
