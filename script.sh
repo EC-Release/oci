@@ -1,7 +1,17 @@
 #!/bin/bash
+
+yq() {
+  docker run --rm -i -v "${PWD}":/workdir mikefarah/yq yq "$@"
+}
+
 kubectl cluster-info
 helm version
 echo $(pwd)
+
+printf "\n\n\n*** test yq() \n\n"
+cat k8s/example/values.yaml | yq w - global.agtK8Config.withPlugins.tls.enabled true | tee k8s/example/values.yaml
+cat k8s/example/values.yaml | yq w - global.agtK8Config.withPlugins.tls.enabled false | tee k8s/example/values.yaml
+cat k8s/example/values.yaml
 
 printf "\n\n\n*** update the pkg chart params \n\n"
 eval "sed -i -e 's#<AGENT_HELPER_CHART_REV>#${AGENT_HELPER_CHART_REV}#g' k8s/agent+helper/Chart.yaml"
