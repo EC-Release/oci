@@ -1,4 +1,4 @@
-{{- if and (.Values.global.agtK8Config.withPlugins.vln.remote) (.Values.global.agtK8Config.withPlugins.vln.enabled) -}}
+{{- if not (and (not .Values.global.agtK8Config.withPlugins.vln.remote) (.Values.global.agtK8Config.withPlugins.vln.enabled)) -}}
 apiVersion: v1
 kind: Pod
 metadata:
