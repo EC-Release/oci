@@ -1,4 +1,4 @@
-{{- if or (not (and (eq .Values.global.agtK8Config.withPlugins.vln.remote false) (eq .Values.global.agtK8Config.withPlugins.vln.enabled true))) (eq .Values.global.agtK8Config.withPlugins.tls.enabled true) -}}
+{{- if or (not (and (not .Values.global.agtK8Config.withPlugins.vln.remote) (.Values.global.agtK8Config.withPlugins.vln.enabled))) (.Values.global.agtK8Config.withPlugins.tls.enabled) -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
