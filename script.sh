@@ -32,20 +32,20 @@ printf "update dependencies in example chart for test"
 helm dependency update k8s/example
 
 printf "\n\n\n*** test server with tls template\n\n"
-yq w k8s/example/values.yaml "global.agtK8Config.withPlugins.tls.enabled" true > k8s/example/values.yaml
-yq w k8s/example/values.yaml "global.agtK8Config.withPlugins.vln.enabled" false > k8s/example/values.yaml
+yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.tls.enabled true
+yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.vln.enabled false
 helm template k8s/example --debug --set-file global.agtConfig=k8s/example/server+tls.env
 
 printf "\n\n\n*** test client with local vln template\n\n"
-yq w k8s/example/values.yaml "global.agtK8Config.withPlugins.tls.enabled" false > k8s/example/values.yaml
-yq w k8s/example/values.yaml "global.agtK8Config.withPlugins.vln.enabled" true > k8s/example/values.yaml
-yq w k8s/example/values.yaml "global.agtK8Config.withPlugins.vln.remote" false > k8s/example/values.yaml
+yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.tls.enabled false
+yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.vln.enabled true
+yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.vln.remote false
 helm template k8s/example --debug --set-file global.agtConfig=k8s/example/client+vln.env
 
 printf "\n\n\n*** test client with remote vln template\n\n"
-yq w k8s/example/values.yaml "global.agtK8Config.withPlugins.tls.enabled" false > k8s/example/values.yaml
-yq w k8s/example/values.yaml "global.agtK8Config.withPlugins.vln.enabled" true > k8s/example/values.yaml
-yq w k8s/example/values.yaml "global.agtK8Config.withPlugins.vln.remote" true > k8s/example/values.yaml
+yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.tls.enabled false
+yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.vln.enabled true
+yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.vln.remote true
 helm template k8s/example --debug --set-file global.agtConfig=k8s/example/client+vln.env
 
 printf "\n\n\n*** test gateway agt template\n\n"
@@ -73,8 +73,8 @@ eval "$(minikube docker-env --profile=minikube)" && export DOCKER_CLI='docker'
 kubectl create -f k8s/example/default-serviceaccount.yaml
 
 printf "\n\n\n*** install server with tls template in minikube\n\n"
-yq w k8s/example/values.yaml "global.agtK8Config.withPlugins.tls.enabled" true > k8s/example/values.yaml
-yq w k8s/example/values.yaml "global.agtK8Config.withPlugins.vln.enabled" false > k8s/example/values.yaml
+yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.tls.enabled true
+yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.vln.enabled false
 helm install k8s/example --debug --set-file global.agtConfig=k8s/example/server+tls.env --generate-name
 printf "\n\n\n*** verify logs in minikube\n\n"
 kubectl get deployments && kubectl get pods && kubectl get services && kubectl get ingresses
@@ -84,9 +84,9 @@ printf "\n\n\n*** done debug go ahead delete all.\n\n"
 kubectl delete --all deployments && kubectl delete --all pods && kubectl delete --all services && kubectl delete --all ingresses
 
 printf "\n\n\n*** install client with local vln multi-contr template in minikube\n\n"
-yq w k8s/example/values.yaml "global.agtK8Config.withPlugins.tls.enabled" false > k8s/example/values.yaml
-yq w k8s/example/values.yaml "global.agtK8Config.withPlugins.vln.enabled" true > k8s/example/values.yaml
-yq w k8s/example/values.yaml "global.agtK8Config.withPlugins.vln.remote" false > k8s/example/values.yaml
+yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.tls.enabled false
+yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.vln.enabled true
+yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.vln.remote false
 helm install k8s/example --debug --set-file global.agtConfig=k8s/example/client+vln.env --generate-name
 printf "\n\n\n*** verify logs in minikube\n\n"
 kubectl get deployments && kubectl get pods && kubectl get services && kubectl get ingresses
@@ -96,9 +96,9 @@ printf "\n\n\n*** done debug go ahead delete all.\n\n"
 kubectl delete --all deployments && kubectl delete --all pods && kubectl delete --all services && kubectl delete --all ingresses
 
 printf "\n\n\n*** install client with remote vln multi-contr template in minikube\n\n"
-yq w k8s/example/values.yaml "global.agtK8Config.withPlugins.tls.enabled" false > k8s/example/values.yaml
-yq w k8s/example/values.yaml "global.agtK8Config.withPlugins.vln.enabled" true > k8s/example/values.yaml
-yq w k8s/example/values.yaml "global.agtK8Config.withPlugins.vln.remote" true > k8s/example/values.yaml
+yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.tls.enabled false
+yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.vln.enabled true
+yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.vln.remote true
 helm install k8s/example --debug --set-file global.agtConfig=k8s/example/client+vln.env --generate-name
 printf "\n\n\n*** verify logs in minikube\n\n"
 kubectl get deployments && kubectl get pods && kubectl get services && kubectl get ingresses
