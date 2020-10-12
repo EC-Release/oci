@@ -112,7 +112,7 @@ Generate service port spec for agent pods.
 - port: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
   targetPort: {{ printf "%s-%d" .Values.agtK8Config.portName 0  }}
   protocol: TCP
-  name: {{ printf "%s-%d" .svcPortName 0 }}
+  name: {{ printf "%s-%d" .Values.agtK8Config.svcPortName 0 }}
 {{- $mode := include "agent.mode" . -}}
 {{- range (split "\n" .Values.global.agtConfig) -}}
 {{- $a := (. | replace ":" "") -}}
