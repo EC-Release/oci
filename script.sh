@@ -60,8 +60,8 @@ kubectl create -f k8s/example/default-serviceaccount.yaml
 
 printf "\n\n\n*** install server with tls template in minikube\n\n"
 cat k8s/example/values.yaml
-cat k8s/example/values.yaml | yq w - global.agtK8Config.withPlugins.tls.enabled true | tee k8s/example/values.yaml
-cat k8s/example/values.yaml | yq w - global.agtK8Config.withPlugins.vln.enabled false | tee k8s/example/values.yaml
+yq w k8s/example/values.yaml global.agtK8Config.withPlugins.tls.enabled true
+yq w k8s/example/values.yaml global.agtK8Config.withPlugins.vln.enabled false
 cat k8s/example/values.yaml
 helm install k8s/example --debug --set-file global.agtConfig=k8s/example/server+tls.env --generate-name
 printf "\n\n\n*** verify logs in minikube\n\n"
