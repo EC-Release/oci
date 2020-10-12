@@ -63,8 +63,7 @@
       value: {{ .Values.global.agtK8Config.withPlugins.tls.proxy|quote }}
     - name: plg.tls.lpt
       value: {{ .Values.global.agtK8Config.withPlugins.tls.port|quote }}
-    - name: conf.rpt
-      value: {{ include "agent.hasRPT" . }}
+    {{- include "vln.ports" . | nindent 4 -}}
     {{- else if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (or (eq $mode "client") (eq $mode "gw:client")) }}
     {{- include "agent.vlnPluginType" . | nindent 4 -}}
     {{- include "vln.ports" . | nindent 4 -}}
