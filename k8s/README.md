@@ -111,7 +111,7 @@ global:
     withPlugins:
       # the tls setting only valid when agent mode "-mod" is either "server" or "gw:server"
       tls:
-        enabled: true
+        enabled: false
         schema: https 
         hostname: twitter.com
         tlsport: 443
@@ -120,7 +120,7 @@ global:
       # the vln setting only valid when agent mode "-mod" is either "client" or "gw:client"
       vln:
         # The "enabled" keypair will be overridden by the "agtConfig" setting, if specified. E.g. "conf.vln=true"
-        enabled: false
+        enabled: true
         # the "remote" keypair indicates the vlan deployment strategy. When default to true,
         # the vlan setup will ignore the "ips" setting, and instead simulate only the "ports"-
         # setting via a series of service/pod remote to the client application. In the remote-
@@ -128,7 +128,9 @@ global:
         # to make the "ips" setting work correcly. Otherwise the setup will deploy the plugin artifact-
         # along with the ips/ports setting, and assume the direct interaction with the local loopback-
         # interface at the parental pod.
-        remote: true
+        remote: false
+        # customise the securityContext when the vln plugin launched in a multi-contr pod (remote: false)
+        securityContext: {}
         # The "ports" keypair will be overridden by the default "agtConfig" setting, if specified. E.g. "conf.rpt=<port1,port2..portn>"
         ports: [8000,8001,8002,8003]
         # The "ips" keypair is ignored when set "remote" to true
