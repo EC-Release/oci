@@ -1,3 +1,4 @@
+{{- if or (not (and (eq .Values.global.agtK8Config.withPlugins.vln.remote false) (eq .Values.global.agtK8Config.withPlugins.vln.enabled true))) (eq .Values.global.agtK8Config.withPlugins.tls.enabled true) -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,74 +15,24 @@ spec:
       labels:
         {{- include "agent.selectorLabels" . | nindent 8 }}
     spec:
-    {{- with .Values.imagePullSecrets }}
+      {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ include "agent.name" . }}
-          image: "enterpriseconnect/plugins:{{ .Values.global.agtK8Config.releaseTag }}"
-          command: {{ include "agent.launchCmd" . }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            {{- include "agent.portSpec" . | nindent 12 }}
-            {{- include "agent.healthPortSpec" . | nindent 12 }}
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: {{ .Values.agtK8Config.healthPortName }}
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: {{ .Values.agtK8Config.healthPortName }}
-          resources:
-            {{- include "agent.podResource" . | nindent 12 }}
-          env:
-            {{- range (split "\n" .Values.global.agtConfig) }}
-            {{- $a := splitn "=" 2 . }}
-            {{- if and (not (eq $a._1 "")) ($a._1) }}
-            - name: {{ $a._0|quote }}
-              value: {{ $a._1|quote }}
-            {{- end }}
-            {{- end -}}
-            {{- $mode := include "agent.mode" . -}}
-            {{- $hasPlugin := include "agent.hasPlugin" . -}}
-            {{- if (eq $hasPlugin "true") -}}
-            {{- if and (.Values.global.agtK8Config.withPlugins.tls.enabled) (or (eq $mode "server") (eq $mode "gw:server")) }}
-            - name: plg.typ
-              value: tls
-            - name: plg.tlc.scm
-              value: {{ .Values.global.agtK8Config.withPlugins.tls.schema|quote }}
-            - name: plg.tlc.hst
-              value: {{ .Values.global.agtK8Config.withPlugins.tls.hostname|quote }}
-            - name: plg.tls.prt
-              value: {{ .Values.global.agtK8Config.withPlugins.tls.tlsport|quote }}
-            - name: plg.tls.pxy
-              value: {{ .Values.global.agtK8Config.withPlugins.tls.proxy|quote }}
-            - name: plg.tls.lpt
-              value: {{ .Values.global.agtK8Config.withPlugins.tls.port|quote }}
-            - name: conf.rpt
-              value: {{ include "agent.hasRPT" . }}
-            {{- else if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (or (eq $mode "client") (eq $mode "gw:client")) }}
-            - name: plg.typ
-              value: vln
-            {{- include "vln.ports" . | nindent 12 }}
-            {{- include "vln.ips" . | nindent 12 }}
-            {{- end -}}
-            {{- end -}}
+        {{- include "agent.plugins" . | nindent 8 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-    {{- with .Values.affinity }}
+      {{- with .Values.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
-    {{- with .Values.tolerations }}
+      {{- end }}
+      {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}
+{{- end -}}
