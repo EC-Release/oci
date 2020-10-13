@@ -290,7 +290,7 @@ Compile the vln port list from the values.yaml and agtConfig
 {{- $isRPTExists := include "agent.hasRPT" . -}}
 {{- if not $isRPTExists -}}
 - name: conf.rpt
-{{- if eq (typeOf .Values.global.agtK8Config.withPlugins.vln.ports) "slice" -}}
+{{- if .Values.global.agtK8Config.withPlugins.vln.ports -}}
   value: {{ (join "," .Values.global.agtK8Config.withPlugins.vln.ports) | quote }}
 {{- else -}}
   value: "0"
@@ -302,7 +302,7 @@ Compile the vln port list from the values.yaml and agtConfig
 Get the vln ips list from the chart values.yaml
 */}}
 {{- define "vln.ips" -}}
-{{- if and (eq (typeOf .Values.global.agtK8Config.withPlugins.vln.ips) "slice") (not (eq .Values.global.agtK8Config.withPlugins.vln.remote true)) -}}
+{{- if and (.Values.global.agtK8Config.withPlugins.vln.ips) (not .Values.global.agtK8Config.withPlugins.vln.remote) -}}
 - name: plg.vln.ips
   value: {{ (join "," .Values.global.agtK8Config.withPlugins.vln.ips) | quote }}
 {{- end -}}
