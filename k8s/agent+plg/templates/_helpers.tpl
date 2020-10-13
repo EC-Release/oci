@@ -239,7 +239,9 @@ Extract the plugin flag setting (-plg) from the agent config
 */}}
 {{- define "agent.hasPlugin" -}}
 {{- range (split "\n" .Values.global.agtConfig) -}}
-{{- if contains "plg=true" . -}}
+{{- $a := (. | replace "\"" "") -}}
+{{- $b := ($a | replace "'" "") -}}
+{{- if contains "plg=true" $b -}}
 true
 {{- end -}}
 {{- end -}}
@@ -250,7 +252,9 @@ Extract the VLAN flag setting (-vln) from the agent config
 */}}
 {{- define "agent.hasVLAN" -}}
 {{- range (split "\n" .Values.global.agtConfig) -}}
-{{- if contains "vln=true" . -}}
+{{- $a := (. | replace "\"" "") -}}
+{{- $b := ($a | replace "'" "") -}}
+{{- if contains "vln=true" $b -}}
 true
 {{- end -}}
 {{- end -}}
