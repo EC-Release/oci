@@ -67,7 +67,6 @@
     {{- else if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (or (eq $mode "client") (eq $mode "gw:client")) }}
     {{- include "agent.vlnPluginType" . | nindent 4 }}
     {{- include "vln.ports" . | nindent 4 }}
-    # ips config type {{- (typeOf .Values.global.agtK8Config.withPlugins.vln.ips) }}
     {{- include "vln.ips" . | nindent 4 }}
     {{- end -}}
     {{- end -}}
