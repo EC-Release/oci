@@ -52,7 +52,7 @@
     {{- $hasPlugin := include "agent.hasPlugin" . -}}
     {{- if (eq $hasPlugin "true") -}}
     {{- if and (.Values.global.agtK8Config.withPlugins.tls.enabled) (or (eq $mode "server") (eq $mode "gw:server")) }}
-    {{- include "agent.tlsPluginType" . | nindent 4 -}}
+    {{- include "agent.tlsPluginType" . | nindent 4 }}
     - name: plg.tls.scm
       value: {{ .Values.global.agtK8Config.withPlugins.tls.schema|quote }}
     - name: plg.tls.hst
@@ -65,9 +65,9 @@
       value: {{ .Values.global.agtK8Config.withPlugins.tls.port|quote }}
     {{- include "vln.ports" . | nindent 4 -}}
     {{- else if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (or (eq $mode "client") (eq $mode "gw:client")) }}
-    {{- include "agent.vlnPluginType" . | nindent 4 -}}
-    {{- include "vln.ports" . | nindent 4 -}}
-    {{- include "vln.ips" . | nindent 4 -}}
+    {{- include "agent.vlnPluginType" . | nindent 4 }}
+    {{- include "vln.ports" . | nindent 4 }}
+    {{- include "vln.ips" . | nindent 4 }}
     {{- end -}}
     {{- end -}}
 {{- end -}}
