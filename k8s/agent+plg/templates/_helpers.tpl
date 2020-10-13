@@ -112,7 +112,7 @@ Generate service port spec for agent pods.
 - port: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
   targetPort: {{ printf "%s-%d" .Values.agtK8Config.portName 0  }}
   protocol: TCP
-  name: {{ printf "%s-%d" .svcPortName 0 }}
+  name: {{ printf "%s-%d" .Values.agtK8Config.svcPortName 0 }}
 {{- $mode := include "agent.mode" . -}}
 {{- range (split "\n" .Values.global.agtConfig) -}}
 {{- $a := (. | replace ":" "") -}}
@@ -123,9 +123,9 @@ Generate service port spec for agent pods.
 {{- $e := 1 -}}
 {{- range (split "," $d) }}
 - port: {{ . }}
-  targetPort: {{ printf "%s-%d" $.portName $e }}
+  targetPort: {{ printf "%s-%d" $.Values.agtK8Config.portName $e }}
   protocol: TCP
-  name: {{ printf "%s-%d" $.svcPortName $e }}
+  name: {{ printf "%s-%d" $.Values.agtK8Config.svcPortName $e }}
 {{- $e = (add $e 1) -}}
 {{- end -}}
 {{- end -}}
@@ -263,8 +263,6 @@ Extract the Remote Port List flag setting (-rpt) from the agent config
 {{- range (split "\n" .Values.global.agtConfig) -}}
 {{- if contains "rpt=" . -}}
 true
-{{- else -}}
-false
 {{- end -}}
 {{- end -}}
 {{- end -}}
