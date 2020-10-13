@@ -268,53 +268,19 @@ true
 {{- end -}}
 
 {{/*
-   * verify if there already exists a tls plugin flag
-   */}}
-{{- define "agent.hasTLSPluginType" -}}
-{{- range (split "\n" .Values.global.agtConfig) -}}
-{{- $a := (. | replace ":" "") -}}
-{{- $b := ($a | replace "'" "") -}}
-{{- $c := ($b | replace "\"" "") -}}
-{{- if contains "plg.typ=tls" $c -}}
-true
-{{- end -}}
-{{- end -}}
-{{- end -}}
-
-{{/*
    * set the tls env var if there does not exist a vln plugin flag
    */}}
 {{- define "agent.tlsPluginType" -}}
-{{- $pTyp := include "agent.hasTLSPluginType" . -}}
-{{- if not $pTyp -}}
 - name: "plg.typ"
   value: "tls"
-{{- end -}}
-{{- end -}}
-
-{{/*
-   * verify if there already exists a vln plugin flag
-   */}}
-{{- define "agent.hasVLNPluginType" -}}
-{{- range (split "\n" .Values.global.agtConfig) -}}
-{{- $a := (. | replace ":" "") -}}
-{{- $b := ($a | replace "'" "") -}}
-{{- $c := ($b | replace "\"" "") -}}
-{{- if contains "plg.typ=vln" $c -}}
-true
-{{- end -}}
-{{- end -}}
 {{- end -}}
 
 {{/*
    * set the vln env var if there does not exist a vln plugin flag
    */}}
 {{- define "agent.vlnPluginType" -}}
-{{- $pTyp := include "agent.hasVLNPluginType" . -}}
-{{- if not $pTyp -}}
 - name: "plg.typ"
   value: "vln"
-{{- end -}}
 {{- end -}}
 
 {{/*
