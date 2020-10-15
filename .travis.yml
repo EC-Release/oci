@@ -20,9 +20,13 @@ before_install:
 
 before_script:
   - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+  - chmod 775 ./spec-sim.sh ./docker-deployment-sim.sh ./k8s-deployment-sim.sh ./argocd-deployment-sim.sh
 
 script:
-  - chmod 775 ./script.sh && ./script.sh
+  - ./spec-sim.sh
+  - ./docker-deployment-sim.sh
+  - ./k8s-deployment-sim.sh
+  - ./argocd-deployment-sim.sh
   
 after_deploy: chmod 775 ./after_deploy.sh && ./after_deploy.sh
 
