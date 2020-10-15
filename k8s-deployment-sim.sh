@@ -9,9 +9,6 @@ minikube update-context --profile=minikube
 "sudo chown -R travis: /home/travis/.minikube/"
 eval "$(minikube docker-env --profile=minikube)" && export DOCKER_CLI='docker'
 kubectl create -f k8s/example/default-serviceaccount.yaml
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v1.5.5/manifests/install.yaml
-kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
 
 printf "\n\n\n*** install server with tls template in minikube\n\n"
 yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.tls.enabled true
