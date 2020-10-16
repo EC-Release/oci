@@ -17,8 +17,14 @@ helm install k8s/example --set-file global.agtConfig=k8s/example/server+tls.env 
 printf "\n\n\n*** verify logs in minikube\n\n"
 kubectl get deployments && kubectl get pods && kubectl get services && kubectl get ingresses
 #kubectl logs -p $(kubectl get pods|grep agent-plg|awk '{print $1}'|head -n 1) --since=5m
+
 sleep 5
 kubectl describe deployments $(kubectl get deployments|grep agent-plg|awk '{print $1}'|head -n 1)
+sleep 5
+kubectl describe deployments $(kubectl get deployments|grep agent-plg|awk '{print $1}'|head -n 1)
+sleep 5
+kubectl describe deployments $(kubectl get deployments|grep agent-plg|awk '{print $1}'|head -n 1)
+
 kubectl rollout status deploy/$(kubectl get deployments|grep agent-plg|awk '{print $1}'|head -n 1)
 #kubectl describe deployments $(kubectl get pods|grep agent-plg|awk '{print $1}'|head -n 1)
 printf "\n\n\n*** done debug go ahead delete all.\n\n"
