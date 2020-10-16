@@ -19,6 +19,17 @@ eval "sed -i -e 's#<AGENT_PLG_CHART_REV>#${AGENT_PLG_CHART_REV}#g' k8s/example/C
 eval "sed -i -e 's#<AGENT_CHART_REV>#${AGENT_CHART_REV}#g' k8s/example/Chart.yaml"
 cat k8s/agent+helper/Chart.yaml k8s/agent/Chart.yaml k8s/agent+plg/Chart.yaml k8s/example/Chart.yaml
 
+printf "\n\n\n*** update server+tls.env \n\n"
+eval "sed -i -e 's#{{EC_TEST_OA2}}#${EC_TEST_OA2}#g' k8s/example/server+tls.env"
+eval "sed -i -e 's#{{EC_TEST_AID}}#${EC_TEST_AID}#g' k8s/example/server+tls.env"
+eval "sed -i -e 's#{{EC_TEST_TKN}}#${EC_TEST_TKN}#g' k8s/example/server+tls.env"
+eval "sed -i -e 's#{{EC_TEST_SST}}#${EC_TEST_SST}#g' k8s/example/server+tls.env"
+eval "sed -i -e 's#{{EC_TEST_HST}}#${EC_TEST_HST}#g' k8s/example/server+tls.env"
+eval "sed -i -e 's#{{EC_TEST_ZON}}#${EC_TEST_ZON}#g' k8s/example/server+tls.env"
+eval "sed -i -e 's#{{EC_TEST_GRP}}#${EC_TEST_GRP}#g' k8s/example/server+tls.env"
+eval "sed -i -e 's#{{EC_TEST_CID}}#${EC_TEST_CID}#g' k8s/example/server+tls.env"
+eval "sed -i -e 's#{{EC_TEST_CSC}}#${EC_TEST_CSC}#g' k8s/example/server+tls.env"
+
 printf "\n\n\n*** packaging w/ dependencies \n\n"
 mkdir -p k8s/pkg/agent/$AGENT_CHART_REV k8s/pkg/agent+helper/$AGENT_HELPER_CHART_REV k8s/pkg/agent+plg/$AGENT_PLG_CHART_REV
 ls -la k8s/pkg
