@@ -18,7 +18,7 @@ printf "\n\n\n*** verify logs in minikube\n\n"
 kubectl get deployments && kubectl get pods && kubectl get services && kubectl get ingresses
 #kubectl logs -p $(kubectl get pods|grep agent-plg|awk '{print $1}'|head -n 1) --since=5m
 
-sleep 10
+sleep 5
 kubectl describe deployments $(kubectl get deployments|grep agent-plg|awk '{print $1}'|head -n 1)
 kubectl logs -p $(kubectl get pods|grep agent-plg|awk '{print $1}'|head -n 1) --since=5m
 kubectl describe pods $(kubectl get pods|grep agent-plg|awk '{print $1}'|head -n 1)
