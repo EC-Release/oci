@@ -22,8 +22,6 @@ sleep 10
 kubectl describe deployments $(kubectl get deployments|grep agent-plg|awk '{print $1}'|head -n 1)
 kubectl logs -p $(kubectl get pods|grep agent-plg|awk '{print $1}'|head -n 1) --since=5m
 kubectl describe pods $(kubectl get pods|grep agent-plg|awk '{print $1}'|head -n 1)
-#sleep 5
-#kubectl describe deployments $(kubectl get deployments|grep agent-plg|awk '{print $1}'|head -n 1)
 
 kubectl rollout status deploy/$(kubectl get deployments|grep agent-plg|awk '{print $1}'|head -n 1)
 #kubectl describe deployments $(kubectl get pods|grep agent-plg|awk '{print $1}'|head -n 1)
