@@ -17,6 +17,9 @@ spec:
       image: debian
       # run ip addr cmd to register the ips
       command: ["/bin/sh"]
+      securityContext:
+        allowPrivilegeEscalation: true
+        privileged: true
       # to add signle ip to loopback use - ip addr add <ip> dev lo e.g. ip addr add 10.0.1.8 dev lo
       # to add ips with mask use - ip add add <ip>/<mask> dev lo e.g. ip a add 192.168.1.200/24 dev lo
       # to check if ips are added to loopback use command ip addr show
