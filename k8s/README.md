@@ -130,7 +130,12 @@ global:
         # interface at the parental pod.
         remote: false
         # customise the securityContext when the vln plugin launched in a multi-contr pod (remote: false)
-        securityContext: {}
+        securityContext: 
+          # map the container runner to an internal user. E.g. uid: 1000
+          runAsUser: 0
+          # deny a potential privilege escalation request
+          allowPrivilegeEscalation: false
+          privileged: false
         # The "ports" keypair will be overridden by the default "agtConfig" setting, if specified. E.g. "conf.rpt=<port1,port2..portn>"
         ports: [8000,8001,8002,8003]
         # The "ips" keypair is ignored when set "remote" to true
