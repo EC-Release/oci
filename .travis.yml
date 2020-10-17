@@ -23,8 +23,9 @@ before_script:
   - chmod 775 ./spec-sim.sh ./docker-deployment-sim.sh ./k8s-deployment-sim.sh ./argocd-deployment-sim.sh
 
 script:
+  # move docker spec test to oci spec
+  #- source ./docker-deployment-sim.sh
   - source ./spec-sim.sh
-  - source ./docker-deployment-sim.sh
   - source ./k8s-deployment-sim.sh
   - source ./argocd-deployment-sim.sh
   
