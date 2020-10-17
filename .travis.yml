@@ -20,11 +20,12 @@ before_install:
 
 before_script:
   - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
-  - chmod 775 ./spec-sim.sh ./docker-deployment-sim.sh ./k8s-deployment-sim.sh ./argocd-deployment-sim.sh
+  - chmod 775 ./spec-sim.sh ./docker-deployment-sim.sh ./k8s-deployment-sim.sh ./argocd-deployment-sim.sh ./minikube-bootstrap.sh
 
 script:
   # move docker spec test to oci spec
   #- source ./docker-deployment-sim.sh
+  - source ./minikube-bootstrap.sh
   - source ./spec-sim.sh
   - source ./k8s-deployment-sim.sh
   - source ./argocd-deployment-sim.sh
