@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: hello-agt-container-usage
+  name: agent-plg-multi-container-usage
 spec:
   restartPolicy: Always
   containers:
