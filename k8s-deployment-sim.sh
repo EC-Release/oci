@@ -22,8 +22,8 @@ printf "\n\n\n*** verify logs in minikube\n\n"
 sleep 15
 kubectl describe pods $(kubectl get pods|grep agent-plg|awk '{print $1}'|head -n 1)
 #kubectl get pods -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.name}{", "}{end}{end}' | sort
-kubectl get pods -o=jsonpath='{range .items[*]}{range .spec.containers[*]}{.name}{", "}{end}{range .spec.initContainers[*]}{.name}{end}' | sort
-#kubectl logs -p $(kubectl get pods|grep agent-plg|awk '{print $1}'|head -n 1) --since=5m
+op=$(kubectl get pods -o=jsonpath='{range .items[*]}{range .spec.containers[*]}{.name}{", "}{end}{range .spec.initContainers[*]}{.name}{end}' | sort)
+kubectl logs -p $op --since=5m
 printf "\n\n\n*** done debug go ahead delete all.\n\n"
 kubectl delete --all deployments && kubectl delete --all pods && kubectl delete --all services && kubectl delete --all ingresses
 
