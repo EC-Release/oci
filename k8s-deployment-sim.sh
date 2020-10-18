@@ -7,6 +7,7 @@ helm install k8s/example --set-file global.agtConfig=k8s/example/server+tls.env 
 printf "\n\n\n*** verify logs in minikube\n\n"
 kubectl get deployments && kubectl get pods && kubectl get services && kubectl get ingresses
 kubectl rollout status deploy/$(kubectl get deployments|grep agent-plg|awk '{print $1}'|head -n 1)
+sleep 5
 kubectl logs -p $(kubectl get pods|grep agent-plg|awk '{print $1}'|head -n 1) --since=5m
 #kubectl describe deployments $(kubectl get pods|grep agent-plg|awk '{print $1}'|head -n 1)
 printf "\n\n\n*** done debug go ahead delete all.\n\n"
@@ -18,9 +19,11 @@ yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.vln.enabled true
 yq w -i k8s/example/values.yaml global.agtK8Config.withPlugins.vln.remote false
 helm install k8s/example --set-file global.agtConfig=k8s/example/client+vln.env --generate-name
 printf "\n\n\n*** verify logs in minikube\n\n"
-sleep 10
+sleep 15
 kubectl describe pods $(kubectl get pods|grep agent-plg|awk '{print $1}'|head -n 1)
-kubectl get pods -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.name}{", "}{end}{end}' |\
+#kubectl get pods -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.name}{", "}{end}{end}' |\
+sort
+kubectl get pods -o=jsonpath='{range .items[*]}{range .spec.containers[*]}{.name}{", "}{end}{end}' |\
 sort
 #kubectl logs -p $(kubectl get pods|grep agent-plg|awk '{print $1}'|head -n 1) --since=5m
 printf "\n\n\n*** done debug go ahead delete all.\n\n"
