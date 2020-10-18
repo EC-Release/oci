@@ -23,7 +23,9 @@ sleep 15
 kubectl describe pods $(kubectl get pods|grep agent-plg|awk '{print $1}'|head -n 1)
 #kubectl get pods -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.name}{", "}{end}{end}' | sort
 pdn=$(kubectl get pods -o=jsonpath='{.items[0].metadata.name}')
+echo pdn: $pdn
 ctns=$(kubectl get pods -o=jsonpath='{range .items[*]}{range .spec.containers[*]}{.name}{", "}{end}{range .spec.initContainers[*]}{.name}{end}' | sort)
+echo ctns: $ctns
 kubectl logs -p $pdn -c $ctns --since=5m
 printf "\n\n\n*** done debug go ahead delete all.\n\n"
 kubectl delete --all deployments && kubectl delete --all pods && kubectl delete --all services && kubectl delete --all ingresses
