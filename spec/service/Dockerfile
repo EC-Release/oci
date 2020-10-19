@@ -1,16 +1,18 @@
 FROM node:alpine
+FROM node:12
 
 MAINTAINER Gayatri Tagade "gayatri.tagade@ge.com"
 
 ENV SERVICE_BRANCH=v1beta
 ENV ENV=v1beta.sendai.1080
+ENV EC_PRVT_PWD=EC_PRVT_PWD
+ENV EC_PRVT_KEY=EC_PRVT_KEY
+ENV EC_PUB_KEY=EC_PUB_KEY
 
 WORKDIR /build
 
-ARG CF_USER
-ARG CF_PWD 
-ARG EC_APP_NAME
-ARG EC_SERVICE_HOST_SUB_DOMAIN
+ARG APP
+ARG HOST
 ARG PROXY_URL
 ARG EC_REV
 ARG BUILD_NUMBER
@@ -36,18 +38,12 @@ ARG NUREGO_TKN_URL
 COPY ./ec-px-service /build/
 COPY ./api_linux /build/
 
+RUN npm install
+
 CMD chmod 755 build.sh
 CMD chmod 755 api_linux
+# CMD eval "sed -i -e 's#{HOST}#${APP}-${ENV}.${HOST}#g' ./assets/swagger.json"
+CMD eval "sed -i -e 's#{BASE}#${EC_REV}#g' ./assets/swagger.json"
+CMD eval "sed -i -e 's#{ENV}#${ENV}#g' ./assets/swagger.json"
 CMD ./api_linux
-CMD sh ./build.sh -app $EC_APP_NAME -host $EC_SERVICE_HOST_SUB_DOMAIN \
--p $PROXY_URL -r $EC_REV \
--b $BUILD_NUMBER -e $PROJECT_NAME \
--ecadm $ADMIN_USR -ecpwd $ADMIN_PWD \
--zactokenurl $ZAC_UAA \
--zacurl $ZAC_URL \
--zacsvcid $ZAC_SERVICE_ID \
--zaccid $ZAC_CLIENT_ID \
--zaccscrt $ZAC_CLIENT_SECRET \
--nrgfeatrid $NUREGO_FEATURE_ID \
--nrgkey $NUREGO_API_KEY \
--newrelickey $NR_KEY
+CMD node ./app.js
