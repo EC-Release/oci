@@ -4,16 +4,30 @@ if: head_branch =~ ^v1beta_svc_oci_spec_update$ OR branch = v1beta_svc_oci_spec
 services:
   - docker  
 
+env:
+  - SERVICE_BRANCH=v1beta
+  - ENV=v1beta.sendai.1080
+  - EC_REV=v1beta
+  - ADMIN_USR=admin
+  - ZAC_UAA=https://predix-uaa.run.aws-usw02-dev.ice.predix.io/oauth/token
+  - ZAC_URL=https://predix-zac.run.aws-usw02-dev.ice.predix.io/v1/authorization/
+  - ZAC_SERVICE_ID=enterprise-connect
+  - NUREGO_FEATURE_ID=api_calls
+  - NUREGO_TKN_INS=ins_01b6-765e-446e-b0e5-d958ac2afb72
+  - NUREGO_USAGE_FEATURE_ID=data_usage
+  - NUREGO_ENDPOINT=https://am-staging.nurego.com/v1
+  - NUREGO_TKN_URL=https://am-staging.nurego.com/v1/auth/token
+
 script:
-   - wget https://raw.githubusercontent.com/EC-Release/auth-api/v1beta/dist/api/api_linux.tar.gz
-   - tar -xzvf api_linux.tar.gz
-   - cp ./api_linux ./spec/service
-   - cd ./spec/service
-   - git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service.git
-   - cd ec-px-service && git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service-assets.git assets
-   - git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service-webui.git ec-web-ui && cd ..
-   - docker build -t enterpriseconnect/service:v1beta --build-arg PROXY_URL=${PROXY_URL} --build-arg EC_REV=${EC_REV} --build-arg BUILD_NUMBER=${TRAVIS_BUILD_NUMBER} --build-arg PROJECT_NAME=${PROJECT_NAME} --build-arg ADMIN_USR=${ADMIN_USR} --build-arg ADMIN_PWD=${ADMIN_PWD} --build-arg ZAC_UAA=${ZAC_UAA} --build-arg ZAC_URL=${ZAC_URL} --build-arg ZAC_SERVICE_ID=${ZAC_SERVICE_ID} --build-arg ZAC_CLIENT_ID=${ZAC_CLIENT_ID} --build-arg ZAC_CLIENT_SECRET=${ZAC_CLIENT_SECRET} --build-arg NUREGO_FEATURE_ID=${NUREGO_FEATURE_ID} --build-arg NUREGO_API_KEY=${NUREGO_API_KEY} --build-arg NR_KEY=${NR_KEY} --build-arg NUREGO_TKN_INS=${NUREGO_TKN_INS} --build-arg NUREGO_TKN_PWD=${NUREGO_TKN_PWD} --build-arg NUREGO_TKN_USR=${NUREGO_TKN_USR} --build-arg NUREGO_USAGE_FEATURE_ID=${NUREGO_USAGE_FEATURE_ID} --build-arg APP=${EC_APP_NAME} --build-arg HOST=${EC_SERVICE_HOST_SUB_DOMAIN} --build-arg NUREGO_ENDPOINT=${NUREGO_ENDPOINT} --build-arg NUREGO_TKN_URL=${NUREGO_TKN_URL} .
-   - docker run -e EC_PRVT_KEY=${EC_PRVT_KEY} -e EC_PUB_KEY=${EC_PUB_KEY} -e EC_PRVT_PWD=${EC_PRVT_PWD} -it enterpriseconnect/service:v1beta
+  - wget https://raw.githubusercontent.com/EC-Release/auth-api/v1beta/dist/api/api_linux.tar.gz
+  - tar -xzvf api_linux.tar.gz
+  - cp ./api_linux ./spec/service
+  - cd ./spec/service
+  - git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service.git
+  - cd ec-px-service && git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service-assets.git assets
+  - git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service-webui.git ec-web-ui && cd ..
+  - docker build --build-arg EC_PRVT_KEY=${EC_PRVT_KEY} --build-arg EC_PUB_KEY=${EC_PUB_KEY} -t service .
+  - docker run -e PROXY_URL=${PROXY_URL} -e EC_REV=${EC_REV} -e ADMIN_USR=${ADMIN_USR} -e ADMIN_PWD=${ADMIN_PWD} -e ZAC_UAA=${ZAC_UAA} -e ZAC_URL=${ZAC_URL} -e ZAC_SERVICE_ID=${ZAC_SERVICE_ID} -e ZAC_CLIENT_ID=${ZAC_CLIENT_ID} -e ZAC_CLIENT_SECRET=${ZAC_CLIENT_SECRET} -e NUREGO_FEATURE_ID=${NUREGO_FEATURE_ID} -e NUREGO_API_KEY=${NUREGO_API_KEY} -e NR_KEY=${NR_KEY} -e NUREGO_TKN_INS=${NUREGO_TKN_INS} -e NUREGO_TKN_PWD=${NUREGO_TKN_PWD} -e NUREGO_TKN_USR=${NUREGO_TKN_USR} -e NUREGO_USAGE_FEATURE_ID=${NUREGO_USAGE_FEATURE_ID} -e APP=${EC_APP_NAME} -e HOST=${EC_SERVICE_HOST_SUB_DOMAIN} -e NUREGO_ENDPOINT=${NUREGO_ENDPOINT} -e NUREGO_TKN_URL=${NUREGO_TKN_URL} -e EC_PRVT_KEY=${EC_PRVT_KEY} -e EC_PUB_KEY=${EC_PUB_KEY} -e EC_PRVT_PWD=${EC_PRVT_PWD} -e EC_SETTINGS=${EC_SETTINGS} -e VCAP_APPLICATION=${VCAP_APPLICATION} -it enterpriseconnect/service:v1beta
 
 deploy:
   - provider: script
