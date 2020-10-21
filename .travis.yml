@@ -27,7 +27,7 @@ script:
   - git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service.git
   - cd ec-px-service && git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service-assets.git assets
   - git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service-webui.git ec-web-ui && cd ..
-  - docker build --build-arg EC_PRVT_KEY=${EC_PRVT_KEY} --build-arg EC_PUB_KEY=${EC_PUB_KEY} -t service .
+  - docker build --build-arg EC_PRVT_KEY=${EC_PRVT_KEY} --build-arg EC_PUB_KEY=${EC_PUB_KEY} -t enterpriseconnect/service:v1beta .
   - docker run -e PROXY_URL=${PROXY_URL} -e EC_REV=${EC_REV} -e ADMIN_USR=${ADMIN_USR} -e ADMIN_PWD=${ADMIN_PWD} -e ZAC_UAA=${ZAC_UAA} -e ZAC_URL=${ZAC_URL} -e ZAC_SERVICE_ID=${ZAC_SERVICE_ID} -e ZAC_CLIENT_ID=${ZAC_CLIENT_ID} -e ZAC_CLIENT_SECRET=${ZAC_CLIENT_SECRET} -e NUREGO_FEATURE_ID=${NUREGO_FEATURE_ID} -e NUREGO_API_KEY=${NUREGO_API_KEY} -e NR_KEY=${NR_KEY} -e NUREGO_TKN_INS=${NUREGO_TKN_INS} -e NUREGO_TKN_PWD=${NUREGO_TKN_PWD} -e NUREGO_TKN_USR=${NUREGO_TKN_USR} -e NUREGO_USAGE_FEATURE_ID=${NUREGO_USAGE_FEATURE_ID} -e APP=${EC_APP_NAME} -e HOST=${EC_SERVICE_HOST_SUB_DOMAIN} -e NUREGO_ENDPOINT=${NUREGO_ENDPOINT} -e NUREGO_TKN_URL=${NUREGO_TKN_URL} -e EC_PRVT_KEY=${EC_PRVT_KEY} -e EC_PUB_KEY=${EC_PUB_KEY} -e EC_PRVT_PWD=${EC_PRVT_PWD} -e EC_SETTINGS=${EC_SETTINGS} -e VCAP_APPLICATION=${VCAP_APPLICATION} -it enterpriseconnect/service:v1beta
 
 deploy:
