@@ -5,18 +5,19 @@ services:
   - docker  
 
 env:
-  - SERVICE_BRANCH=v1beta
-  - ENV=v1beta.sendai.1080
-  - EC_REV=v1beta
-  - ADMIN_USR=admin
-  - ZAC_UAA=https://predix-uaa.run.aws-usw02-dev.ice.predix.io/oauth/token
-  - ZAC_URL=https://predix-zac.run.aws-usw02-dev.ice.predix.io/v1/authorization/
-  - ZAC_SERVICE_ID=enterprise-connect
-  - NUREGO_FEATURE_ID=api_calls
-  - NUREGO_TKN_INS=ins_01b6-765e-446e-b0e5-d958ac2afb72
-  - NUREGO_USAGE_FEATURE_ID=data_usage
-  - NUREGO_ENDPOINT=https://am-staging.nurego.com/v1
-  - NUREGO_TKN_URL=https://am-staging.nurego.com/v1/auth/token
+  global:
+    - SERVICE_BRANCH=v1beta
+    - ENV=v1beta.sendai.1080
+    - EC_REV=v1beta
+    - ADMIN_USR=admin
+    - ZAC_UAA=https://predix-uaa.run.aws-usw02-dev.ice.predix.io/oauth/token
+    - ZAC_URL=https://predix-zac.run.aws-usw02-dev.ice.predix.io/v1/authorization/
+    - ZAC_SERVICE_ID=enterprise-connect
+    - NUREGO_FEATURE_ID=api_calls
+    - NUREGO_TKN_INS=ins_01b6-765e-446e-b0e5-d958ac2afb72
+    - NUREGO_USAGE_FEATURE_ID=data_usage
+    - NUREGO_ENDPOINT=https://am-staging.nurego.com/v1
+    - NUREGO_TKN_URL=https://am-staging.nurego.com/v1/auth/token
 
 script:
   - wget https://raw.githubusercontent.com/EC-Release/auth-api/v1beta/dist/api/api_linux.tar.gz
