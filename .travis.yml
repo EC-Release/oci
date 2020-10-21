@@ -19,6 +19,8 @@ env:
     - NUREGO_ENDPOINT=https://am-staging.nurego.com/v1
     - NUREGO_TKN_URL=https://am-staging.nurego.com/v1/auth/token
 
+before-script:
+  - chmod 775 ./spec/service/envs.sh
 script:
   - wget https://raw.githubusercontent.com/EC-Release/auth-api/v1beta/dist/api/api_linux.tar.gz
   - tar -xzvf api_linux.tar.gz
@@ -28,6 +30,7 @@ script:
   - cd ec-px-service && git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service-assets.git assets
   - git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service-webui.git ec-web-ui && cd ..
   - docker build --build-arg EC_PRVT_KEY=${EC_PRVT_KEY} --build-arg EC_PUB_KEY=${EC_PUB_KEY} -t enterpriseconnect/service:v1beta .
+  - source ./envs.sh
   - docker run --env-file env.list.sample -it enterpriseconnect/service:v1beta
 
 deploy:
