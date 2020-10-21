@@ -14,7 +14,7 @@ Steps to run locally
 
 2. Extract ENVs of service using command ```cf e <zone-id>```
 
-3. Substitute the values from service to (env.list)[https://github.com/EC-Release/oci/blob/v1beta_svc_oci_spec_update_dockerfile/spec/service/env.list.sample]
+3. Substitute the values from service to [env.list](https://github.com/EC-Release/oci/blob/v1beta_svc_oci_spec_update_dockerfile/spec/service/env.list.sample)
 
 4. Run following command
 
