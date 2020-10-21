@@ -31,7 +31,7 @@ script:
   - git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service-webui.git ec-web-ui && cd ..
   - docker build --build-arg EC_PRVT_KEY=${EC_PRVT_KEY} --build-arg EC_PUB_KEY=${EC_PUB_KEY} -t enterpriseconnect/service:v1beta .
   - source ./envs.sh
-  - docker run --env-file env.list.sample -it enterpriseconnect/service:v1beta
+  - docker run --rm -d --name service --env-file env.list.sample enterpriseconnect/service:v1beta && sleep 10 && docker logs service
 
 deploy:
   - provider: script
