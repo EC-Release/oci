@@ -9,6 +9,5 @@
 ### How to run
 
 ```shell
-docker run --e ADMIN_TKN=value \
-  enterpriseconnect/service:v1beta
+docker run --env-file env.list enterpriseconnect/service:v1beta
 ```
