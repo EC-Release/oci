@@ -25,7 +25,7 @@ deploy:
 after_deploy: >-
   docker rmi enterpriseconnect/agent:v1beta -f && docker run -it enterpriseconnect/agent:v1beta agent -ver &&
   docker rmi enterpriseconnect/plugins:v1beta -f && docker run -it enterpriseconnect/plugins:v1beta agent -inf &&
-  docker rmi enterpriseconnect/build:v1beta -f && docker run -it enterpriseconnect/build:v1beta agent -inf &&
+  docker rmi enterpriseconnect/build:v1beta -f && docker run -it enterpriseconnect/build:v1beta go version &&
   ls -al
 notifications:  
   email:  
