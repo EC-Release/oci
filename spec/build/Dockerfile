@@ -34,6 +34,7 @@ RUN go get google.golang.org/grpc
 RUN go get golang.org/x/lint/golint
 RUN go get gopkg.in/cheggaaa/pb.v1
 RUN go get github.com/google/uuid
+RUN go get golang.org/x/crypto/pbkdf2
 
 RUN go get github.com/securego/gosec/cmd/gosec
 
