@@ -32,7 +32,8 @@ script:
   - rm -Rf ./ec-px-service/.git; rm ./ec-px-service/.gitmodules; rm -Rf ./ec-px-service/assets/.git; rm -Rf ./ec-px-service/ec-web-ui/.git
   - docker build --build-arg EC_PRVT_KEY=${EC_PRVT_KEY} --build-arg EC_PUB_KEY=${EC_PUB_KEY} -t enterpriseconnect/service:v1beta .
   - source ./envs.sh
-  - docker run --rm -d --name service --env-file env.list.sample enterpriseconnect/service:v1beta && sleep 10 && docker logs service
+  #- docker run --rm -d --name service --env-file env.list.sample enterpriseconnect/service:v1beta && sleep 10 && docker logs service
+  - docker run --rm -it --name service --env-file env.list.sample enterpriseconnect/service:v1beta
 
 deploy:
   - provider: script
