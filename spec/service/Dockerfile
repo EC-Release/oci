@@ -23,7 +23,7 @@ RUN echo $EC_PRVT_KEY | base64 -d > service.key
 WORKDIR /root
 RUN tar -zcvf temp.tar.gz ./temp && rm -Rf ./temp && ls -al 
 
-CMD tar -xvfz --strip-components=1 temp.tar.gz && \
+CMD ls -al && tar -xvfz --strip-components=1 temp.tar.gz && \
 ls -al && rm temp.tar.gz && \
 export EC_PUB_KEY="$(cat service.cer)" && \
 export EC_PRVT_KEY="$(cat service.key)" && \
