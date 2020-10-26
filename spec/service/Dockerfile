@@ -21,8 +21,7 @@ RUN echo $EC_PUB_KEY | base64 -d > service.cer
 RUN echo $EC_PRVT_KEY | base64 -d > service.key
 
 WORKDIR /root
-RUN tar -zcvf temp.tar.gz ./temp && rm -Rf ./temp
-RUN temp.tar.gz && ls -al
+RUN tar -zcvf temp.tar.gz ./temp && rm -Rf ./temp && ls -al
 
 CMD ls -al && tar -xvf ./temp.tar.gz --strip-components=1 && \
 ls -al && rm temp.tar.gz && \
