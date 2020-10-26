@@ -1,5 +1,5 @@
 #!/bin/bash
-pwd; ls -al
+pwd; ls -al; cat env.list.sample
 eval "sed -i -e 's#{{EC_PRVT_PWD}}#${EC_PRVT_PWD}#g' env.list.sample"
 eval "sed -i -e 's#{{EC_SERVICE_APP}}#${EC_SERVICE_APP}#g' env.list.sample"
 eval "sed -i -e 's#{{EC_SERVICE_HOST_SUB_DOMAIN}}#${EC_SERVICE_HOST_SUB_DOMAIN}#g' env.list.sample"
