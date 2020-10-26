@@ -4,6 +4,7 @@ FROM node:7
 MAINTAINER Gayatri Tagade "gayatri.tagade@ge.com"
 
 USER root
+WORKDIR /root
 
 ARG EC_PUB_KEY
 ARG EC_PRVT_KEY
