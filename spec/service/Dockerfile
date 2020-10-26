@@ -21,6 +21,7 @@ RUN echo $EC_PUB_KEY | base64 -d > service.cer
 RUN echo $EC_PRVT_KEY | base64 -d > service.key
 
 WORKDIR /root
+# cloud foundry empty dirs docker binding issue. exact files in run time to workaround 
 RUN tar -zcf temp.tar.gz ./temp && chmod 775 temp.tar.gz
 RUN rm -Rf ./temp && ls -al
 
