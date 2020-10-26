@@ -29,7 +29,7 @@ script:
   - git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service.git
   - cd ec-px-service && git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service-assets.git assets
   - git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service-webui.git ec-web-ui && cd ..
-  - cd ec-px-service; rm -Rf .git; rm .gitmodules; rm -Rf assets/.git; rm -Rf ec-web-ui/.git
+  - rm -Rf ./ec-px-service/.git; rm ./ec-px-service/.gitmodules; rm -Rf ./ec-px-service/assets/.git; rm -Rf ./ec-px-service/ec-web-ui/.git
   - docker build --build-arg EC_PRVT_KEY=${EC_PRVT_KEY} --build-arg EC_PUB_KEY=${EC_PUB_KEY} -t enterpriseconnect/service:v1beta .
   - source ./envs.sh
   - docker run --rm -d --name service --env-file env.list.sample enterpriseconnect/service:v1beta && sleep 10 && docker logs service
