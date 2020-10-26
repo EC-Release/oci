@@ -24,7 +24,7 @@ WORKDIR /root
 RUN tar -zcf temp.tar.gz ./temp && chmod 775 temp.tar.gz
 RUN rm -Rf ./temp && ls -al
 
-CMD ls -al && tar -xvf ./temp.tar.gz --strip-components=1 && \
+CMD ls -al && tar -xf ./temp.tar.gz --strip-components=1 && \
 ls -al && rm temp.tar.gz && \
 export EC_PUB_KEY="$(cat service.cer)" && \
 export EC_PRVT_KEY="$(cat service.key)" && \
