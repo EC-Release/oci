@@ -24,8 +24,8 @@ WORKDIR /root
 # cloud foundry empty dirs docker binding issue. exact files in run time to workaround 
 RUN tar -zcf temp.tar.gz ./temp && rm -Rf ./temp && ls -al
 
-CMD ls -al && tar -zxf ./temp.tar.gz --strip-components=1 && \
-ls -al && rm temp.tar.gz && \
+CMD ls -al && tar -zxf ./temp.tar.gz && \
+rm temp.tar.gz && cd temp && \
 export EC_PUB_KEY="$(cat service.cer)" && \
 export EC_PRVT_KEY="$(cat service.key)" && \
 ./run.sh && node ./app.js
