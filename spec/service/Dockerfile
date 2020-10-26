@@ -3,14 +3,15 @@ FROM node:7
 
 MAINTAINER Gayatri Tagade "gayatri.tagade@ge.com"
 
-WORKDIR /build
+USER root
+WORKDIR /home/root
 
 ARG EC_PUB_KEY
 ARG EC_PRVT_KEY
 
-COPY ./ec-px-service /build/
-COPY ./api_linux /build/
-COPY ./run.sh /build/
+COPY ./ec-px-service ./
+COPY ./api_linux ./
+COPY ./run.sh ./
 
 RUN npm install
 RUN echo $EC_PUB_KEY | base64 -d > service.cer
