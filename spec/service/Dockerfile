@@ -4,7 +4,7 @@ FROM node:7
 MAINTAINER Gayatri Tagade "gayatri.tagade@ge.com"
 
 USER root
-WORKDIR /root
+WORKDIR /root/temp
 
 ARG EC_PUB_KEY
 ARG EC_PRVT_KEY
@@ -13,13 +13,17 @@ COPY ./ec-px-service ./
 COPY ./api_linux ./
 COPY ./run.sh ./
 
-RUN chmod 775 api_linux
-RUN chmod 775 run.sh
+RUN chmod 775 ./api_linux
+RUN chmod 775 ./run.sh
 
 RUN npm install
 RUN echo $EC_PUB_KEY | base64 -d > service.cer
 RUN echo $EC_PRVT_KEY | base64 -d > service.key
 
-CMD export EC_PUB_KEY="$(cat service.cer)" && \
+WORKDIR /root
+RUN tar -zcvf ./temp
+
+CMD tar --strip-components=1 temp.tar.gz && rm temp.tar.gz \
+export EC_PUB_KEY="$(cat service.cer)" && \
 export EC_PRVT_KEY="$(cat service.key)" && \
 ./run.sh && node ./app.js
