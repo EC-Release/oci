@@ -23,7 +23,8 @@ COPY ./run.sh ./
 RUN chmod 775 ./run.sh
 # cloud foundry empty dirs docker binding issue. exact files in run time to workaround 
 RUN tar -zcf temp.tar.gz ./temp && rm -Rf ./temp && ls -al
-RUN curl -L "https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github" | tar -zx && \
+# get cf cli for outdated CF instance 
+RUN curl -L "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=6.49.0&source=github-rel" | tar -zx && \
 mv cf /usr/local/bin && \
 cf --version
 
