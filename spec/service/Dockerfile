@@ -11,16 +11,16 @@ ARG EC_PRVT_KEY
 
 COPY ./ec-px-service ./
 COPY ./api_linux ./
-COPY ./run.sh ./
 
 RUN chmod 775 ./api_linux
-RUN chmod 775 ./run.sh
 
 RUN npm install
 RUN echo $EC_PUB_KEY | base64 -d > service.cer
 RUN echo $EC_PRVT_KEY | base64 -d > service.key
 
 WORKDIR /root
+COPY ./run.sh ./
+RUN chmod 775 ./run.sh
 # cloud foundry empty dirs docker binding issue. exact files in run time to workaround 
 RUN tar -zcf temp.tar.gz ./temp && rm -Rf ./temp && ls -al
 
