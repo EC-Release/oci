@@ -29,5 +29,4 @@ Steps to run locally
 1. Steps...
 
 ```shell
-docker run -e zon=<existing service zone-id> -it enterpriseconnect/service:v1beta ./deploy.sh
-```
+docker run -e usrname=<cf-system-username> -e usrpwd=<cf-system-pwd> -e zon=<existing service zone-id> -it enterpriseconnect/service:v1beta ./deploy.sh
