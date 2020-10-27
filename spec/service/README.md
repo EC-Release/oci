@@ -21,3 +21,13 @@ Steps to run locally
 ```shell
 docker run --env-file env.list enterpriseconnect/service:v1beta
 ```
+
+### Deploy in Cloud Foundry
+
+Steps to run locally
+
+1. Steps...
+
+```shell
+docker run -e zon=<existing service zone-id> -it enterpriseconnect/service:v1beta ./deploy.sh
+```
