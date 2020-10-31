@@ -22,7 +22,7 @@ deploy:
       branch: v1.2beta_oauth_oci_spec
 
 after_deploy: >-
-  docker rmi enterpriseconnect/oauth:v1.2beta -f && docker run -it enterpriseconnect/oauth:v1.2beta
+  docker rmi enterpriseconnect/oauth:v1.2beta -f && docker run -it -e EC_AUTH_VALIDATE=$EC_AUTH_VALIDATE enterpriseconnect/oauth:v1.2beta
 notifications:  
   email:  
     recipients:  
