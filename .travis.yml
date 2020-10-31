@@ -20,6 +20,7 @@ deploy:
 
 after_deploy: >-
   docker rmi enterpriseconnect/agent:v1.2beta -f && docker run -it enterpriseconnect/agent:v1.2beta agent -inf
+  
 notifications:  
   email:  
     recipients:  
