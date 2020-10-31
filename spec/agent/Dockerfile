@@ -25,7 +25,7 @@ RUN apk update && apk add --no-cache wget && apk add --no-cache bash
 
 RUN echo 'export PATH=$PATH:$HOME/.ec' >> /etc/profile
 
-RUN wget -q --show-progress -O ~/v1.2beta.linux64.sh https://ec-release.github.io/sdk/scripts/agt/v1.linux64_pkg.txt && \
+RUN /bin/bash -c wget -q --show-progress -O ~/v1.2beta.linux64.sh https://ec-release.github.io/sdk/scripts/agt/v1.linux64_pkg.txt && \
 && chmod 755 ~/v1.2beta.linux64.sh
 
 ENTRYPOINT ["~/v1.2beta.linux64.sh"]
