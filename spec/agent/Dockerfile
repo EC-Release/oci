@@ -27,4 +27,4 @@ RUN echo 'export PATH=$PATH:$HOME/.ec' >> /etc/profile
 
 ENTRYPOINT ["/bin/bash", "-c", "source <(wget -O - https://ec-release.github.io/sdk/scripts/agt/v1.2beta.linux64.txt)"]
 
-CMD ["-inf"]
+CMD ["agent","-inf"]
