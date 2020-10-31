@@ -17,6 +17,7 @@ MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 USER root
 WORKDIR /root
 
-RUN git clone --depth 1 https://github.com/EC-Release/web-ui-oa2.git oa2-assets
+RUN mkdir -p ~/.ec/ui/oa2-assets && wget -q --show-progress -O ~/.ec/ui/v1.1beta.tar.gz https://github.com/EC-Release/web-ui-oa2/archive/v1.1beta.tar.gz
+RUN tar xvf ~/.ec/ui/v1.1beta.tar.gz --strip 1 -C ~/.ec/ui/oa2-assets
 
 CMD ["./.ec/conf/agent1.2.sh"]
