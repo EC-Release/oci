@@ -4,6 +4,9 @@ if: head_branch =~ ^v1.2beta_oauth_oci_spec_update$ OR branch = v1.2beta_oauth_o
 services:
   - docker
   
+env:
+  - EC_AUTH_VALIDATE=oidc
+  
 before_install:
 
 script:
