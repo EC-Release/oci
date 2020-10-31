@@ -17,4 +17,6 @@ MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 USER root
 WORKDIR /root
 
-CMD ./agent1.2beta.sh
+RUN git clone --depth 1 https://github.com/EC-Release/web-ui-oa2.git oa2-assets
+
+CMD ["./.ec/conf/agent1.2.sh"]
