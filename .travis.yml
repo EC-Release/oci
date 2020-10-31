@@ -19,7 +19,7 @@ deploy:
       branch: v1.2beta_oci_spec
 
 after_deploy: >-
-  docker rmi enterpriseconnect/agent:v1.2beta -f && docker run -it enterpriseconnect/agent:v1.2beta agent -inf
+  docker rmi enterpriseconnect/agent:v1.2beta -f && docker run -it enterpriseconnect/agent:v1.2beta
   
 notifications:  
   email:  
