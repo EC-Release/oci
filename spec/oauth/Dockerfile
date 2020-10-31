@@ -17,7 +17,6 @@ MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 USER root
 WORKDIR /root
 
-RUN mkdir -p ~/.ec/ui/oa2-assets && wget -q --show-progress -O ~/.ec/ui/v1.1beta.tar.gz https://github.com/EC-Release/web-ui-oa2/archive/v1.1beta.tar.gz
-RUN tar xvf ~/.ec/ui/v1.1beta.tar.gz --strip 1 -C ~/.ec/ui/oa2-assets
+ENTRYPOINT ["/bin/bash", "-c", "source <(wget -O - https://ec-release.github.io/sdk/scripts/oauth/v1.2beta.linux64.txt)"]
 
-CMD ["./.ec/conf/agent1.2beta.sh"]
+CMD ["agent","-inf"]
