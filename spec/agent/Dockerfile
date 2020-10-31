@@ -21,7 +21,7 @@ ARG EC_REV_V1_2BETA=v1.2.reiwa.2
 
 ENV ENV="/etc/profile"
 
-RUN apk update && apk add --no-cache wget && apk add --no-cache bash 
+RUN apk update && apk add --no-cache wget && apk add --no-cache bash && apk --no-cache add curl 
 
 RUN echo 'export PATH=$PATH:$HOME/.ec' >> /etc/profile
 
@@ -29,6 +29,6 @@ RUN ["/bin/bash", "-c", "wget -q --show-progress -O ~/v1.2beta.linux64.sh https:
 
 RUN chmod 755 ~/v1.2beta.linux64.sh
 
-ENTRYPOINT ["/bin/bash","-c","~/v1.2beta.linux64.sh"]
+ENTRYPOINT ["~/v1.2beta.linux64.sh"]
 
 CMD ["-inf"]
