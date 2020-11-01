@@ -5,7 +5,7 @@ services:
   - docker
   
 env:
-#  - EC_AUTH_VALIDATE=oidc
+  - EC_AUTH_VALIDATE=oidc
   
 before_install:
 
