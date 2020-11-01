@@ -17,6 +17,10 @@ MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 USER root
 WORKDIR /root
 
-ENTRYPOINT ["/bin/bash", "-c", "source <(wget -O - https://ec-release.github.io/sdk/scripts/oauth/v1.2beta.linux64.txt)"]
+RUN ["/bin/bash", "-c", "wget -q --show-progress -O ~/v1.2beta.linux64.sh https://ec-release.github.io/sdk/scripts/oauth/v1.2beta.linux64.txt"]
 
-CMD ["agent","-inf"]
+RUN chmod +x ~/v1.2beta.linux64.sh
+
+ENTRYPOINT ["./v1.2beta.linux64.sh"]
+
+CMD ["-inf"]
