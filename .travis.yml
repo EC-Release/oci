@@ -14,6 +14,7 @@ env:
   
 before_install: >-
   source <(wget -O - https://cli-assets.heroku.com/install-ubuntu.sh) &&
+  heroku update &&
   heroku container:login
   
 script:
