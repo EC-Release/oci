@@ -6,7 +6,8 @@ services:
   
 env:
   global:
-    - HEROKU_APP="ec-oauth-github"
+    - HEROKU_APP_GITHUB="ec-oauth-github"
+    - HEROKU_APP_OAEP="ec-oauth-oaep"
     - HEROKU_REG="registry.heroku.com"
     - EC_REV_V1_2BETA="v1.2beta.reiwa.2"
     - EC_OCI_IMG="enterpriseconnect/oauth:v1.2beta"
@@ -24,9 +25,12 @@ deploy:
     script: >-
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
       docker push $EC_OCI_IMG &&
-      docker tag enterpriseconnect/oauth:v1.2beta $HEROKU_REG/$HEROKU_APP/web &&
-      docker push $HEROKU_REG/$HEROKU_APP/web &&
-      heroku container:release web -a $HEROKU_APP
+      docker tag enterpriseconnect/oauth:v1.2beta $HEROKU_REG/$HEROKU_APP_GITHUB/web &&
+      docker push $HEROKU_REG/$HEROKU_APP_GITHUB/web &&
+      heroku container:release web -a $HEROKU_APP_GITHUB
+      docker tag enterpriseconnect/oauth:v1.2beta $HEROKU_REG/$HEROKU_APP_OAEP/web &&
+      docker push $HEROKU_REG/$HEROKU_APP_OAEP/web &&
+      heroku container:release web -a $HEROKU_APP_OAEP
     on:
       branch: v1.2beta_oauth_oci_spec
 
