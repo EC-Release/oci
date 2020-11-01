@@ -20,7 +20,8 @@ deploy:
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
       docker push enterpriseconnect/oauth:v1.2beta &&
       docker tag enterpriseconnect/oauth:v1.2beta registry.heroku.com/ec-oauth-github/web &&
-      docker push registry.heroku.com/ec-oauth-github/web
+      docker push registry.heroku.com/ec-oauth-github/web &&
+      heroku container:release web
     on:
       branch: v1.2beta_oauth_oci_spec
 
