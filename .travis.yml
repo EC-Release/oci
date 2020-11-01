@@ -22,10 +22,10 @@ deploy:
     skip_cleanup: true
     script: >-
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
-      docker push ${EC_OCI_IMG} &&
-      docker tag enterpriseconnect/oauth:v1.2beta ${HEROKU_REG}/${HEROKU_APP}/web &&
-      docker push ${HEROKU_REG}/${HEROKU_APP}/web &&
-      heroku container:release web -a ${HEROKU_APP}
+      docker push $EC_OCI_IMG &&
+      docker tag enterpriseconnect/oauth:v1.2beta $HEROKU_REG/$HEROKU_APP/web &&
+      docker push $HEROKU_REG/$HEROKU_APP/web &&
+      heroku container:release web -a $HEROKU_APP
     on:
       branch: v1.2beta_oauth_oci_spec
 
