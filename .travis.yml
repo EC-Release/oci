@@ -8,7 +8,7 @@ services:
   
 before_install: >-
   source <(wget -O - https://cli-assets.heroku.com/install-ubuntu.sh) &&
-  heroku login
+  heroku container:login
   
 script:
   - cd ./spec/oauth && docker build -t enterpriseconnect/oauth:v1.2beta --build-arg EC_REV_V1_2BETA=${EC_REV_V1_2BETA} . && cd -
