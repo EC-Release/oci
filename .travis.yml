@@ -21,7 +21,7 @@ deploy:
       docker push enterpriseconnect/oauth:v1.2beta &&
       docker tag enterpriseconnect/oauth:v1.2beta registry.heroku.com/ec-oauth-github/web &&
       docker push registry.heroku.com/ec-oauth-github/web &&
-      heroku container:release web
+      heroku container:release web -a ec-oauth-github
     on:
       branch: v1.2beta_oauth_oci_spec
 
