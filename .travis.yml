@@ -5,10 +5,10 @@ services:
   - docker
   
 env:
-  - HEROKU_APP=ec-oauth-github
-  - HEROKU_REG=registry.heroku.com
-  - EC_REV_V1_2BETA=v1.2beta.reiwa.2
-  - EC_OCI_IMG=enterpriseconnect/oauth:v1.2beta
+  - HEROKU_APP="ec-oauth-github"
+  - HEROKU_REG="registry.heroku.com"
+  - EC_REV_V1_2BETA="v1.2beta.reiwa.2"
+  - EC_OCI_IMG="enterpriseconnect/oauth:v1.2beta"
   
 before_install: >-
   source <(wget -O - https://cli-assets.heroku.com/install-ubuntu.sh) &&
