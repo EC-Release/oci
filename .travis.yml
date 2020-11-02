@@ -31,8 +31,10 @@ deploy:
       docker images &&
       docker push $HEROKU_REG/$HEROKU_APP_GITHUB/web &&
       docker push $HEROKU_REG/$HEROKU_APP_OAEP/web &&
-      heroku container:release web -a $HEROKU_APP_GITHUB
-      #heroku container:release web -a $HEROKU_APP_OAEP
+      sleep 5 &&
+      heroku container:release web -a $HEROKU_APP_GITHUB &&
+      sleep 5 &&
+      heroku container:release web -a $HEROKU_APP_OAEP
     on:
       branch: v1.2beta_oauth_oci_spec
 
