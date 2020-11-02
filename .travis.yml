@@ -27,11 +27,12 @@ deploy:
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
       docker push $EC_OCI_IMG &&
       docker tag enterpriseconnect/oauth:v1.2beta $HEROKU_REG/$HEROKU_APP_GITHUB/web &&
-      docker push $HEROKU_REG/$HEROKU_APP_GITHUB/web &&
-      heroku container:release web -a $HEROKU_APP_GITHUB
       docker tag enterpriseconnect/oauth:v1.2beta $HEROKU_REG/$HEROKU_APP_OAEP/web &&
+      docker images &&
+      docker push $HEROKU_REG/$HEROKU_APP_GITHUB/web &&
       docker push $HEROKU_REG/$HEROKU_APP_OAEP/web &&
-      heroku container:release web -a $HEROKU_APP_OAEP
+      heroku container:release web -a $HEROKU_APP_GITHUB
+      #heroku container:release web -a $HEROKU_APP_OAEP
     on:
       branch: v1.2beta_oauth_oci_spec
 
