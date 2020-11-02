@@ -1,16 +1,15 @@
 language: minimal
-if: head_branch =~ ^v1.2beta_oauth_oci_spec_update$ OR branch = v1.2beta_oauth_oci_spec
+if: head_branch =~ ^v1.2beta_api_oci_spec_update$ OR branch = v1.2beta_api_oci_spec
 
 services:
   - docker
   
 env:
   global:
-    - HEROKU_APP_GITHUB="ec-oauth-github"
-    - HEROKU_APP_OAEP="ec-oauth-oaep"
+    - HEROKU_APP_NG_WEBUI="ec-ng-webui"
     - HEROKU_REG="registry.heroku.com"
     - EC_REV_V1_2BETA="v1.2beta.reiwa.2"
-    - EC_OCI_IMG="enterpriseconnect/oauth:v1.2beta"
+    - EC_OCI_IMG="enterpriseconnect/api:v1.2beta"
   
 before_install: >-
   source <(wget -O - https://cli-assets.heroku.com/install-ubuntu.sh) &&
@@ -18,7 +17,7 @@ before_install: >-
   heroku container:login
   
 script:
-  - cd ./spec/oauth && docker build -t ${EC_OCI_IMG} --build-arg EC_REV_V1_2BETA=${EC_REV_V1_2BETA} . && cd -
+  - cd ./spec/api && docker build -t ${EC_OCI_IMG} --build-arg EC_REV_V1_2BETA=${EC_REV_V1_2BETA} . && cd -
    
 deploy:
   - provider: script
@@ -26,17 +25,13 @@ deploy:
     script: >-
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
       docker push $EC_OCI_IMG &&
-      docker tag enterpriseconnect/oauth:v1.2beta $HEROKU_REG/$HEROKU_APP_GITHUB/web &&
-      docker tag enterpriseconnect/oauth:v1.2beta $HEROKU_REG/$HEROKU_APP_OAEP/web &&
+      docker tag $EC_OCI_IMG $HEROKU_REG/$HEROKU_APP_NG_WEBUI/web &&
       docker images &&
-      docker push $HEROKU_REG/$HEROKU_APP_GITHUB/web &&
-      docker push $HEROKU_REG/$HEROKU_APP_OAEP/web &&
+      docker push $HEROKU_REG/$HEROKU_APP_NG_WEBUI/web &&
       sleep 5 &&
-      heroku container:release web -a $HEROKU_APP_GITHUB &&
-      sleep 5 &&
-      heroku container:release web -a $HEROKU_APP_OAEP
+      heroku container:release web -a $HEROKU_APP_NG_WEBUI
     on:
-      branch: v1.2beta_oauth_oci_spec
+      branch: v1.2beta_api_oci_spec
 
 after_deploy: >-
   docker rmi ${EC_OCI_IMG} -f && docker run -it ${EC_OCI_IMG}
