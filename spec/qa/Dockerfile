@@ -1,0 +1,48 @@
+FROM alpine:3.12.1 as builder
+
+MAINTAINER Rama Rao Srikakulapu "RamaRao.Srikakulapu@ge.com"
+
+USER root
+
+WORKDIR /root
+
+RUN apk update && apk add --no-cache wget && apk add --no-cache bash
+
+RUN ["/bin/bash", "-c", "source <(wget -O - https://ec-release.github.io/sdk/scripts/qa/qa.ft.alpine_pkg.txt)"]
+
+
+FROM alpine:3.12.1
+
+USER root
+
+WORKDIR /root
+
+ARG ARM_CLIENT_ID
+ARG ARM_CLIENT_SECRET
+ARG ARM_TENANT_ID
+ARG ARM_SUBSCRIPTION_ID
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ARG AWS_DEFAULT_REGION
+
+ENV ARM_CLIENT_ID $ARM_CLIENT_ID
+ENV ARM_CLIENT_SECRET $ARM_CLIENT_SECRET
+ENV ARM_TENANT_ID $ARM_TENANT_ID
+ENV ARM_SUBSCRIPTION_ID $ARM_SUBSCRIPTION_ID
+ENV TF_VAR_ARM_CLIENT_ID $ARM_CLIENT_ID
+ENV TF_VAR_ARM_CLIENT_SECRET $ARM_CLIENT_SECRET
+ENV TF_VAR_ARM_TENANT_ID $ARM_TENANT_ID
+ENV TF_VAR_ARM_SUBSCRIPTION_ID $ARM_SUBSCRIPTION_ID
+ENV AWS_ACCESS_KEY_ID $AWS_ACCESS_KEY_ID
+ENV AWS_SECRET_ACCESS_KEY $AWS_SECRET_ACCESS_KEY
+ENV AWS_DEFAULT_REGION $AWS_DEFAULT_REGION
+ENV TF_VAR_AWS_ACCESS_KEY_ID $AWS_ACCESS_KEY_ID
+ENV TF_VAR_AWS_SECRET_ACCESS_KEY $AWS_SECRET_ACCESS_KEY
+ENV TF_VAR_AWS_DEFAULT_REGION $AWS_DEFAULT_REGION
+
+COPY --from=builder /usr/local/bin/terraform /usr/local/bin/terraform
+COPY --from=builder /root/main.tf .
+COPY --from=builder /root/variables.tf .
+
+CMD terraform init \
+	&& terraform plan -var-file="ec-file-transfer.tfvars"
