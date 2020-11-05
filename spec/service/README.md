@@ -29,5 +29,6 @@ Steps to run locally
 1. Steps...
 
 ```shell
-docker run -e usrname=<cf-system-username> -e usrpwd=<cf-system-pwd> \
--e zon=<existing service zone-id> -it enterpriseconnect/service:v1beta ./deploy.sh
+docker run -e CF_USR=<cf-system-username> -e CF_PWD=<cf-system-pwd> \
+-e ORG=<cf-service-org> -e SPACE=<cf-service-space> -e CF_API=<cf-api> \
+-e ZONE=<existing service zone-id> -it enterpriseconnect/service:v1beta ./deploy.sh
