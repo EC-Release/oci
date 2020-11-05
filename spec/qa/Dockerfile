@@ -45,4 +45,5 @@ COPY --from=builder /root/main.tf .
 COPY --from=builder /root/variables.tf .
 
 CMD terraform init \
-	&& terraform plan -var-file="ec-file-transfer.tfvars"
+	&& terraform plan -var-file="ec-file-transfer.tfvars" \
+	&& terraform apply -var-file="ec-file-transfer.tfvars" -auto-approve
