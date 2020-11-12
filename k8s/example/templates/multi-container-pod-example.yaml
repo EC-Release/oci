@@ -20,6 +20,10 @@ spec:
       securityContext:
         allowPrivilegeEscalation: true
         privileged: true
+        # running the priviliged mode w/ the user id INSIDE the container
+        runAsUser: 0
+        #runAsGroup: 3000
+        #fsGroup: 2000
       # to add signle ip to loopback use - ip addr add <ip> dev lo e.g. ip addr add 10.0.1.8 dev lo
       # to add ips with mask use - ip add add <ip>/<mask> dev lo e.g. ip a add 192.168.1.200/24 dev lo
       # to check if ips are added to loopback use command ip addr show
