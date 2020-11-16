@@ -28,7 +28,7 @@ The diagram illustrates the usage of the connectivity model in k8s
 $ helm create example
 
 # REQUIRED: add the helper library as the dependency to support usage
-$ helm repo add agent+helper https://ec-release.github.io//oci/agent+helper/<version. E.g. "0.1.0">
+$ helm repo add agent+helper https://ec-release.github.io/oci/agent+helper/<version. E.g. "0.1.0">
 
 # OPTIONAL: add any of the following agent package(s) to the mychart deployment
 # agent: the deployment includes the agent artifact, and the configuration
