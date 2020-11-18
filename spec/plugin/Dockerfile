@@ -14,12 +14,10 @@ FROM enterpriseconnect/agent:v1
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
-USER root
-WORKDIR /root
+ARG EC_REV_V1BETA=v1.hokkaido.212
 
-RUN ["/bin/bash","-c","source <(wget -O - https://ec-release.github.io/sdk/scripts/plg/tls/v1.linux64.txt) -ver"]
-RUN ["/bin/bash","-c","source <(wget -O - https://ec-release.github.io/sdk/scripts/plg/vln/v1.linux64.txt) -ver"]
+RUN ["/bin/bash", "-c", "wget -q --show-progress -O ~/v1.linux64.sh https://ec-release.github.io/sdk/scripts/plg/v1.linux64.txt"]
 
-RUN ls -al && ls -al ~/.ec && chmod 755 ~/.ec/conf/agent.sh
+RUN chmod +x ~/v1.linux64.sh
 
-CMD ["./.ec/conf/agent.sh"]
+ENTRYPOINT ["./v1.linux64.sh"]
