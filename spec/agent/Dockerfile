@@ -31,4 +31,4 @@ RUN chmod +x ~/v1.2beta.linux64.sh
 
 ENTRYPOINT ["./v1.2beta.linux64.sh"]
 
-CMD ["-inf"]
+CMD ["-ver"]
