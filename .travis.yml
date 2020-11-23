@@ -3,23 +3,32 @@ if: head_branch =~ ^v1.2beta_oci_spec_update$ OR branch = v1.2beta_oci_spec
 
 services:
   - docker
-  
+
+env:
+  global:
+    - DOCKER_HUB_TAG="enterpriseconnect/agent:v1.2beta"
+    - GITHUB_TAG="docker.pkg.github.com/ec-release/oci/agent:v1.2beta"
+    - GITHUB_USR="ayasuda-ge"
+
 before_install:
 
 script:
-   - cd ./spec/agent && docker build -t enterpriseconnect/agent:v1.2beta --build-arg EC_REV_V1_2BETA=${EC_REV_V1_2BETA} . && cd -
+   - cd ./spec/agent && docker build -t $DOCKER_HUB_TAG --build-arg EC_REV_V1_2BETA=${EC_REV_V1_2BETA} . && cd -
    
 deploy:
   - provider: script
     skip_cleanup: true
     script: >-
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
-      docker push enterpriseconnect/agent:v1.2beta
+      docker push $DOCKER_HUB_TAG &&
+      docker tag $DOCKER_HUB_TAG $GITHUB_TAG &&
+      echo $GITHUB_DOCKER_TKN_V1_2BETA | docker login https://docker.pkg.github.com -u $GITHUB_USR --password-stdin &&
+      docker push $GITHUB_TAG
     on:
       branch: v1.2beta_oci_spec
 
 after_deploy: >-
-  docker rmi enterpriseconnect/agent:v1.2beta -f && docker run -it enterpriseconnect/agent:v1.2beta
+  docker rmi enterpriseconnect/agent:v1.2beta -f && docker run -it enterpriseconnect/agent:v1.2beta -ver
   
 notifications:  
   email:  
