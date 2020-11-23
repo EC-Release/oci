@@ -27,7 +27,7 @@ deploy:
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
       docker push $EC_OCI_IMG &&
       docker tag $EC_OCI_IMG $HEROKU_REG/$HEROKU_APP_NG_WEBUI/web &&
-      docker tag $EC_OCI_IMG $HEROKU_REG/HEROKU_APP_NG_WEBUI_DB_4/web &&
+      docker tag $EC_OCI_IMG $HEROKU_REG/$HEROKU_APP_NG_WEBUI_DB_4/web &&
       docker images &&
       docker push $HEROKU_REG/$HEROKU_APP_NG_WEBUI/web &&
       docker push $HEROKU_REG/$HEROKU_APP_NG_WEBUI_DB_4/web &&
