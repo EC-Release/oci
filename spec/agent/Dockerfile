@@ -23,6 +23,8 @@ ENV ENV="/etc/profile"
 
 RUN apk update && apk add --no-cache wget && apk add --no-cache bash
 
+RUN apk add --no-cache jq
+
 RUN echo 'export PATH=$PATH:$HOME/.ec' >> /etc/profile
 
 RUN ["/bin/bash", "-c", "wget -q --show-progress -O ~/v1.2beta.linux64.sh https://ec-release.github.io/sdk/scripts/agt/v1.2beta.linux64.txt"]
