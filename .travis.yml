@@ -32,7 +32,8 @@ deploy:
       docker push $HEROKU_REG/$HEROKU_APP_NG_WEBUI/web &&
       docker push $HEROKU_REG/$HEROKU_APP_NG_WEBUI_DB_4/web &&
       sleep 5 &&
-      heroku container:release web -a $HEROKU_APP_NG_WEBUI
+      heroku container:release web -a $HEROKU_APP_NG_WEBUI &&
+      sleep 5 &&
       heroku container:release web -a $HEROKU_APP_NG_WEBUI_DB_4
     on:
       branch: v1.2beta_api_oci_spec
