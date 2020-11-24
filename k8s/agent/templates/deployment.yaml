@@ -22,7 +22,7 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "enterpriseconnect/agent:{{ .Values.global.agtK8Config.releaseTag }}"
+          image: "ghcr.io/ec-release/oci/agent:{{ .Values.global.agtK8Config.releaseTag }}"
           command: {{ include "agent.launchCmd" . }} 
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
