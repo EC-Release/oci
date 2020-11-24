@@ -9,3 +9,6 @@ spec/loadbalancer/terraform/terraform.tfvars
 *.terraform/
 *terraform.tfstate*
 spec/loadbalancer/terraform/pkg/
+spec/loadbalancer/build.sh
+spec/loadbalancer/certs/
+spec/loadbalancer/run.sh
