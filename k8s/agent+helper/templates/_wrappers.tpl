@@ -22,7 +22,7 @@
 {{- $contrName = include "agent.name" . -}}
 {{- end -}}
 - name: {{ $contrName|quote }}
-  image: enterpriseconnect/plugins:{{ $contrReleaseTag }}
+  image: ghcr.io/ec-release/oci/plugins:{{ $contrReleaseTag }}
   command: {{ include "agent.launchCmd" . }}
   securityContext: 
     {{- toYaml $contrSecurityContext | nindent 4 }}
