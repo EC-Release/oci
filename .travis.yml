@@ -7,8 +7,8 @@ services:
 env:
   global:
     - DOCKER_HUB_TAG="enterpriseconnect/agent:v1.2beta"
-    - GITHUB_TAG="docker.pkg.github.com/ec-release/oci/agent:v1.2beta"
-    - GITHUB_REGISTRY="https://docker.pkg.github.com"
+    - GITHUB_TAG="ghcr.io/ec-release/oci/agent:v1.2beta"
+    - GITHUB_REGISTRY="https://ghcr.io"
     - GITHUB_USR="ayasuda-ge"
 
 before_install:
