@@ -8,6 +8,7 @@ env:
   global:
     - DOCKER_HUB_TAG="enterpriseconnect/agent:v1.2beta"
     - GITHUB_TAG="ghcr.io/ec-release/oci/agent:v1.2beta"
+    - GITHUB_REGISTRY="ghcr.io"
     - GITHUB_USR="ayasuda-ge"
 
 before_install:
@@ -22,13 +23,13 @@ deploy:
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
       docker push $DOCKER_HUB_TAG &&
       docker tag $DOCKER_HUB_TAG $GITHUB_TAG &&
-      echo $GITHUB_DOCKER_TKN_V1_2BETA | docker login https://docker.pkg.github.com -u $GITHUB_USR --password-stdin &&
+      echo $GITHUB_DOCKER_TKN_V1_2BETA | docker login $GITHUB_REGISTRY -u $GITHUB_USR --password-stdin &&
       docker push $GITHUB_TAG
     on:
       branch: v1.2beta_oci_spec
 
 after_deploy: >-
-  docker rmi enterpriseconnect/agent:v1.2beta -f && docker run -it enterpriseconnect/agent:v1.2beta -ver
+  docker rmi $DOCKER_HUB_TAG -f && docker run -it $DOCKER_HUB_TAG -ver
   
 notifications:  
   email:  
