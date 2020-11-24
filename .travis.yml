@@ -3,26 +3,42 @@ if: head_branch =~ ^v1_oci_spec_update$ OR branch = v1_oci_spec
 
 services:
   - docker
-  
+
+env:
+  global:
+    - DOCKER_HUB_AGENT_TAG="enterpriseconnect/agent:v1"
+    - DOCKER_HUB_PLUGIN_TAG="enterpriseconnect/plugins:v1"
+    #- DOCKER_HUB_BUILD_TAG="enterpriseconnect/build:v1"
+    - GITHUB_AGENT_TAG="docker.pkg.github.com/ec-release/oci/agent:v1"
+    - GITHUB_PLUGIN_TAG="docker.pkg.github.com/ec-release/oci/plugins:v1"
+    #- GITHUB_BUILD_TAG="docker.pkg.github.com/ec-release/oci/build:v1"
+    - GITHUB_REGISTRY="https://docker.pkg.github.com"
+    - GITHUB_USR="ayasuda-ge"
+    
 before_install:
 
 script:
-   - cd ./spec/agent && docker build -t enterpriseconnect/agent:v1 --build-arg EC_REV_V1=${EC_REV_V1} . && cd -
-   - cd ./spec/plugin && docker build -t enterpriseconnect/plugins:v1 --build-arg EC_REV_V1=${EC_REV_V1} . && cd -
+   - cd ./spec/agent && docker build -t $DOCKER_HUB_AGENT_TAG --build-arg EC_REV_V1=${EC_REV_V1} . && cd -
+   - cd ./spec/plugin && docker build -t $DOCKER_HUB_PLUGIN_TAG --build-arg EC_REV_V1=${EC_REV_V1} . && cd -
    
 deploy:
   - provider: script
     skip_cleanup: true
     script: >-
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
-      docker push enterpriseconnect/agent:v1 && 
-      docker push enterpriseconnect/plugins:v1
+      docker push $DOCKER_HUB_AGENT_TAG && 
+      docker push $DOCKER_HUB_PLUGIN_TAG &&
+      docker tag $DOCKER_HUB_AGENT_TAG $GITHUB_AGENT_TAG &&
+      docker tag $DOCKER_HUB_PLUGIN_TAG $GITHUB_PLUGIN_TAG &&
+      echo $GITHUB_DOCKER_TKN_V1 | docker login $GITHUB_REGISTRY -u $GITHUB_USR --password-stdin &&
+      docker push $GITHUB_AGENT_TAG &&
+      docker push $GITHUB_PLUGIN_TAG
     on:
       branch: v1_oci_spec
 
 after_deploy: >-
-  docker rmi enterpriseconnect/agent:v1 -f && docker run -it enterpriseconnect/agent:v1 agent -ver &&
-  docker rmi enterpriseconnect/plugins:v1 -f && docker run -it enterpriseconnect/plugins:v1 agent -inf &&
+  docker rmi $DOCKER_HUB_AGENT_TAG -f && docker run -it $DOCKER_HUB_AGENT_TAG agent -ver &&
+  docker rmi $DOCKER_HUB_PLUGIN_TAG -f && docker run -it $DOCKER_HUB_PLUGIN_TAG agent -inf &&
   ls -al
 notifications:  
   email:  
