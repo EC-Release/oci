@@ -9,9 +9,6 @@ WORKDIR /root/temp
 ARG EC_PUB_KEY
 ARG EC_PRVT_KEY
 
-COPY ./ec-px-service ./
-
-RUN npm install
 RUN echo $EC_PUB_KEY | base64 -d > service.cer
 RUN echo $EC_PRVT_KEY | base64 -d > service.key
 
