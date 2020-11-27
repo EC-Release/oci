@@ -18,8 +18,7 @@ env:
   
 before_install: >-
   source <(wget -O - https://cli-assets.heroku.com/install-ubuntu.sh) &&
-  heroku update &&
-  heroku container:login
+  heroku update
   
 script:
   - cd ./spec/api && docker build -t ${EC_OCI_IMG} --build-arg EC_REV_V1_2BETA=${EC_REV_V1_2BETA} . && cd -
@@ -35,6 +34,7 @@ deploy:
       docker tag $EC_OCI_IMG $HEROKU_REG/$HEROKU_APP_NG_WEBUI_DB_4/web &&
       docker tag $EC_OCI_IMG $GITHUB_TAG &&
       docker images &&
+      heroku container:login &&
       docker push $HEROKU_REG/$HEROKU_APP_NG_WEBUI/web &&
       docker push $HEROKU_REG/$HEROKU_APP_NG_WEBUI_DB_2/web &&
       docker push $HEROKU_REG/$HEROKU_APP_NG_WEBUI_DB_4/web &&
