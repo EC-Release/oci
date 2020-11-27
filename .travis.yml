@@ -6,9 +6,9 @@ services:
   
 env:
   global:
-    - HEROKU_APP_NG_WEBUI="ec-ng-webui"
-    - HEROKU_APP_NG_WEBUI_DB_2="ec-ng-webui-db-2"
-    - HEROKU_APP_NG_WEBUI_DB_4="ec-ng-webui-db-4"
+    - HEROKU_APP_NG_WEBUI="ng-webui"
+    - HEROKU_APP_NG_WEBUI_DB_2="ng-webui-db-2"
+    - HEROKU_APP_NG_WEBUI_DB_4="ng-webui-db-4"
     - HEROKU_REG="registry.heroku.com"
     - EC_REV_V1_2BETA="v1.2beta.reiwa.2"
     - EC_OCI_IMG="enterpriseconnect/api:v1.2beta"
