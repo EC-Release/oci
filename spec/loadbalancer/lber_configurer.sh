@@ -7,21 +7,17 @@ GATEWAY_LIST=$1
 gatewayhostarray=($GATEWAY_LIST)
 
 masterupstream="upstream master {"
-upstreamstr=""
+upstreamstr="\n"
+count=0
 
 for hostentry in "${gatewayhostarray[@]}"
 do
-  upstreamstr="$upstreamstr
-upstream $hostentry {
-  server $hostentry
-}
-  "
-  masterupstream="$masterupstream
-  server $hostentry"
+  count=$(( $count + 1 ))
+  upstreamstr="$upstreamstr\nupstream vm$count {\n  server $hostentry;\n}\n"
+  masterupstream="$masterupstream\n  server $hostentry;"
+  
 done
 
-masterupstream="$masterupstream
-}"
+masterupstream="$masterupstream\n}"
 upstreamstr="$masterupstream""$upstreamstr"
-echo "$upstreamstr"
-return "$upstreamstr"
+echo "$upstreamstr" > ./temp
