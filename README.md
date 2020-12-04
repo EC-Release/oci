@@ -2,10 +2,12 @@
 
 # Agent API DB Usage for Docker Users
 
-## generate the adm hash valid for 90 days
-```bash
-docker run enterpriseconnect/agent:v1.2beta -hsh -pvk <base64 private key> -pbk <base64 public key>
-```
+## For EC Agent CLI Expert
+Some [useful command can be found here.](https://github.com/EC-Release/sdk/tree/disty/scripts/api#agent-db-usage)
+
+## generate the admin hash valid for 90 days
+See [steps to create admin hash](https://github.com/EC-Release/sdk/tree/disty/scripts/api#admin-hash)
+
 ## interact with the agent db
 ```bash
 # get all keys in the db
