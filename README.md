@@ -2,7 +2,7 @@
 
 # Agent API DB Usage for Docker Users
 
-## generate the adm hash. valid for 90 days
+## generate the adm hash valid for 90 days
 ```bash
 docker run enterpriseconnect/agent:v1.2beta -hsh -pvk <base64 private key> -pbk <base64 public key>
 ```
@@ -39,9 +39,9 @@ docker run -it -e EC_PPS=<my adm hash> enterpriseconnect/api:v1.2beta \
 docker run -it enterpriseconnect/agent:v1.2beta -log -url https://ng-webui.herokuapp.com/v1.2beta/ec/log -tkn
 ```
 
-## Deploy the Agent API with OCI Spec
+## Deploy the Agent API via the OCI Spec
 ```bash
-# with Cloud Foundry
+# Deploy in Cloud Foundry
 cf push my-app --docker-image enterpriseconnect/api:v1.2beta --no-start
 
 #
