@@ -2,7 +2,7 @@
 
 # Agent API DB Usage for Docker Users
 
-## For EC Agent CLI Expert
+## for EC Agent CLI Expert
 Some [useful command can be found here.](https://github.com/EC-Release/sdk/tree/disty/scripts/api#agent-db-usage)
 
 ## generate the admin hash valid for 90 days
