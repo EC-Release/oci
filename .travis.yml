@@ -33,7 +33,7 @@ deploy:
       docker tag $EC_OCI_IMG $GITHUB_TAG &&
       docker images &&
       #
-      # temp comment out heroku push
+      # temp comment out heroku push due to the quota limitation
       #
       #heroku container:login &&
       #sleep 5 &&
