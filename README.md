@@ -38,7 +38,9 @@ docker run -it -e EC_PPS=<my adm hash> enterpriseconnect/api:v1.2beta \
 ## interact with the container
 ```bash
 # remote access the container logger in real-time 
-docker run -it enterpriseconnect/agent:v1.2beta -log -url https://ng-webui.herokuapp.com/v1.2beta/ec/log -tkn
+docker run -it enterpriseconnect/agent:v1.2beta \
+-log -url https://ng-webui.herokuapp.com/v1.2beta/ec/log \
+-tkn <bearer token generated from any of the above steps>
 ```
 
 ## Deploy the Agent API via the OCI Spec
