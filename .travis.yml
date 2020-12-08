@@ -6,9 +6,8 @@ services:
   
 env:
   global:
-    - HEROKU_APP_NG_WEBUI="ng-webui"
-    - HEROKU_APP_NG_WEBUI_DB_2="ng-webui-db-2"
-    - HEROKU_APP_NG_WEBUI_DB_4="ng-webui-db-4"
+    - HEROKU_APP_NG_WEBUI_DB_2="ng-portal-2"
+    - HEROKU_APP_NG_WEBUI_DB_4="ng-portal-4"
     - HEROKU_REG="registry.heroku.com"
     - EC_REV_V1_2BETA="v1.2beta.reiwa.2"
     - EC_OCI_IMG="enterpriseconnect/api:v1.2beta"
@@ -35,11 +34,8 @@ deploy:
       docker tag $EC_OCI_IMG $GITHUB_TAG &&
       docker images &&
       heroku container:login &&
-      docker push $HEROKU_REG/$HEROKU_APP_NG_WEBUI/web &&
       docker push $HEROKU_REG/$HEROKU_APP_NG_WEBUI_DB_2/web &&
       docker push $HEROKU_REG/$HEROKU_APP_NG_WEBUI_DB_4/web &&
-      sleep 5 &&
-      heroku container:release web -a $HEROKU_APP_NG_WEBUI &&
       sleep 5 &&
       heroku container:release web -a $HEROKU_APP_NG_WEBUI_DB_2 &&
       sleep 5 &&
