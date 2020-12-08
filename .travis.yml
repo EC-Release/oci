@@ -28,18 +28,21 @@ deploy:
     script: >-
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
       docker push $EC_OCI_IMG &&
-      docker tag $EC_OCI_IMG $HEROKU_REG/$HEROKU_APP_NG_WEBUI/web &&
-      docker tag $EC_OCI_IMG $HEROKU_REG/$HEROKU_APP_NG_WEBUI_DB_2/web &&
-      docker tag $EC_OCI_IMG $HEROKU_REG/$HEROKU_APP_NG_WEBUI_DB_4/web &&
+      #docker tag $EC_OCI_IMG $HEROKU_REG/$HEROKU_APP_NG_WEBUI_DB_2/web &&
+      #docker tag $EC_OCI_IMG $HEROKU_REG/$HEROKU_APP_NG_WEBUI_DB_4/web &&
       docker tag $EC_OCI_IMG $GITHUB_TAG &&
       docker images &&
-      heroku container:login &&
-      docker push $HEROKU_REG/$HEROKU_APP_NG_WEBUI_DB_2/web &&
-      docker push $HEROKU_REG/$HEROKU_APP_NG_WEBUI_DB_4/web &&
-      sleep 5 &&
-      heroku container:release web -a $HEROKU_APP_NG_WEBUI_DB_2 &&
-      sleep 5 &&
-      heroku container:release web -a $HEROKU_APP_NG_WEBUI_DB_4 &&
+      #
+      # temp comment out heroku push
+      #
+      #heroku container:login &&
+      #sleep 5 &&
+      #docker push $HEROKU_REG/$HEROKU_APP_NG_WEBUI_DB_2/web &&
+      #docker push $HEROKU_REG/$HEROKU_APP_NG_WEBUI_DB_4/web &&
+      #sleep 5 &&
+      #heroku container:release web -a $HEROKU_APP_NG_WEBUI_DB_2 &&
+      #sleep 5 &&
+      #heroku container:release web -a $HEROKU_APP_NG_WEBUI_DB_4 &&
       echo $GITHUB_DOCKER_TKN_API_V1_2BETA | docker login $GITHUB_REGISTRY -u $GITHUB_USR --password-stdin &&
       docker push $GITHUB_TAG
     on:
