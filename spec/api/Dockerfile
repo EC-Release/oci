@@ -17,7 +17,7 @@ MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 USER root
 WORKDIR /root
 
-RUN ["/bin/bash", "-c", "wget -q --show-progress -O ./v1.2beta.linux64.sh https://ec-release.github.io/sdk/scripts/api/v1.2beta.linux64.txt"]
+RUN ["/bin/bash", "-c", "wget -q --show-progress -O ./v1.2beta.linux64.sh https://raw.githubusercontent.com/EC-Release/sdk/disty/scripts/api/v1.2beta.linux64.txt"]
 
 RUN chmod +x ./v1.2beta.linux64.sh
 
