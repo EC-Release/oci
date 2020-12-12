@@ -17,7 +17,7 @@ MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 USER root
 WORKDIR /root
 
-ARG EC_REV_V1_2BETA=v1.2.reiwa.2
+ARG EC_REV_V1_2=1.2-rc.0.reiwa
 
 ENV ENV="/etc/profile"
 
@@ -27,8 +27,8 @@ RUN apk add --no-cache jq
 
 RUN echo 'export PATH=$PATH:$HOME/.ec' >> /etc/profile
 
-RUN ["/bin/bash", "-c", "wget -q --show-progress -O ~/v1.2beta.linux64.sh https://ec-release.github.io/sdk/scripts/agt/v1.2beta.linux64.txt"]
+RUN ["/bin/bash", "-c", "wget -q --show-progress -O ~/v1.2.linux64.sh https://raw.githubusercontent.com/EC-Release/sdk/disty/scripts/agt/v1.2.linux64.txt"]
 
 RUN chmod +x ~/v1.2beta.linux64.sh
 
-ENTRYPOINT ["./v1.2beta.linux64.sh"]
+ENTRYPOINT ["./v1.2.linux64.sh"]
