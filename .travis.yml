@@ -10,6 +10,7 @@ env:
     - GITHUB_TAG="ghcr.io/ec-release/oci/agent:v1.2"
     - GITHUB_REGISTRY="https://ghcr.io"
     - GITHUB_USR="ayasuda-ge"
+    - DOCKER_USERNAME="apoloyasudadocker"
     - EC_REV_V1_2="1.2-rc.0.reiwa"
 
 before_install:
@@ -24,7 +25,7 @@ deploy:
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
       docker push $DOCKER_HUB_TAG &&
       docker tag $DOCKER_HUB_TAG $GITHUB_TAG &&
-      echo $GITHUB_DOCKER_TKN_V1_2BETA | docker login $GITHUB_REGISTRY -u $GITHUB_USR --password-stdin &&
+      echo $GITHUB_DOCKER_TKN_V1_2 | docker login $GITHUB_REGISTRY -u $GITHUB_USR --password-stdin &&
       docker push $GITHUB_TAG
     on:
       branch: v1.2_oci_spec
