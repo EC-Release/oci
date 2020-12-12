@@ -29,6 +29,6 @@ RUN echo 'export PATH=$PATH:$HOME/.ec' >> /etc/profile
 
 RUN ["/bin/bash", "-c", "wget -q --show-progress -O ~/v1.2.linux64.sh https://raw.githubusercontent.com/EC-Release/sdk/disty/scripts/agt/v1.2.linux64.txt"]
 
-RUN chmod +x ~/v1.2beta.linux64.sh
+RUN chmod +x ~/v1.2.linux64.sh
 
 ENTRYPOINT ["./v1.2.linux64.sh"]
