@@ -10,7 +10,7 @@ env:
     - DOCKER_HUB_PLUGIN_TAG="enterpriseconnect/plugins:v1"
     #- DOCKER_HUB_BUILD_TAG="enterpriseconnect/build:v1"
     - GITHUB_AGENT_TAG="ghcr.io/ec-release/oci/agent:v1"
-    - GITHUB_PLUGIN_TAG="ghcr.ioec-release/oci/plugins:v1"
+    - GITHUB_PLUGIN_TAG="ghcr.io/ec-release/oci/plugins:v1"
     #- GITHUB_BUILD_TAG="docker.pkg.github.com/ec-release/oci/build:v1"
     - GITHUB_REGISTRY="https://ghcr.io"
     - GITHUB_USR="ayasuda-ge"
