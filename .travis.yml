@@ -23,18 +23,22 @@ script:
 deploy:
   - provider: script
     skip_cleanup: true
+    # temp removed
+    # script: >-
+    #  echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
+    #  docker push $EC_OCI_IMG &&
+    #  docker tag $EC_OCI_IMG $HEROKU_REG/$HEROKU_APP_GITHUB/web &&
+    #  docker tag $EC_OCI_IMG $HEROKU_REG/$HEROKU_APP_OAEP/web &&
+    #  docker images &&
+    #  docker push $HEROKU_REG/$HEROKU_APP_GITHUB/web &&
+    #  docker push $HEROKU_REG/$HEROKU_APP_OAEP/web &&
+    #  sleep 5 &&
+    #  heroku container:release web -a $HEROKU_APP_GITHUB &&
+    #  sleep 5 &&
+    #  heroku container:release web -a $HEROKU_APP_OAEP
     script: >-
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
       docker push $EC_OCI_IMG &&
-      docker tag $EC_OCI_IMG $HEROKU_REG/$HEROKU_APP_GITHUB/web &&
-      docker tag $EC_OCI_IMG $HEROKU_REG/$HEROKU_APP_OAEP/web &&
-      docker images &&
-      docker push $HEROKU_REG/$HEROKU_APP_GITHUB/web &&
-      docker push $HEROKU_REG/$HEROKU_APP_OAEP/web &&
-      sleep 5 &&
-      heroku container:release web -a $HEROKU_APP_GITHUB &&
-      sleep 5 &&
-      heroku container:release web -a $HEROKU_APP_OAEP
     on:
       branch: v1.2beta_oauth_oci_spec
 
