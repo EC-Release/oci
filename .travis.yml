@@ -43,8 +43,8 @@ deploy:
     on:
       branch: v1.2beta_oauth_oci_spec
 
-after_deploy: >-
-  docker rmi ${EC_OCI_IMG} -f && docker run -it ${EC_OCI_IMG}
+#after_deploy: >-
+#  docker rmi ${EC_OCI_IMG} -f && docker run -it ${EC_OCI_IMG}
 notifications:  
   email:  
     recipients:  
