@@ -39,7 +39,7 @@ deploy:
     #  heroku container:release web -a $HEROKU_APP_OAEP
     script: >-
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
-      docker push $EC_OCI_IMG &&
+      docker push $EC_OCI_IMG
     on:
       branch: v1.2beta_oauth_oci_spec
 
