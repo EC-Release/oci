@@ -12,10 +12,11 @@ env:
     - EC_REV_V1_2BETA="v1.2beta.reiwa.2"
     - EC_OCI_IMG="enterpriseconnect/oauth:v1.2beta"
   
-before_install: >-
-  source <(wget -O - https://cli-assets.heroku.com/install-ubuntu.sh) &&
-  heroku update &&
-  heroku container:login
+# temp removed
+# before_install: >-
+#   source <(wget -O - https://cli-assets.heroku.com/install-ubuntu.sh) &&
+#   heroku update &&
+#   heroku container:login
   
 script:
   - cd ./spec/oauth && docker build -t ${EC_OCI_IMG} --build-arg EC_REV_V1_2BETA=${EC_REV_V1_2BETA} . && cd -
