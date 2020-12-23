@@ -18,15 +18,12 @@ env:
     - NUREGO_USAGE_FEATURE_ID=data_usage
     - NUREGO_ENDPOINT=https://am-staging.nurego.com/v1
     - NUREGO_TKN_URL=https://am-staging.nurego.com/v1/auth/token
-
+    
 before-script:
   - chmod 775 ./spec/service/envs.sh
+    
 script:
   - cd ./spec/service
-  - git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service.git
-  - cd ec-px-service && git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service-assets.git assets
-  - git clone https://${TOKEN_NAME}:${ACCESS_TOKEN}@gitlab.com/digital-fo/connectivity/enterprise-connect/predix/ec-px-service-webui.git ec-web-ui && cd ..
-  - rm -Rf ./ec-px-service/.git; rm ./ec-px-service/.gitmodules; rm -Rf ./ec-px-service/assets/.git; rm -Rf ./ec-px-service/ec-web-ui/.git
   - docker build --build-arg EC_PRVT_KEY=${EC_PRVT_KEY} --build-arg EC_PUB_KEY=${EC_PUB_KEY} -t enterpriseconnect/service:v1beta .
   - source ./envs.sh
   - docker run --rm -d --name service --env-file env.list.sample enterpriseconnect/service:v1beta && sleep 10 && docker logs service

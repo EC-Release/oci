@@ -9,9 +9,6 @@ WORKDIR /root/temp
 ARG EC_PUB_KEY
 ARG EC_PRVT_KEY
 
-COPY ./ec-px-service ./
-
-RUN npm install
 RUN echo $EC_PUB_KEY | base64 -d > service.cer
 RUN echo $EC_PRVT_KEY | base64 -d > service.key
 
@@ -23,6 +20,6 @@ RUN tar -zcf temp.tar.gz ./temp && rm -Rf ./temp && ls -al
 RUN curl -L "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=6.49.0&source=github-rel" | tar -zx && \
 mv cf /usr/local/bin && \
 cf --version
-RUN ["/bin/bash", "-c", "wget -q --show-progress -O v1beta.linux64.sh https://raw.githubusercontent.com/EC-Release/sdk/disty_test_branch/scripts/service1.x/v1beta.linux64.txt"]
+RUN ["/bin/bash", "-c", "wget -q --show-progress -O v1beta.linux64.sh https://raw.githubusercontent.com/EC-Release/sdk/disty/scripts/service1.x/v1beta.linux64.txt"]
 RUN ls -al && chmod 755 v1beta.linux64.sh
 CMD ./v1beta.linux64.sh

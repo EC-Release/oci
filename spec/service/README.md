@@ -24,11 +24,15 @@ docker run --env-file env.list enterpriseconnect/service:v1beta
 
 ### Deploy in Cloud Foundry
 
-Steps to run locally
-
-1. Steps...
+Command to update service on cloud foundry
 
 ```shell
-docker run -e CF_USR=<cf-system-username> -e CF_PWD=<cf-system-pwd> \
--e ORG=<cf-service-org> -e SPACE=<cf-service-space> -e CF_API=<cf-api> \
+docker run -e CF_USR=<cf-system-username> \
+-e CF_PWD=<cf-system-pwd> \
+-e ORG=<cf-service-org> \
+-e SPACE=<cf-service-space> \
+-e CF_API=<cf-api> \
+-e EC_PRVT_ADM=<admin-hash> \
+-e IMAGE_TAG=<v1beta/v1> \
 -e ZONE=<existing service zone-id> -it enterpriseconnect/service:v1beta
+```
