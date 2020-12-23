@@ -19,10 +19,13 @@ env:
     - NUREGO_ENDPOINT=https://am-staging.nurego.com/v1
     - NUREGO_TKN_URL=https://am-staging.nurego.com/v1/auth/token
     
+before-script:
+  - chmod 775 ./spec/service/envs.sh
+    
 script:
   - cd ./spec/service
   - docker build --build-arg EC_PRVT_KEY=${EC_PRVT_KEY} --build-arg EC_PUB_KEY=${EC_PUB_KEY} -t enterpriseconnect/service:v1beta .
-  - source <(wget -O - https://raw.githubusercontent.com/EC-Release/oci/v1beta_svc_oci_spec/spec/service/envs.sh)
+  - source ./envs.sh
   - docker run --rm -d --name service --env-file env.list.sample enterpriseconnect/service:v1beta && sleep 10 && docker logs service
   
 deploy:
