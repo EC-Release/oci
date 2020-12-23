@@ -33,5 +33,6 @@ docker run -e CF_USR=<cf-system-username> \
 -e SPACE=<cf-service-space> \
 -e CF_API=<cf-api> \
 -e EC_PRVT_ADM=<admin-hash> \
+-e IMAGE_TAG=<v1beta/v1> \
 -e ZONE=<existing service zone-id> -it enterpriseconnect/service:v1beta
 ```
