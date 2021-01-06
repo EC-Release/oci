@@ -10,7 +10,8 @@
 #  author: apolo.yasuda@ge.com
 #
 
-FROM enterpriseconnect/agent:v1.2beta
+#FROM enterpriseconnect/agent:v1.2beta
+FROM ghcr.io/ec-release/oci/agent:v1.2beta
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
