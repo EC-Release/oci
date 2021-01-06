@@ -1,6 +1,6 @@
 ## service in containers
 #### pull example
-```docker pull enterpriseconnect/service:v1beta```
+```docker pull enterpriseconnect/service:v1```
 
 #### Tag usage
 - ```v1``` refers to service ```#146``` .
@@ -14,12 +14,12 @@ Steps to run locally
 
 2. Extract ENVs of service using command ```cf e <zone-id>```
 
-3. Substitute the values from service to [env.list](https://github.com/EC-Release/oci/blob/v1beta_svc_oci_spec_update_dockerfile/spec/service/env.list.sample)
+3. Substitute the values from service to [env.list](https://github.com/EC-Release/oci/blob/v1_svc_oci_spec_update_dockerfile/spec/service/env.list.sample)
 
 4. Run following command
 
 ```shell
-docker run --env-file env.list enterpriseconnect/service:v1beta
+docker run --env-file env.list enterpriseconnect/service:v1
 ```
 
 ### Deploy in Cloud Foundry
@@ -33,5 +33,6 @@ docker run -e CF_USR=<cf-system-username> \
 -e SPACE=<cf-service-space> \
 -e CF_API=<cf-api> \
 -e EC_PRVT_ADM=<admin-hash> \
--e ZONE=<existing service zone-id> -it enterpriseconnect/service:v1beta
+-e IMAGE_TAG=<v1/v1beta> \
+-e ZONE=<existing service zone-id> -it enterpriseconnect/service:v1
 ```
