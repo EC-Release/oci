@@ -21,6 +21,7 @@ env:
 
 before-script:
   - chmod 775 ./spec/service/envs.sh
+    
 script:
   - cd ./spec/service
   - docker build --build-arg EC_PRVT_KEY=${EC_PRVT_KEY} --build-arg EC_PUB_KEY=${EC_PUB_KEY} -t enterpriseconnect/service:v1 .
