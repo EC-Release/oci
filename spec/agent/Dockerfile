@@ -18,7 +18,7 @@ MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 USER root
 WORKDIR /root
 
-ARG EC_REV_V1_2BETA=v1.2.reiwa.2
+ARG EC_REV_V1_2BETA=1.2-b.0.reiwa
 
 ENV ENV="/etc/profile"
 
