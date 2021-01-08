@@ -18,7 +18,7 @@ This portal is used to perform CRUD operations on EC components. For more detail
     - PORT : Set the value of port on which you want to run webui
     - EC_OAUTH_URL : Provide the url for ec-oauth2
     - EC_CID : Client id provided by xcalr
-    - EC_CSC : Encrypted passphrase of your client id
+    - EC_PPS : Encrypted passphrase of your client id
 
 #### Command to run
     ````
@@ -26,7 +26,7 @@ This portal is used to perform CRUD operations on EC components. For more detail
     -e EC_OAUTH_URL=${EC_OAUTH_URL} \
     -e XCALR_URL=${XCALR_URL} \ 
     -e EC_CID=${EC_CID} \
-    -e EC_CSC=${EC_CSC} enterpriseconnect/webui:v1.1beta
+    -e EC_PPS=${EC_PPS} enterpriseconnect/webui:v1.1beta
     ````
 
 #### Launch web-ui
