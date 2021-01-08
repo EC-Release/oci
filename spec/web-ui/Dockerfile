@@ -16,7 +16,7 @@ MAINTAINER Gayatri Tagade "gayatri.tagade@ge.com"
 
 ENV WEBUI_BRANCH=v1.1beta.webui.2
 ENV XCALR_URL=https://xcalr.apps.ge.com/v2beta/ 
-ENV GITHUB_URL=https://github.com/Enterprise-connect/sdk/raw/
+ENV GITHUB_URL=https://github.com/EC-Release/sdk/raw/
 
 
 WORKDIR /build
