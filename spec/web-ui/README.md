@@ -24,6 +24,7 @@ This portal is used to perform CRUD operations on EC components. For more detail
     ````
     docker run -d -e PORT=${PORT} -p ${PORT}:${PORT} \
     -e EC_OAUTH_URL=${EC_OAUTH_URL} \
+    -e XCALR_URL=${XCALR_URL} \ 
     -e EC_CID=${EC_CID} \
     -e EC_CSC=${EC_CSC} enterpriseconnect/webui:v1.1beta
     ````
