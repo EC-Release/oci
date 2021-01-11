@@ -6,3 +6,4 @@
 *.local.*
 k8s/agent+lber/*.env
 .DS_Store
+.idea/
