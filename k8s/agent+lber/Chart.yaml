@@ -22,14 +22,18 @@ appVersion: 1.16.0
 
 dependencies:
 - name: agent+helper
-  version: 0.1.2
-  repository: https://ec-release.github.io/oci/agent+helper/0.1.2
+  version: <AGENT_HELPER_CHART_REV>
+  repository: "file://./../agent+helper"
 # pkg "agent+plg" supports "agent" deployment. However, it is recommended to use pkg "agent" over-
 # "agent+plg" for deployments without plugins' need.
 #
 #- name: agent
 #  version: <AGENT_CHART_REV>
 #  repository: "file://./../agent"
-- name: agent+plg
-  version: 0.1.3
-  repository: https://ec-release.github.io/oci/agent+plg/0.1.3
+dependencies:
+- name: agent+helper
+  version: <AGENT_HELPER_CHART_REV>
+  repository: "file://./../agent+helper"
+- name: agent
+  version: <AGENT_HELPER_CHART_REV>
+  repository: "file://./../agent"

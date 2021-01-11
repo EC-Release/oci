@@ -1,0 +1,19 @@
+{{- $agtMode := include "agent.mode" . -}}
+{{- if or (eq $agtMode "gateway") (.Values.global.agtK8Config.withIngress.enabled) -}}
+{{- $fullName := include "agent.fullname" . -}}
+{{- $svcPort := .Values.agtK8Config.svcPortNum -}}
+{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "agent.labels" . | nindent 4 }}
+  annotations:
+    {}
+spec:
+  {{- include "agent.ingress" . | nindent 2 }}
+{{- end }}

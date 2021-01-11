@@ -1,0 +1,9 @@
+dependencies:
+- name: agent+helper
+  repository: https://ec-release.github.io/oci/agent+helper/0.1.2
+  version: 0.1.2
+- name: agent+plg
+  repository: https://ec-release.github.io/oci/agent+plg/0.1.3
+  version: 0.1.3
+digest: sha256:608f5e14e358ab42c675c2fd7d8aeaefdee7f6943585b194b1acccbf94c74cbf
+generated: "2021-01-08T14:50:51.30765-05:00"
