@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "agent.fullname" . }}
+  labels:
+    {{ - include "agent.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ include "agent.fullname" . }}
+  replicas: {{ .Values.global.agtK8Config.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "agent.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "agent.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "ghcr.io/ec-release/oci/agent:{{ .Values.global.agtK8Config.releaseTag }}"
+          command: {{ include "agent.launchCmd" . }}
+          securityContext:
+            {{ - toYaml .Values.securityContext | nindent 12 }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            {{ - include "agent.portSpec" . | nindent 12 }}
+            {{ - include "agent.healthPortSpec" . | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.agtK8Config.healthPortName }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.agtK8Config.healthPortName }}
+          resources:
+            {{ - include "agent.podResource" . | nindent 12 }}
+          env:
+            {{ - range (split "\n" .Values.global.agtConfig) }}
+            {{ - $a := splitn "=" 2 . }}
+            {{ - if and (not (eq $a._1 "")) ($a._1) }}
+            - name: {{ $a._0|quote }}
+              value: {{ $a._1|quote }}
+            {{ - end }}
+            {{ - end - }}
