@@ -99,7 +99,7 @@ global:
       # host utilised to make the agt accessible via non-tls traffic. 
       # it is also possible for the co-existence and the overlap of both tls/non-tls routings (hosts/tls)
       hosts:
-        - host: loadbalancer.ingress.
+        - host: ec.http.helloworld.ge.com
           paths: ["/agent", "/health", "/v1", "/v1beta"]
       # present if the agt is accessible via wss|https.
       # example empty array below indicates no tls assignment is avaialble 
@@ -114,7 +114,7 @@ global:
     withPlugins:
       # the tls setting only valid when agent mode "-mod" is either "server" or "gw:server"
       tls:
-        enabled: false
+        enabled: true
         schema: https 
         hostname: twitter.com
         tlsport: 443
@@ -123,7 +123,7 @@ global:
       # the vln setting only valid when agent mode "-mod" is either "client" or "gw:client"
       vln:
         # The "enabled" keypair will be overridden by the "agtConfig" setting, if specified. E.g. "conf.vln=true"
-        enabled: true
+        enabled: false
         # the "remote" keypair indicates the vlan deployment strategy. When default to true,
         # the vlan setup will ignore the "ips" setting, and instead simulate only the "ports"-
         # setting via a series of service/pod remote to the client application. In the remote-
