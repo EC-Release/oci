@@ -1,7 +1,7 @@
 # author: apolo.yasuda@ge.com
 
 language: minimal
-if: head_branch =~ ^v1.1beta_helm_pkg_update$ OR branch = v1.1beta_helm_pkg
+if: head_branch =~ ^v1.1beta_helm_pkg_update$ OR branch = v1.1beta_helm_pkg_update_multi_contnr_agent_lber
 
 services:
   - docker
@@ -15,9 +15,9 @@ env:
     - CHANGE_MINIKUBE_NONE_USER=true
     - KUBECONFIG=$HOME/.kube/config
     # helm chart version
-    - AGENT_CHART_REV=0.1.4
-    - AGENT_HELPER_CHART_REV=0.1.2
-    - AGENT_PLG_CHART_REV=0.1.3
+    - AGENT_CHART_REV=0.1.5
+    - AGENT_HELPER_CHART_REV=0.1.3
+    - AGENT_PLG_CHART_REV=0.1.4
 
 before_install:
 - sudo apt-get -qq -y install conntrack
