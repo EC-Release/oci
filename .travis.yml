@@ -1,7 +1,7 @@
 # author: apolo.yasuda@ge.com
 
 language: minimal
-if: head_branch =~ ^v1.1beta_helm_pkg_update$ OR branch = v1.1beta_helm_pkg_update_multi_contnr_agent_lber
+if: head_branch =~ ^v1.1beta_helm_pkg_update$ OR branch = v1.1beta_helm_pkg
 
 services:
   - docker
