@@ -80,6 +80,10 @@ global:
         memory: 128Mi
     svcPortNum: 18080
     svcHealthPortNum: 18081
+    # statefulset fields are optional for deploying agent alone.. mandatory for agent with load balancer
+    # stsName: ec-gw
+    # stsReplicaCount: 2
+
     # options v1.1beta|v1|v1beta
     releaseTag: v1
     # specify an agent revision in the container runtime

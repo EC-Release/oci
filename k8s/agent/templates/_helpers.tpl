@@ -204,3 +204,15 @@ rules:
       {{- end }}
 {{- end }}
 {{- end -}}
+
+
+{{/*
+Check if load balancer required
+*/}}
+{{- define "agent.islberRequired" -}}
+{{- if .Values.global.agtK8Config.stsName -}}
+{{- printf "true" -}}
+{{- else -}}
+{{- printf "false" -}}
+{{- end -}}
+{{- end -}}
