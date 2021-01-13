@@ -1,3 +1,4 @@
+{{- if $.Values.global.agtK8Config.stsName -}}
 {{- $agtMode := include "agent.mode" . -}}
 {{- if or (eq $agtMode "gateway") (.Values.global.agtK8Config.withIngress.enabled) -}}
 {{- $fullName := include "agent.fullname" . -}}
@@ -16,4 +17,5 @@ metadata:
     {}
 spec:
   {{- include "agent.ingress" . | nindent 2 }}
+{{- end }}
 {{- end }}

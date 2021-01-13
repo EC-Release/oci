@@ -11,11 +11,4 @@ spec:
       args: []
       env:
         - name: server-block
-          value: {{- include "agent.loadbalancer" }}
-#  initContainers:
-#    - name: busybox-init-container
-#      # debian image version used 18.09.7
-#      image: busybox
-#      # run ip addr cmd to register the ips
-#      command: ["/bin/sh"]
-#      args: ["-c", "echo Hello from the initial container; sleep 5; ip addr add 10.0.1.8 dev lo; sleep 5; ip a add 192.168.1.200/24 dev lo; sleep 5; ip addr show"]
+          value: {{- include "agent.loadbalancer" . }}

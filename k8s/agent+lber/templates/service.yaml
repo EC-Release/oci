@@ -1,3 +1,4 @@
+{{- if $.Values.global.agtK8Config.stsName -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -11,3 +12,4 @@ spec:
     {{- include "agent.svcHealthPortSpec" . | nindent 4 }}
   selector:
     {{- include "agent.selectorLabels" . | nindent 4 }}
+{{- end }}
