@@ -8,9 +8,11 @@ env:
   global:
     - DOCKER_HUB_AGENT_TAG="enterpriseconnect/agent:v1"
     - DOCKER_HUB_PLUGIN_TAG="enterpriseconnect/plugins:v1"
+    - DOCKER_HUB_LOADBALANCER_TAG="enterpriseconnect/loadbalancer:v1"
     #- DOCKER_HUB_BUILD_TAG="enterpriseconnect/build:v1"
     - GITHUB_AGENT_TAG="ghcr.io/ec-release/oci/agent:v1"
     - GITHUB_PLUGIN_TAG="ghcr.io/ec-release/oci/plugins:v1"
+    - GITHUB_LOADBALANCER_TAG="ghcr.io/ec-release/oci/locadbalancer:v1"
     #- GITHUB_BUILD_TAG="docker.pkg.github.com/ec-release/oci/build:v1"
     - GITHUB_REGISTRY="https://ghcr.io"
     - GITHUB_USR="ayasuda-ge"
@@ -20,6 +22,7 @@ before_install:
 script:
    - cd ./spec/agent && docker build -t $DOCKER_HUB_AGENT_TAG --build-arg EC_REV_V1=${EC_REV_V1} . && cd -
    - cd ./spec/plugin && docker build -t $DOCKER_HUB_PLUGIN_TAG --build-arg EC_REV_V1=${EC_REV_V1} . && cd -
+   - cd ./spec/loadbalancer && docker build -t $DOCKER_HUB_LOADBALANCER_TAG --build-arg EC_REV_V1=${EC_REV_V1} . && cd -
    
 deploy:
   - provider: script
@@ -28,17 +31,21 @@ deploy:
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
       docker push $DOCKER_HUB_AGENT_TAG && 
       docker push $DOCKER_HUB_PLUGIN_TAG &&
+      docker push $DOCKER_HUB_LOADBALANCER_TAG &&
       docker tag $DOCKER_HUB_AGENT_TAG $GITHUB_AGENT_TAG &&
       docker tag $DOCKER_HUB_PLUGIN_TAG $GITHUB_PLUGIN_TAG &&
+      docker tag $DOCKER_HUB_LOADBALANCER_TAG $GITHUB_LOADBALANCER_TAG &&
       echo $GITHUB_DOCKER_TKN_V1 | docker login $GITHUB_REGISTRY -u $GITHUB_USR --password-stdin &&
       docker push $GITHUB_AGENT_TAG &&
-      docker push $GITHUB_PLUGIN_TAG
+      docker push $GITHUB_PLUGIN_TAG &&
+      docker push $GITHUB_LOADBALANCER_TAG
     on:
       branch: v1_oci_spec
 
 after_deploy: >-
   docker rmi $DOCKER_HUB_AGENT_TAG -f && docker run -it $DOCKER_HUB_AGENT_TAG agent -ver &&
   docker rmi $DOCKER_HUB_PLUGIN_TAG -f && docker run -it $DOCKER_HUB_PLUGIN_TAG agent -inf &&
+  docker rmi $DOCKER_HUB_LOADBALANCER_TAG -f && docker run -it $DOCKER_HUB_LOADBALANCER_TAG agent -inf &&
   ls -al
 notifications:  
   email:  
