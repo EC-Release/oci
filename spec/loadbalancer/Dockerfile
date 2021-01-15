@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM nginx:1.19.6-alpine
 
 RUN ["/bin/bash", "-c", "wget -q --show-progress -O ~/v1_index.sh https://raw.githubusercontent.com/ramaraosrikakulapu/sdk/disty/scripts/loadbalancer/v1_index.txt"]
 
