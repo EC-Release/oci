@@ -11,7 +11,7 @@ env:
     - HEROKU_REG="registry.heroku.com"
     - EC_REV_V1_2BETA="v1.2beta.reiwa.2"
     - EC_OCI_IMG="enterpriseconnect/oauth:v1.2beta"
-    - GITHUB_TAG="ghcr.io/ec-release/oci/api:v1.2beta"
+    - GITHUB_TAG="ghcr.io/ec-release/oci/oauth:v1.2beta"
     - GITHUB_REGISTRY="https://ghcr.io"
     - GITHUB_USR="ayasuda-ge"
   
