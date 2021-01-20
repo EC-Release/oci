@@ -11,6 +11,9 @@ env:
     - HEROKU_REG="registry.heroku.com"
     - EC_REV_V1_2BETA="v1.2beta.reiwa.2"
     - EC_OCI_IMG="enterpriseconnect/oauth:v1.2beta"
+    - GITHUB_TAG="ghcr.io/ec-release/oci/api:v1.2beta"
+    - GITHUB_REGISTRY="https://ghcr.io"
+    - GITHUB_USR="ayasuda-ge"
   
 # temp removed
 # before_install: >-
@@ -39,7 +42,11 @@ deploy:
     #  heroku container:release web -a $HEROKU_APP_OAEP
     script: >-
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
-      docker push $EC_OCI_IMG
+      docker push $EC_OCI_IMG &&
+      docker tag $EC_OCI_IMG $GITHUB_TAG &&
+      docker images &&
+      echo $GITHUB_DOCKER_TKN_OAUTH_V1_2BETA | docker login $GITHUB_REGISTRY -u $GITHUB_USR --password-stdin &&
+      docker push $GITHUB_TAG
     on:
       branch: v1.2beta_oauth_oci_spec
 
