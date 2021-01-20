@@ -1,4 +1,4 @@
-{{- if eq (include "agent.islberRequired" .) "false" -}}
+{{- if $.Values.global.agtK8Config.stsName -}}
 {{- $agtMode := include "agent.mode" . -}}
 {{- if or (eq $agtMode "gateway") (.Values.global.agtK8Config.withIngress.enabled) -}}
 {{- $fullName := include "agent.fullname" . -}}

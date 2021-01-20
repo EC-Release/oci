@@ -125,7 +125,7 @@ Generate container HEALTH port spec for client agent. Need review for gateway us
 {{- end -}}
 
 {{/*
-Generate service health port spec for agent pods. 
+Generate service health port spec for agent pods.
 */}}
 {{- define "agent.svcHealthPortSpec" -}}
 - port: {{ ternary .Values.agtK8Config.svcHealthPortNum .Values.global.agtK8Config.svcHealthPortNum  (kindIs "invalid" .Values.global.agtK8Config.svcHealthPortNum) }}
@@ -203,4 +203,16 @@ rules:
             servicePort: {{ $servicePort }}
       {{- end }}
 {{- end }}
+{{- end -}}
+
+
+{{/*
+Check if load balancer required
+*/}}
+{{- define "agent.islberRequired" -}}
+{{- if .Values.global.agtK8Config.stsName -}}
+{{- printf "true" -}}
+{{- else -}}
+{{- printf "false" -}}
+{{- end -}}
 {{- end -}}

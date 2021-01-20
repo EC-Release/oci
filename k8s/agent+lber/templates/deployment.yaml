@@ -23,7 +23,7 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "ghcr.io/ec-release/oci/agent:{{ .Values.global.agtK8Config.releaseTag }}"
+          image: "enterpriseconnect/loadbalancer:v1"
           command: {{ include "agent.launchCmd" . }} 
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -47,8 +47,10 @@ spec:
             {{- if and (not (eq $a._1 "")) ($a._1) }}
             - name: {{ $a._0|quote }}
               value: {{ $a._1|quote }}
-            {{- end }}
             {{- end -}}
+            {{- end }}
+            - name: server-block
+              value: {{ include "agent.loadbalancer" . | quote }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

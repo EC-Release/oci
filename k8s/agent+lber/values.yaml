@@ -67,6 +67,9 @@ tolerations: []
 
 affinity: {}
 
+agtK8Config:
+  svcPortNum: 8080
+
 global:
   agtK8Config:
     # some cluster instances require resource-spec for the deployment, e.g. GE Digital

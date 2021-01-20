@@ -8,8 +8,8 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    {{- include "agent.svcPortSpec" . | nindent 4 }}
-    {{- include "agent.svcHealthPortSpec" . | nindent 4 }}
+    {{- include "agentlber.svcPortSpec" . | nindent 4 }}
+    {{- include "agentlber.svcHealthPortSpec" . | nindent 4 }}
   selector:
     {{- include "agent.selectorLabels" . | nindent 4 }}
 {{- end }}

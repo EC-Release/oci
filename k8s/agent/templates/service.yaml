@@ -1,3 +1,4 @@
+{{- if eq (include "agent.islberRequired" .) "false" -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -11,3 +12,4 @@ spec:
     {{- include "agent.svcHealthPortSpec" . | nindent 4 }}
   selector:
     {{- include "agent.selectorLabels" . | nindent 4 }}
+{{- end }}

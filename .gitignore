@@ -3,7 +3,10 @@
 #*
 *.local.*
 *~
-*.local.*
 k8s/agent+lber/*.env
 .DS_Store
+k8s/.DS_Store
 .idea/
+k8s/agent+lber/charts/
+k8s/example/charts/
+*.lock

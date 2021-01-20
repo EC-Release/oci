@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "agent+lber.name" -}}
+{{- define "agentlber.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -11,7 +11,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "agent+lber.fullname" -}}
+{{- define "agentlber.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -27,16 +27,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "agent+lber.chart" -}}
+{{- define "agentlber.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Common labels
 */}}
-{{- define "agent+lber.labels" -}}
-helm.sh/chart: {{ include "agent+lber.chart" . }}
-{{ include "agent+lber.selectorLabels" . }}
+{{- define "agentlber.labels" -}}
+helm.sh/chart: {{ include "agentlber.chart" . }}
+{{ include "agentlber.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -46,18 +46,39 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "agent+lber.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "agent+lber.name" . }}
+{{- define "agentlber.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "agentlber.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "agent+lber.serviceAccountName" -}}
+{{- define "agentlber.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
-    {{ default (include "agent+lber.fullname" .) .Values.serviceAccount.name }}
+    {{ default (include "agentlber.fullname" .) .Values.serviceAccount.name }}
 {{- else -}}
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
+{{- end -}}
+
+
+{{/*
+Generate service port spec for agent pods.
+*/}}
+{{- define "agentlber.svcPortSpec" -}}
+- port: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
+  targetPort: {{ .Values.global.agtK8Config.portName }}
+  protocol: TCP
+  name: {{ .Values.global.agtK8Config.svcPortName }}
+{{- end -}}
+
+{{/*
+Generate service health port spec for agent pods.
+*/}}
+{{- define "agentlber.svcHealthPortSpec" -}}
+- port: {{ ternary .Values.agtK8Config.svcHealthPortNum .Values.global.agtK8Config.svcHealthPortNum  (kindIs "invalid" .Values.global.agtK8Config.svcHealthPortNum) }}
+  targetPort: {{ .Values.global.agtK8Config.healthPortName }}
+  protocol: TCP
+  name: {{ .Values.global.agtK8Config.svcHealthPortName }}
 {{- end -}}

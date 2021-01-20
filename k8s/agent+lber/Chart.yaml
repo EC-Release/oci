@@ -1,5 +1,5 @@
-apiVersion: v1
-name: agent+lber
+apiVersion: v2
+name: agentlber
 description: A Helm chart for Kubernetes
 
 # A chart can be either an 'application' or a 'library' chart.
@@ -28,8 +28,8 @@ appVersion: 1.16.0
 #  repository: "file://./../agent"
 dependencies:
 - name: agent+helper
-  version: <AGENT_HELPER_CHART_REV>
+  version: 0.1.0
   repository: "file://./../agent+helper"
 - name: agent
-  version: <AGENT_HELPER_CHART_REV>
+  version: 0.1.0
   repository: "file://./../agent"
