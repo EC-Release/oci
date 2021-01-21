@@ -6,4 +6,4 @@ RUN ["/bin/bash", "-c", "wget -O ~/v1_index.sh https://raw.githubusercontent.com
 
 RUN chmod +x ~/v1_index.sh
 
-ENTRYPOINT ["~/v1_index.sh"]
+CMD ~/v1_index.sh
