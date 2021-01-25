@@ -28,7 +28,7 @@ The diagram illustrates the usage of the connectivity model in k8s
 $ helm create example
 
 # REQUIRED: add the helper library as the dependency to support usage
-$ helm repo add agent+helper https://ec-release.github.io//oci/agent+helper/<version. E.g. "0.1.0">
+$ helm repo add agent+helper https://ec-release.github.io/oci/agent+helper/<version. E.g. "0.1.0">
 
 # OPTIONAL: add any of the following agent package(s) to the mychart deployment
 # agent: the deployment includes the agent artifact, and the configuration
@@ -119,9 +119,9 @@ global:
         port: 17990
       # the vln setting only valid when agent mode "-mod" is either "client" or "gw:client"
       vln:
-        # The "enabled" keypair will be overridden by the "agtConfig" setting, if specified. E.g. "conf.vln=true"
+        # The "enabled" key-value pair will be overridden by the "agtConfig" setting, if specified. E.g. "conf.vln=true"
         enabled: true
-        # the "remote" keypair indicates the vlan deployment strategy. When default to true,
+        # the "remote" key-value pair indicates the vlan deployment strategy. When default to true,
         # the vlan setup will ignore the "ips" setting, and instead simulate only the "ports"-
         # setting via a series of service/pod remote to the client application. In the remote-
         # scenario, it is subject to the client app's configuration in its respective pod in order-
@@ -130,10 +130,15 @@ global:
         # interface at the parental pod.
         remote: false
         # customise the securityContext when the vln plugin launched in a multi-contr pod (remote: false)
-        securityContext: {}
-        # The "ports" keypair will be overridden by the default "agtConfig" setting, if specified. E.g. "conf.rpt=<port1,port2..portn>"
+        securityContext: 
+          # map the container runner to an internal user. E.g. uid: 1000
+          runAsUser: 0
+          # deny a potential privilege escalation request
+          allowPrivilegeEscalation: false
+          privileged: false
+        # The "ports" key-value pair will be overridden by the default "agtConfig" setting, if specified. E.g. "conf.rpt=<port1,port2..portn>"
         ports: [8000,8001,8002,8003]
-        # The "ips" keypair is ignored when set "remote" to true
+        # The "ips" key-value pair is ignored when set "remote" to true
         ips: ["10.10.10.0/30","8.8.8.100","8.8.8.101","8.8.8.102"]
 ```
 

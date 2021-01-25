@@ -14,15 +14,25 @@ env:
     - MINIKUBE_HOME=$HOME
     - CHANGE_MINIKUBE_NONE_USER=true
     - KUBECONFIG=$HOME/.kube/config
+    # helm chart version
+    - AGENT_CHART_REV=0.1.4
+    - AGENT_HELPER_CHART_REV=0.1.2
+    - AGENT_PLG_CHART_REV=0.1.3
 
 before_install:
 - sudo apt-get -qq -y install conntrack
 
 before_script:
   - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+  - chmod 775 ./spec-sim.sh ./docker-deployment-sim.sh ./k8s-deployment-sim.sh ./argocd-deployment-sim.sh ./minikube-bootstrap.sh
 
 script:
-  - chmod 775 ./script.sh && ./script.sh
+  # move docker spec test to oci spec
+  #- source ./docker-deployment-sim.sh
+  - source ./minikube-bootstrap.sh
+  - source ./spec-sim.sh
+  - source ./k8s-deployment-sim.sh
+  - source ./argocd-deployment-sim.sh
   
 after_deploy: chmod 775 ./after_deploy.sh && ./after_deploy.sh
 

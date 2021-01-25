@@ -22,7 +22,7 @@
 {{- $contrName = include "agent.name" . -}}
 {{- end -}}
 - name: {{ $contrName|quote }}
-  image: enterpriseconnect/plugins:{{ $contrReleaseTag }}
+  image: ghcr.io/ec-release/oci/plugins:{{ $contrReleaseTag }}
   command: {{ include "agent.launchCmd" . }}
   securityContext: 
     {{- toYaml $contrSecurityContext | nindent 4 }}
@@ -63,6 +63,10 @@
       value: {{ .Values.global.agtK8Config.withPlugins.tls.proxy|quote }}
     - name: plg.tls.lpt
       value: {{ .Values.global.agtK8Config.withPlugins.tls.port|quote }}
+    - name: AGENT_REV
+      value: {{ .Values.global.agtK8Config.agtK8Config.agentRev|quote }}
+    - name: EC_PPS
+      value: {{ .Values.global.agtK8Config.agtK8Config.ownerHash|quote }}
     {{- include "vln.ports" . | nindent 4 -}}
     {{- else if and (.Values.global.agtK8Config.withPlugins.vln.enabled) (or (eq $mode "client") (eq $mode "gw:client")) }}
     {{- include "agent.vlnPluginType" . | nindent 4 }}
