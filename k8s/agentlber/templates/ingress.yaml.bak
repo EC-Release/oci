@@ -12,10 +12,10 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-    {{- include "agent.labels" . | nindent 4 }}
+    {{- include "agentlber.labels" . | nindent 4 }}
   annotations:
     {}
 spec:
-  {{- include "agent.ingress" . | nindent 2 }}
+  {{- include "agentlber.ingress" . | nindent 2 }}
 {{- end }}
 {{- end }}

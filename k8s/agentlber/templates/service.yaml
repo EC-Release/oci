@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "agent.fullname" . }}
+  name: {{ include "agentlber.fullname" . }}
   labels:
-    {{- include "agent.labels" . | nindent 4 }}
+    {{- include "agentlber.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:

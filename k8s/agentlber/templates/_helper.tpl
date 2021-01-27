@@ -49,6 +49,7 @@ Selector labels
 {{- define "agentlber.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "agentlber.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+app: {{ include "agentlber.fullname" . }}
 {{- end -}}
 
 {{/*
@@ -67,20 +68,20 @@ Create the name of the service account to use
 Generate service port spec for agent pods.
 */}}
 {{- define "agentlber.svcPortSpec" -}}
-- port: {{ ternary .Values.agtK8Config.svcPortNum .Values.global.agtK8Config.svcPortNum (kindIs "invalid" .Values.global.agtK8Config.svcPortNum) }}
+- port: {{ ternary .Values.agtK8Config.lberSvcPortNum .Values.global.agtK8Config.lberSvcPortNum (kindIs "invalid" .Values.global.agtK8Config.lberSvcPortNum) }}
   targetPort: {{ .Values.global.agtK8Config.lberContainerPortName }}
   protocol: TCP
-  name: {{ .Values.global.agtK8Config.svcPortName }}
+  name: {{ .Values.global.agtK8Config.lberSvcPortName }}
 {{- end -}}
 
 {{/*
 Generate service health port spec for agent pods.
 */}}
 {{- define "agentlber.svcHealthPortSpec" -}}
-- port: {{ ternary .Values.agtK8Config.svcHealthPortNum .Values.global.agtK8Config.svcHealthPortNum  (kindIs "invalid" .Values.global.agtK8Config.svcHealthPortNum) }}
-  targetPort: {{ .Values.global.agtK8Config.lberContainerHealthPortNum }}
+- port: {{ ternary .Values.agtK8Config.lberSvcHealthPortNum .Values.global.agtK8Config.lberSvcHealthPortNum  (kindIs "invalid" .Values.global.agtK8Config.lberSvcHealthPortNum) }}
+  targetPort: {{ .Values.global.agtK8Config.lberContainerHealthPortName }}
   protocol: TCP
-  name: {{ .Values.global.agtK8Config.svcHealthPortName }}
+  name: {{ .Values.global.agtK8Config.lberSvcHealthPortName }}
 {{- end -}}
 
 
@@ -88,8 +89,8 @@ Generate service health port spec for agent pods.
 Generate container port spec for client agent. Need review for gateway usage
 */}}
 {{- define "agentlber.portSpec" -}}
-- name: {{ $.Values.global.agtK8Config.lberContainerPortName }}
-  containerPort: {{ $.Values.global.agtK8Config.lberContainerPortNum }}
+- name: {{ .Values.global.agtK8Config.lberContainerPortName }}
+  containerPort: {{ .Values.global.agtK8Config.lberContainerPortNum }}
   protocol: TCP
 {{- end -}}
 
@@ -98,7 +99,38 @@ Generate container port spec for client agent. Need review for gateway usage
 Generate container HEALTH port spec for client agent. Need review for gateway usage
 */}}
 {{- define "agentlber.healthPortSpec" -}}
-- name: {{ $.Values.global.agtK8Config.lberContainerHealthPortName }}
-  containerPort: {{ $.Values.global.agtK8Config.lberContainerHealthPortNum }}
+- name: {{ .Values.global.agtK8Config.lberContainerHealthPortName }}
+  containerPort: {{ .Values.global.agtK8Config.lberContainerHealthPortNum }}
   protocol: TCP
+{{- end -}}
+
+
+{{/*
+Specify the agt ingress spec
+*/}}
+{{- define "agentlber.ingress" -}}
+{{- if .Values.global.agtK8Config.withIngress.tls -}}
+tls:
+{{- range .Values.global.agtK8Config.withIngress.tls }}
+  - hosts:
+    {{- range .hosts }}
+    - {{ . | quote }}
+    {{- end }}
+    secretName: {{ .secretName }}
+{{- end -}}
+{{- end }}
+rules:
+{{- $serviceName := include "agent.fullname" . -}}
+{{- $servicePort := (ternary .Values.agtK8Config.lberSvcPortNum .Values.global.agtK8Config.lberSvcPortNum (kindIs "invalid" .Values.global.agtK8Config.lberSvcPortNum)) -}}
+{{- range .Values.global.agtK8Config.withIngress.hosts }}
+  - host: {{ .host | quote }}
+    http:
+      paths:
+      {{- range $path := .paths }}
+        - path: {{ $path | quote }}
+          backend:
+            serviceName: {{ $serviceName | quote }}
+            servicePort: {{ $servicePort }}
+      {{- end }}
+{{- end }}
 {{- end -}}

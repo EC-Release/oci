@@ -2,18 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "agent.fullname" . }}
+  name: {{ include "agentlber.fullname" . }}
   labels:
-    {{- include "agent.labels" . | nindent 4 }}
+    {{- include "agentlber.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.global.agtK8Config.lberReplicaCount }}
   selector:
     matchLabels:
-      {{- include "agent.selectorLabels" . | nindent 6 }}
+      {{- include "agentlber.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "agent.selectorLabels" . | nindent 8 }}
+        {{- include "agentlber.selectorLabels" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
