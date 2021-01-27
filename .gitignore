@@ -10,3 +10,6 @@ k8s/.DS_Store
 k8s/agent+lber/charts/
 k8s/example/charts/
 *.lock
+/k8s/agentlber/charts/agent+helper-0.1.0.tgz
+/k8s/agentlber/charts/agent-0.1.0.tgz
+/k8s/agent/charts/agent+helper-0.1.0.tgz

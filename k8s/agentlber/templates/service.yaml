@@ -1,0 +1,15 @@
+{{- if $.Values.global.agtK8Config.stsName -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "agent.fullname" . }}
+  labels:
+    {{- include "agent.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    {{- include "agentlber.svcPortSpec" . | nindent 4 }}
+    {{- include "agentlber.svcHealthPortSpec" . | nindent 4 }}
+  selector:
+    {{- include "agentlber.selectorLabels" . | nindent 4 }}
+{{- end }}

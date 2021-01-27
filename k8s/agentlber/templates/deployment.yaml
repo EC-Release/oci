@@ -1,13 +1,12 @@
 {{- if $.Values.global.agtK8Config.stsName -}}
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: {{ include "agent.fullname" . }}
   labels:
     {{- include "agent.labels" . | nindent 4 }}
 spec:
-  serviceName: {{ include "agent.fullname" . }}
-  replicas: {{ .Values.global.agtK8Config.replicaCount }}
+  replicas: {{ .Values.global.agtK8Config.lberReplicaCount }}
   selector:
     matchLabels:
       {{- include "agent.selectorLabels" . | nindent 6 }}
@@ -16,24 +15,30 @@ spec:
       labels:
         {{- include "agent.selectorLabels" . | nindent 8 }}
     spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "ghcr.io/ec-release/oci/agent:{{ .Values.global.agtK8Config.releaseTag }}"
-          command: {{ include "agent.launchCmd" . }}
+          image: "sramarao/ec-lb:v1"
+          command: {{ include "agent.launchCmd" . }} 
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: Always
           ports:
-            {{- include "agent.portSpec" . | nindent 12 }}
-            {{- include "agent.healthPortSpec" . | nindent 12 }}
+            {{- include "agentlber.portSpec" . | nindent 12 }}
+            {{- include "agentlber.healthPortSpec" . | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /health
-              port: {{ .Values.agtK8Config.healthPortName }}
+              port: lb-h-prt-name
           readinessProbe:
             httpGet:
               path: /health
-              port: {{ .Values.agtK8Config.healthPortName }}
+              port: lb-h-prt-name
           resources:
             {{- include "agent.podResource" . | nindent 12 }}
           env:
@@ -43,6 +48,19 @@ spec:
             - name: {{ $a._0|quote }}
               value: {{ $a._1|quote }}
             {{- end -}}
-            {{- end -}}
-            {{- include "agent.cfenv" . | nindent 12 -}}
+            {{- end }}
+            - name: serverblock
+              value: {{ include "agent.loadbalancer" . | quote }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
 {{- end }}

@@ -216,3 +216,12 @@ Check if load balancer required
 {{- printf "false" -}}
 {{- end -}}
 {{- end -}}
+
+
+{{- define "agent.serviceType" -}}
+{{- if eq (include "agent.islberRequired" .) "false" -}}
+{{- printf "{{ .Values.service.type }}" -}}
+{{- else -}}
+{{- printf "None" -}}
+{{- end -}}
+{{- end -}}
