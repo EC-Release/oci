@@ -10,12 +10,14 @@
 #  author: apolo.yasuda@ge.com
 #
 
-FROM enterpriseconnect/agent:v1.2beta
+FROM alpine:latest
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
 USER root
 WORKDIR /root
+
+RUN apk update && apk add --no-cache wget && apk add --no-cache bash
 
 RUN ["/bin/bash", "-c", "wget -q --show-progress -O ./v1.2beta.linux64.sh https://ec-release.github.io/sdk/scripts/oauth/v1.2beta.linux64.txt"]
 
