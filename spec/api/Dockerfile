@@ -21,7 +21,7 @@ WORKDIR /root
 
 RUN apk update && apk add --no-cache wget && apk add --no-cache bash
 
-RUN apk add emacs
+RUN apk add build-base
 
 RUN apk add --no-cache jq
 
