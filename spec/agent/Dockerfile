@@ -24,6 +24,8 @@ ENV ENV="/etc/profile"
 
 RUN apk update && apk add --no-cache wget && apk add --no-cache bash
 
+RUN apk add emacs
+
 RUN apk add --no-cache jq
 
 RUN echo 'export PATH=$PATH:$HOME/.ec' >> /etc/profile
