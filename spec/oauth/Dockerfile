@@ -19,7 +19,7 @@ WORKDIR /root
 
 RUN apk update && apk add --no-cache wget && apk add --no-cache bash
 
-RUN ["/bin/bash", "-c", "wget -q --show-progress -O ./v1.2beta.linux64.sh https://ec-release.github.io/sdk/scripts/oauth/v1.2beta.linux64.txt"]
+RUN ["/bin/bash", "-c", "wget -q --show-progress -O ./v1.2beta.linux64.sh https://raw.githubusercontent.com/EC-Release/sdk/disty/scripts/oauth/v1.2beta.linux64.txt"]
 
 RUN chmod +x ./v1.2beta.linux64.sh
 
