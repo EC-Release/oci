@@ -10,8 +10,8 @@
 #  author: apolo.yasuda@ge.com
 #
 
-#FROM alpine:3.12
-FROM python:3.8.7-alpine3.12
+FROM alpine:latest
+#FROM python:3.8.7-alpine3.12
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
@@ -24,9 +24,9 @@ ENV ENV="/etc/profile"
 
 RUN apk update && apk add --no-cache wget && apk add --no-cache bash
 
-RUN apk add emacs
+#RUN apk add emacs
 
-RUN apk add --no-cache jq
+#RUN apk add --no-cache jq
 
 RUN echo 'export PATH=$PATH:$HOME/.ec' >> /etc/profile
 
