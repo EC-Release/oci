@@ -11,12 +11,19 @@
 #
 
 #FROM enterpriseconnect/agent:v1.2beta
-FROM ghcr.io/ec-release/oci/agent:v1.2beta
+#FROM ghcr.io/ec-release/oci/agent:v1.2beta
+FROM python:3.8.7-alpine3.12
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
 USER root
 WORKDIR /root
+
+RUN apk update && apk add --no-cache wget && apk add --no-cache bash
+
+RUN apk add emacs
+
+RUN apk add --no-cache jq
 
 RUN ["/bin/bash", "-c", "wget -q --show-progress -O ./v1.2beta.linux64.sh https://raw.githubusercontent.com/EC-Release/sdk/disty/scripts/api/v1.2beta.linux64.txt"]
 
