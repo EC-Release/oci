@@ -24,7 +24,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           image: "sramarao/ec-lb:v1"
-          command: {{ include "agent.launchCmd" . }} 
+          command: {{ include "agent.launchCmd" . }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           imagePullPolicy: Always

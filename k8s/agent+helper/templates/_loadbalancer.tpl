@@ -14,7 +14,7 @@ upstream master {
 map $http_CF_INSTANCE_INDEX $pool {
   default "master";
   {{- range $index := until (int $.Values.global.agtK8Config.replicaCount) }}
-  app{{ $index }} "app{{ $index }}";
+  {{ $index }} "app{{ $index }}";
   {{- end }}
 }
 {{- end -}}
@@ -30,8 +30,6 @@ map $http_CF_INSTANCE_INDEX $pool {
 {{- end }}
 - name: AGENT_REPLICA_COUNT
   value: {{ .Values.global.agtK8Config.replicaCount | quote }}
-- name: CF_INSTANCE_INDEX
-  value: "1"
 - name: VCAP_APPLICATION
   value: {{ include "agent.vcapapplication" . | quote }}
 {{- end -}}

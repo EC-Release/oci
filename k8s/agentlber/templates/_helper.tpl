@@ -49,7 +49,7 @@ Selector labels
 {{- define "agentlber.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "agentlber.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-app: {{ include "agentlber.fullname" . }}
+run: {{ include "agentlber.fullname" . }}
 {{- end -}}
 
 {{/*

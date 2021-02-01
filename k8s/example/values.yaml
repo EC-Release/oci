@@ -68,6 +68,20 @@ tolerations: []
 affinity: {}
 
 global:
+  agtConfig: |-
+    conf.mod=gateway
+    conf.lpt=7990
+    conf.hca=7991
+    conf.pxy=""
+    conf.hst="ws://ec.http.helloworld.ge.com/agent"
+    conf.dur=3000
+    conf.dbg=true
+    conf.cps=5
+    conf.gpt=7990
+    conf.zon=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx
+    conf.grp=test
+    conf.sst=https://xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx.run.aws-usw02-pr.ice.predix.io
+    conf.tkn=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=
   agtK8Config:
     # some cluster instances require resource-spec for the deployment, e.g. GE Digital
     # PCS CF1/CF3 Cluster, whereas some can simply ignore the usage.
@@ -79,7 +93,22 @@ global:
         cpu: 100m
         memory: 128Mi
     svcPortNum: 18080
+    svcPortName: agt-svc-prt
     svcHealthPortNum: 18081
+    svcHealthPortName: agt-svc-h-prt
+    # Following properties related to load balancer
+    # statefulset fields are optional for deploying agent alone.. mandatory for agent with load balancer
+    stsName: my-app-agent
+    lberReplicaCount: 3
+    lberContainerPortName: lb-prt-name
+    lberContainerPortNum: 8080 # Should be hidden
+    lberContainerHealthPortName: lb-h-prt-name
+    lberContainerHealthPortNum: 8080 # Should be hidden
+    lberSvcPortNum: 18090
+    lberSvcPortName: lb-svc-prt
+    lberSvcHealthPortNum: 18091
+    lberSvcHealthPortName: lb-svc-h-prt
+
     # options v1.1beta|v1|v1beta
     releaseTag: v1
     # specify an agent revision in the container runtime
