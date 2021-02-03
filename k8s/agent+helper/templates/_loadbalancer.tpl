@@ -32,6 +32,8 @@ map $http_CF_INSTANCE_INDEX $pool {
   value: {{ .Values.global.agtK8Config.replicaCount | quote }}
 - name: VCAP_APPLICATION
   value: {{ include "agent.vcapapplication" . | quote }}
+- name: AGENT_ENV
+  value: "k8s"
 {{- end -}}
 
 
