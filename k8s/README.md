@@ -88,6 +88,7 @@ global:
     svcHealthPortNum: 18081
     #options v1.1beta|v1|v1beta
     releaseTag: v1
+    binaryURL: https://github.com/EC-Release/sdk/releases/agent
     # replicaCount currently supports client instances only.
     # supporting scaling gateway/server instances in k8s is in discussion.
     replicaCount: 1
