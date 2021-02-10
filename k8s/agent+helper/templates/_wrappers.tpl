@@ -65,7 +65,7 @@
       value: {{ .Values.global.agtK8Config.withPlugins.tls.port|quote }}
     - name: AGENT_REV
       value: {{ .Values.global.agtK8Config.agentRev|quote }}
-     name: AGENT_BIN_URL
+    - name: AGENT_BIN_URL
       value: {{ .Values.global.agtK8Config.binaryURL|quote }}
     - name: EC_PPS
       value: {{ .Values.global.agtK8Config.ownerHash|quote }}
