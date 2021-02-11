@@ -15,9 +15,9 @@ env:
     - CHANGE_MINIKUBE_NONE_USER=true
     - KUBECONFIG=$HOME/.kube/config
     # helm chart version
-    - AGENT_CHART_REV=0.1.5
-    - AGENT_HELPER_CHART_REV=0.1.4
-    - AGENT_PLG_CHART_REV=0.1.5
+    - AGENT_CHART_REV=0.1.6
+    - AGENT_HELPER_CHART_REV=0.1.5
+    - AGENT_PLG_CHART_REV=0.1.6
 
 before_install:
 - sudo apt-get -qq -y install conntrack
