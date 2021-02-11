@@ -15,7 +15,7 @@ env:
     - CHANGE_MINIKUBE_NONE_USER=true
     - KUBECONFIG=$HOME/.kube/config
     # helm chart version
-    - AGENT_CHART_REV=0.1.6
+    - AGENT_CHART_REV=0.1.7
     - AGENT_HELPER_CHART_REV=0.1.5
     - AGENT_PLG_CHART_REV=0.1.6
 
