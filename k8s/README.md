@@ -126,7 +126,6 @@ global:
     lberContainerHealthPortNum: 8080
     lberSvcPortNum: 18090
     lberSvcHealthPortNum: 18091
-    gatewayApplicationId: c312302e-ba49-48f5-ab50-ddc90284b67c
     # options v1.1beta|v1|v1beta
     releaseTag: v1
     # specify an agent revision in the container runtime
@@ -327,12 +326,22 @@ Agent parameters - `global.agtK8Config`
 | `svcPortNum`                                               | Service/headless service port num         | number         |
 | `svcHealthPortNum`                                         | Service/headless service health port      | number         |
 | `agentRev`                                                 | Agent version                             |                |
+
+Agent Parameters - TLS Plugin - `global.agtK8Config.tls`
+
+| Parameter                                                  | Description                               | Allowed values |
+| ---------------------------------------------------------- | ----------------------------------------- | -------------- |
 | `withPlugins.tls.enabled`                                  | Enable TLS plugin                         | boolean        |
-| `withPlugins.tls.scheme`                                   |                                           |                |
+| `withPlugins.tls.schema`                                   | Protocol                                  |                |
 | `withPlugins.tls.hostname`                                 | Host or resource to connect               |                |
 | `withPlugins.tls.tlsport`                                  | Host or resource port                     |                |
 | `withPlugins.tls.proxy`                                    | Proxy (if any) to connect to remote resource |             |
 | `withPlugins.tls.port`                                     | Port EC agent listening to                | number         |
+
+Agent Parameters - VLAN Plugin - `global.agtK8Config.vln`
+
+| Parameter                                                  | Description                               | Allowed values |
+| ---------------------------------------------------------- | ----------------------------------------- | -------------- |
 | `withPlugins.vln.enabled`                                  | Enable VLAN plugin                        | number         |
 | `withPlugins.vln.remote`                                   |                                           | boolean        |
 | `withPlugins.vln.securityContext.runAsUser`                | User name for connecting to remote resource |              |
