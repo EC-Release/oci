@@ -42,6 +42,12 @@ spec:
           resources:
             {{- include "agent.podResource" . | nindent 12 }}
           env:
+            - name: AGENT_REV
+              value: {{ .Values.global.agtK8Config.agentRev|quote }}
+            - name: AGENT_BIN_URL
+              value: {{ .Values.global.agtK8Config.binaryURL|quote }}
+            - name: EC_PPS
+              value: {{ .Values.global.agtK8Config.ownerHash|quote }}
             {{- range (split "\n" .Values.global.agtConfig) }}
             {{- $a := splitn "=" 2 . }}
             {{- if and (not (eq $a._1 "")) ($a._1) }}

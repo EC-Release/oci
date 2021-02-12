@@ -104,6 +104,9 @@ global:
     lberSvcHealthPortNum: 18091
     # options v1.1beta|v1|v1beta
     releaseTag: v1
+    # A download-able url for an "decrypted" agent binary that will be used as
+    # the connectivity runtime in the target environment
+    binaryURL: https://github.com/EC-Release/sdk/releases/agent
     # specify an agent revision in the container runtime
     agentRev: v1.hokkaido.213
     # The OCI spec uses the "ownerHash" to bypass the passphrase prompt which is required to decrypt-

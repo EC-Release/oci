@@ -130,11 +130,7 @@ global:
     releaseTag: v1
     # specify an agent revision in the container runtime
     agentRev: v1.hokkaido.213
-    # The OCI spec uses the "ownerHash" to bypass the passphrase prompt which is required to decrypt- 
-    # the artifact in a runtime environment. This is mandantory value for releases v1.hokkaido.213+
-    # follow the steps to generate the hash-
-    # https://github.com/EC-Release/sdk/blob/disty/scripts/api/README.md#hash-types
-    ownerHash: 1234567890abcdefg
+    binaryURL: https://github.com/EC-Release/sdk/releases/agent
     # replicaCount currently supports client instances only.
     # supporting scaling gateway/server instances in k8s is in discussion.
     replicaCount: 2
