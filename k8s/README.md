@@ -108,32 +108,26 @@ global:
     EC_PPS=admin-hash
   agtK8Config:
     # some cluster instances require resource-spec for the deployment, e.g. GE Digital
-    # PCS CF1/CF3 Cluster, whereas some can simply ignore the usage. Users may comment
-    # out the "resources" section if it is not needed in your cluster.
+    # PCS CF1/CF3 Cluster, whereas some can simply ignore the usage.
     resources:
       limits:
         cpu: 200m
-        memory: 128Mi
+        memory: 512Mi
       requests:
-        cpu: 200m
+        cpu: 100m
         memory: 128Mi
-    svcPortNum: 18080
-    svcPortName: agt-svc-prt
-    svcHealthPortNum: 18081
-    svcHealthPortName: agt-svc-h-prt
+    svcPortNum: 8080
+    svcHealthPortNum: 8081
     # Following properties related to load balancer
     # statefulset fields are optional for deploying agent alone.. mandatory for agent with load balancer
     stsName: ram-app-agent
     lberReplicaCount: 1
-    lberContainerPortName: lb-prt-name
-    lberContainerPortNum: 8080 # Should be hidden
-    lberContainerHealthPortName: lb-h-prt-name
-    lberContainerHealthPortNum: 8080 # Should be hidden
+    lberContainerPortNum: 8080
+    lberContainerHealthPortNum: 8080
     lberSvcPortNum: 18090
-    lberSvcPortName: lb-svc-prt
     lberSvcHealthPortNum: 18091
-    lberSvcHealthPortName: lb-svc-h-prt
-    #options v1.1beta|v1|v1beta
+    gatewayApplicationId: c312302e-ba49-48f5-ab50-ddc90284b67c
+    # options v1.1beta|v1|v1beta
     releaseTag: v1
     # specify an agent revision in the container runtime
     agentRev: v1.hokkaido.213
@@ -144,11 +138,11 @@ global:
     ownerHash: 1234567890abcdefg
     # replicaCount currently supports client instances only.
     # supporting scaling gateway/server instances in k8s is in discussion.
-    replicaCount: 1
-    # withIngress decides the availability of the ingress obj in deployment.
+    replicaCount: 2
+    # withIngress decides the availability of the agt ingress obj in deployment.
     # by default, when deploy as the gateway mode (conf.mod=gateway), the value (enabled) will be overridden to true
     withIngress:
-      enabled: false
+      enabled: true
       # host utilised to make the agt accessible via non-tls traffic. 
       # it is also possible for the co-existence and the overlap of both tls/non-tls routings (hosts/tls)
       hosts:
@@ -184,15 +178,15 @@ global:
         # interface at the parental pod.
         remote: false
         # customise the securityContext when the vln plugin launched in a multi-contr pod (remote: false)
-        securityContext: 
+        securityContext:
           # map the container runner to an internal user. E.g. uid: 1000
           runAsUser: 0
           # deny a potential privilege escalation request
           allowPrivilegeEscalation: false
           privileged: false
-        # The "ports" key-value pair will be overridden by the default "agtConfig" setting, if specified. E.g. "conf.rpt=<port1,port2..portn>"
+        # The "ports" keypair will be overridden by the default "agtConfig" setting, if specified. E.g. "conf.rpt=<port1,port2..portn>"
         ports: [8000,8001,8002,8003]
-        # The "ips" key-value pair is ignored when set "remote" to true
+        # The "ips" keypair is ignored when set "remote" to true
         ips: ["10.10.10.0/30","8.8.8.100","8.8.8.101","8.8.8.102"]
 ```
 
@@ -297,40 +291,41 @@ MANIFEST:
 
 EC configuration parameters - `global.agtConfig`
 
-| Parameter | Description                 | Allowed values                            |
-| --------- | --------------------------- | ---------------------------------------   | 
-| `conf.mod`  | Agent mode                  | gateway/server/client/gw:server/gw:client |
-| `conf.gpt`  | global port                 | number                                    |
-| `conf.dbg`  | enable debug                | boolean true/false                        |
-| `conf.hst`  | gateway url in quotes       | "wss://gateway-url/agent"                 |
-| `conf.tkn`  | EC service admin token      |                                           |
-| `conf.cps`  |                             | number                                    |
-| `conf.zon`  | Predix zone id              |                                           |
-| `conf.grp`  | EC group name               |                                           |
-| `conf.sst`  | EC Service URI              | https://predix-zone-id.run.aws-usw02-pr[dev].ice.predix.io |
-| `conf.cid`  | uaa-client-id               |                                           |
-| `conf.csc`  | uaa-client-secret           |                                           |
-| `conf.oa2`  | Authentication URL          | https://uaa-authentication-url/oauth/token |
-| `conf.dur`  | oAuth token validation time | number in seconds                         |
-| `conf.aid`  | Agent Id                    |                                           |
-| `conf.rpt`  | Target port number          |                                           |
-| `conf.rht`  | Target host/IP              |                                           |
-| `conf.plg`  | Enable plugins              | true/false                                |
-| `conf.tid`  | Target agent Id             |                                           |
-| `conf.lpt`  | Local listening port number |                                           |
-| `conf.hca`  | Agent health port number    |                                           |
-| `conf.pxy`  | Org proxy URL in quotes     |"org-proxy-url"                            |
-| `AGENT_REV` | Agent release version       |                                           |
-| `EC_PPS`    | admin-hash                  |                                           |
+| Parameter             | Description                           | Allowed values                            |
+| --------------------- | ------------------------------------- | ---------------------------------------   | 
+| `conf.mod`            | Agent mode                            | gateway/server/client/gw:server/gw:client |
+| `conf.gpt`            | global port                           | number                                    |
+| `conf.dbg`            | enable debug                          | boolean true/false                        |
+| `conf.hst`            | gateway url in quotes                 | "wss://gateway-url/agent"                 |
+| `conf.tkn`            | EC service admin token                |                                           |
+| `conf.cps`            |                                       | number                                    |
+| `conf.zon`            | Predix zone id                        |                                           |
+| `conf.grp`            | EC group name                         |                                           |
+| `conf.sst`            | EC Service URI                        | https://predix-zone-id.run.aws-usw02-pr[dev].ice.predix.io |
+| `conf.cid`            | uaa-client-id                         |                                           |
+| `conf.csc`            | uaa-client-secret                     |                                           |
+| `conf.oa2`            | Authentication URL                    | https://uaa-authentication-url/oauth/token|
+| `conf.dur`            | oAuth token validation time           | number in seconds                         |
+| `conf.aid`            | Agent Id                              |                                           |
+| `conf.rpt`            | Target port number                    |                                           |
+| `conf.rht`            | Target host/IP                        |                                           |
+| `conf.plg`            | Enable plugins                        | true/false                                |
+| `conf.tid`            | Target agent Id                       |                                           |
+| `conf.lpt`            | Local listening port number           |                                           |
+| `conf.hca`            | Agent health port number              |                                           |
+| `conf.pxy`            | Org proxy URL in quotes               | "org-proxy-url"                           |
+| `AGENT_REV`           | Agent release version                 |                                           |
+| `EC_PPS`              | admin-hash                            |                                           |
+| `AGENT_REPLICA_COUNT` | #HIDDEN# Agent replica count          |                                           |
+| `VCAP_APPLICATION`    | #HIDDEN# CF VCAP properties           |                                           |
+| `AGENT_ENV`           | #HIDDEN# Property where agent running | `k8s` for EKS                             |
 
 Agent parameters - `global.agtK8Config`
 
-| Parameter                                                | Description                               | Allowed values |
-| -------------------------------------------------------- | ----------------------------------------- | -------------- |
+| Parameter                                                  | Description                               | Allowed values |
+| ---------------------------------------------------------- | ----------------------------------------- | -------------- |
 | `svcPortNum`                                               | Service/headless service port num         | number         |
-| `svcPortName`                                              | Service/headless service port name        | test           |
 | `svcHealthPortNum`                                         | Service/headless service health port      | number         |
-| `svcHealthPortName`                                        | Service/headless service health port name |                |
 | `agentRev`                                                 | Agent version                             |                |
 | `withPlugins.tls.enabled`                                  | Enable TLS plugin                         | boolean        |
 | `withPlugins.tls.scheme`                                   |                                           |                |
@@ -348,8 +343,8 @@ Agent parameters - `global.agtK8Config`
 
 Ingress parameters - `global.agtK8Config.withIngress`
 
-| Parameter      | Description                                           | Allowed values |
-| -------------- | ----------------------------------------------------- | -------------- |
+| Parameter        | Description                                           | Allowed values |
+| ---------------- | ----------------------------------------------------- | -------------- |
 | `enabled`        | Enable Ingress component                              | boolean        |
 | `hosts.host`     | Ingress URL or DNS name assigned to Ingress component |                |
 | `hosts.paths`    | End point paths                                       |                |
