@@ -11,10 +11,10 @@ upstream master {
   server {{ $.Values.global.agtK8Config.stsName }}-{{ $index }}.{{ $.Values.global.agtK8Config.stsName }}.{{ $.Release.Namespace }}.svc.cluster.local:7990;
   {{- end }}
 }
-map $http_CF_INSTANCE_INDEX $pool {
+map $http_X_CF_APP_INSTANCE $pool {
   default "master";
   {{- range $index := until (int $.Values.global.agtK8Config.replicaCount) }}
-  {{ $index }} "app{{ $index }}";
+  "{{ $.Values.global.agtK8Config.gatewayApplicationId }}:{{ $index }}" "app{{ $index }}";
   {{- end }}
 }
 {{- end -}}
@@ -39,7 +39,7 @@ map $http_CF_INSTANCE_INDEX $pool {
 
 {{- define "agent.vcapapplication" -}}
 {
-  "application_id": {{ uuidv4 | quote }},
+  "application_id": {{ .Values.global.agtK8Config.gatewayApplicationId | quote }},
   "application_uris": [{{ include "agent.host" . }}]
 }
 {{- end -}}
