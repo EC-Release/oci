@@ -14,7 +14,7 @@ upstream master {
 map $http_X_CF_APP_INSTANCE $pool {
   default "master";
   {{- range $index := until (int $.Values.global.agtK8Config.replicaCount) }}
-  "{{ $.Values.global.agtK8Config.gatewayApplicationId }}:{{ $index }}" "app{{ $index }}";
+  ~*.*:{{ $index }}$ "app{{ $index }}";
   {{- end }}
 }
 {{- end -}}
@@ -32,14 +32,14 @@ map $http_X_CF_APP_INSTANCE $pool {
   value: {{ .Values.global.agtK8Config.replicaCount | quote }}
 - name: VCAP_APPLICATION
   value: {{ include "agent.vcapapplication" . | quote }}
-- name: AGENT_ENV
-  value: "k8s"
+- name: IS_EKS_ENV
+  value: true
 {{- end -}}
 
 
 {{- define "agent.vcapapplication" -}}
 {
-  "application_id": {{ .Values.global.agtK8Config.gatewayApplicationId | quote }},
+  "application_id": {{ uuidv4 | quote }},
   "application_uris": [{{ include "agent.host" . }}]
 }
 {{- end -}}

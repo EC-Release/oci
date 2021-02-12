@@ -102,43 +102,42 @@ global:
     lberContainerHealthPortNum: 8080
     lberSvcPortNum: 18090
     lberSvcHealthPortNum: 18091
-    gatewayApplicationId: c312302e-ba49-48f5-ab50-ddc90284b67c
     # options v1.1beta|v1|v1beta
     releaseTag: v1
     # specify an agent revision in the container runtime
     agentRev: v1.hokkaido.213
-    # The OCI spec uses the "ownerHash" to bypass the passphrase prompt which is required to decrypt- 
+    # The OCI spec uses the "ownerHash" to bypass the passphrase prompt which is required to decrypt-
     # the artifact in a runtime environment. This is mandantory value for releases v1.hokkaido.213+
     # follow the steps to generate the hash-
     # https://github.com/EC-Release/sdk/blob/disty/scripts/api/README.md#hash-types
     ownerHash: 1234567890abcdefg
     # replicaCount currently supports client instances only.
     # supporting scaling gateway/server instances in k8s is in discussion.
-    replicaCount: 2
+    replicaCount: 3
     # withIngress decides the availability of the agt ingress obj in deployment.
     # by default, when deploy as the gateway mode (conf.mod=gateway), the value (enabled) will be overridden to true
     withIngress:
       enabled: true
-      # host utilised to make the agt accessible via non-tls traffic. 
+      # host utilised to make the agt accessible via non-tls traffic.
       # it is also possible for the co-existence and the overlap of both tls/non-tls routings (hosts/tls)
       hosts:
         - host: ec.http.helloworld.ge.com
           paths: ["/agent", "/health", "/v1", "/v1beta"]
       # present if the agt is accessible via wss|https.
-      # example empty array below indicates no tls assignment is avaialble 
-      # tls: [] 
+      # example empty array below indicates no tls assignment is avaialble
+      # tls: []
       tls:
         - secretName: tls-secret-1
           hosts: ["ec.helloworld.ge.com", "ec.rel.ge.com"]
         - secretName: tls.secret-2
           hosts: ["*.ec.https.ge.com", "ec.dev.azure.com"]
-    # options below are applicable only in the agent+plugins helm package. 
+    # options below are applicable only in the agent+plugins helm package.
     # this setting is intended to deploy a plugin alongside the agent when "-plg" is present or is "true"
     withPlugins:
       # the tls setting only valid when agent mode "-mod" is either "server" or "gw:server"
       tls:
         enabled: true
-        schema: https 
+        schema: https
         hostname: twitter.com
         tlsport: 443
         proxy: http://traffic-manipulation.job.security.io:8080
