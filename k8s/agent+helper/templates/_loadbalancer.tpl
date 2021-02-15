@@ -33,7 +33,7 @@ map $http_X_CF_APP_INSTANCE $pool {
 - name: VCAP_APPLICATION
   value: {{ include "agent.vcapapplication" . | quote }}
 - name: IS_EKS_ENV
-  value: true
+  value: "true"
 {{- end -}}
 
 
