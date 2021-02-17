@@ -22,7 +22,7 @@ ARG EC_REV_V1_2BETA=1.2-b.0.reiwa
 
 ENV ENV="/etc/profile"
 
-RUN apk update && apk add --no-cache wget && apk add --no-cache bash && apk add --no-cache jq
+RUN apk update && apk add --no-cache wget && apk add --no-cache bash && apk add --upgrade jq && jq --version
 
 RUN echo 'export PATH=$PATH:$HOME/.ec' >> /etc/profile
 
