@@ -12,7 +12,7 @@
 
 #FROM enterpriseconnect/agent:v1.2beta
 #FROM ghcr.io/ec-release/oci/agent:v1.2beta
-FROM python:3.8.7-alpine3.12
+FROM python:3.8.7-alpine3.13
 
 MAINTAINER Apolo Yasuda "apolo.yasuda@ge.com"
 
