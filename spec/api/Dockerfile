@@ -23,7 +23,7 @@ RUN apk update && apk add --no-cache wget && apk add --no-cache bash
 
 RUN apk add build-base
 
-RUN apk add --no-cache jq && apk add --no-cache yq
+RUN apk add --no-cache jq && apk add --upgrade yq
 
 RUN ["/bin/bash", "-c", "wget -q --show-progress -O ./v1.2beta.linux64.sh https://raw.githubusercontent.com/EC-Release/sdk/disty/scripts/api/v1.2beta.linux64.txt"]
 
