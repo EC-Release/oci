@@ -122,10 +122,6 @@ global:
     # statefulset fields are optional for deploying agent alone.. mandatory for agent with load balancer
     stsName: ram-app-agent
     lberReplicaCount: 1
-    lberContainerPortNum: 8080
-    lberContainerHealthPortNum: 8080
-    lberSvcPortNum: 18090
-    lberSvcHealthPortNum: 18091
     # options v1.1beta|v1|v1beta
     releaseTag: v1
     # specify an agent revision in the container runtime

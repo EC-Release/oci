@@ -29,10 +29,10 @@ before_script:
 
 script:
   # move docker spec test to oci spec
-  #- source ./docker-deployment-sim.sh
-  #- source ./minikube-bootstrap.sh
+  - source ./docker-deployment-sim.sh
+  - source ./minikube-bootstrap.sh
   - source ./spec-sim.sh
-  #- source ./k8s-deployment-sim.sh
+  - source ./k8s-deployment-sim.sh
   #- source ./argocd-deployment-sim.sh
   
 after_deploy: chmod 775 ./after_deploy.sh && ./after_deploy.sh

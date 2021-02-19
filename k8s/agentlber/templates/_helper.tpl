@@ -68,7 +68,7 @@ Create the name of the service account to use
 Generate service port spec for agent pods.
 */}}
 {{- define "agentlber.svcPortSpec" -}}
-- port: {{ ternary .Values.agtK8Config.lberSvcPortNum .Values.global.agtK8Config.lberSvcPortNum (kindIs "invalid" .Values.global.agtK8Config.lberSvcPortNum) }}
+- port: 18090
   targetPort: lb-prt-name
   protocol: TCP
   name: lb-svc-prt
@@ -78,7 +78,7 @@ Generate service port spec for agent pods.
 Generate service health port spec for agent pods.
 */}}
 {{- define "agentlber.svcHealthPortSpec" -}}
-- port: {{ ternary .Values.agtK8Config.lberSvcHealthPortNum .Values.global.agtK8Config.lberSvcHealthPortNum  (kindIs "invalid" .Values.global.agtK8Config.lberSvcHealthPortNum) }}
+- port: 18091
   targetPort: lb-h-prt-name
   protocol: TCP
   name: lb-svc-h-prt
@@ -90,7 +90,7 @@ Generate container port spec for client agent. Need review for gateway usage
 */}}
 {{- define "agentlber.portSpec" -}}
 - name: lb-prt-name
-  containerPort: {{ .Values.global.agtK8Config.lberContainerPortNum }}
+  containerPort: 8080
   protocol: TCP
 {{- end -}}
 
@@ -100,7 +100,7 @@ Generate container HEALTH port spec for client agent. Need review for gateway us
 */}}
 {{- define "agentlber.healthPortSpec" -}}
 - name: lb-h-prt-name
-  containerPort: {{ .Values.global.agtK8Config.lberContainerHealthPortNum }}
+  containerPort: 8080
   protocol: TCP
 {{- end -}}
 
@@ -121,7 +121,7 @@ tls:
 {{- end }}
 rules:
 {{- $serviceName := include "agent.fullname" . -}}
-{{- $servicePort := (ternary .Values.agtK8Config.lberSvcPortNum .Values.global.agtK8Config.lberSvcPortNum (kindIs "invalid" .Values.global.agtK8Config.lberSvcPortNum)) -}}
+{{- $servicePort := 18090 -}}
 {{- range .Values.global.agtK8Config.withIngress.hosts }}
   - host: {{ .host | quote }}
     http:
