@@ -86,6 +86,36 @@ Generate service health port spec for agent pods.
 
 
 {{/*
+Specify the agt ingress spec
+*/}}
+{{- define "agentlber.ingress" -}}
+{{- if .Values.global.agtK8Config.withIngress.tls -}}
+tls:
+{{- range .Values.global.agtK8Config.withIngress.tls }}
+  - hosts:
+    {{- range .hosts }}
+    - {{ . | quote }}
+    {{- end }}
+    secretName: {{ .secretName }}
+{{- end -}}
+{{- end }}
+rules:
+{{- $serviceName := include "agentlber.fullname" . -}}
+{{- $servicePort := 18090 -}}
+{{- range .Values.global.agtK8Config.withIngress.hosts }}
+  - host: {{ .host | quote }}
+    http:
+      paths:
+      {{- range $path := .paths }}
+        - path: {{ $path | quote }}
+          backend:
+            serviceName: {{ $serviceName | quote }}
+            servicePort: {{ $servicePort }}
+      {{- end }}
+{{- end }}
+{{- end -}}
+
+{{/*
 Generate container port spec for client agent. Need review for gateway usage
 */}}
 {{- define "agentlber.portSpec" -}}
@@ -104,33 +134,18 @@ Generate container HEALTH port spec for client agent. Need review for gateway us
   protocol: TCP
 {{- end -}}
 
-
 {{/*
-Specify the agt ingress spec
+Specify the resource in the targeted cluster, if any
 */}}
-{{- define "agentlber.ingress" -}}
-{{- if .Values.global.agtK8Config.withIngress.tls -}}
-tls:
-{{- range .Values.global.agtK8Config.withIngress.tls }}
-  - hosts:
-    {{- range .hosts }}
-    - {{ . | quote }}
-    {{- end }}
-    secretName: {{ .secretName }}
+{{- define "agentlber.podResource" -}}
+{{- if .Values.global.agtK8Config.resources -}}
+limits:
+  cpu: {{ .Values.global.agtK8Config.resources.limits.cpu }}
+  memory: {{ .Values.global.agtK8Config.resources.limits.memory }}
+requests:
+  cpu: {{ .Values.global.agtK8Config.resources.requests.cpu }}
+  memory: {{ .Values.global.agtK8Config.resources.requests.memory }}
+{{- else -}}
+{}
 {{- end -}}
-{{- end }}
-rules:
-{{- $serviceName := include "agent.fullname" . -}}
-{{- $servicePort := 18090 -}}
-{{- range .Values.global.agtK8Config.withIngress.hosts }}
-  - host: {{ .host | quote }}
-    http:
-      paths:
-      {{- range $path := .paths }}
-        - path: {{ $path | quote }}
-          backend:
-            serviceName: {{ $serviceName | quote }}
-            servicePort: {{ $servicePort }}
-      {{- end }}
-{{- end }}
 {{- end -}}
