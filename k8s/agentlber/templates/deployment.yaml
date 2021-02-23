@@ -1,3 +1,5 @@
+{{- $uuid := uuidv4 -}}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -49,6 +51,14 @@ spec:
             {{- end }}
             - name: serverblock
               value: {{ include "agent.loadbalancer" . | quote }}
+            - name: uuid
+              value: {{ $uuid | quote }}
+            - name: replicaCount
+              value: {{ .Values.global.agtK8Config.replicaCount | quote }}
+            - name: stsName
+              value: {{ .Values.global.agtK8Config.stsName | quote }}
+            - name: namespace
+              value: {{ .Release.Namespace | quote }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -70,7 +80,7 @@ metadata:
   labels:
     {{- include "agent.labels" . | nindent 4 }}
 spec:
-  serviceName: {{ include "agent.fullname" . }}
+  serviceName: {{ .Values.global.agtK8Config.stsName }}
   replicas: {{ .Values.global.agtK8Config.replicaCount }}
   selector:
     matchLabels:
@@ -108,4 +118,10 @@ spec:
               value: {{ $a._1|quote }}
             {{- end -}}
             {{- end -}}
-            {{- include "agent.cfenv" . | nindent 12 -}}
+            {{- include "agent.cfenv" . | nindent 12 }}
+            - name: uuid
+              value: {{ $uuid | quote }}
+            - name: EC_HOSTNAME
+              value: {{ include "agent.host" . }}
+
+
