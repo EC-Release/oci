@@ -24,7 +24,7 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "sramarao/ec-lb:v1"
+          image: "ghcr.io/ec-release/lb:v1"
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           imagePullPolicy: Always
@@ -92,7 +92,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "sramarao/agent:v1"
+          image: "ghcr.io/ec-release/oci/agent:v1"
           command: {{ include "agent.launchCmd" . }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
