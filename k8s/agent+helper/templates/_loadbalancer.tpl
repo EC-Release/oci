@@ -30,18 +30,8 @@ map $http_X_CF_APP_INSTANCE $pool {
 {{- end }}
 - name: AGENT_REPLICA_COUNT
   value: {{ .Values.global.agtK8Config.replicaCount | quote }}
-- name: VCAP_APPLICATION
-  value: {{ include "agent.vcapapplication" . | quote }}
 - name: IS_EKS_ENV
   value: "true"
-{{- end -}}
-
-
-{{- define "agent.vcapapplication" -}}
-{
-  "application_id": {{ uuidv4 | quote }},
-  "application_uris": [{{ include "agent.host" . }}]
-}
 {{- end -}}
 
 

@@ -5,11 +5,7 @@ metadata:
   labels:
     {{- include "agent.labels" . | nindent 4 }}
 spec:
-  {{- if eq (include "agent.islberRequired" .) "false" }}
   type: {{ .Values.service.type }}
-  {{- else }}
-  clusterIP: None
-  {{- end }}
   ports:
     {{- include "agent.svcPortSpec" . | nindent 4 }}
     {{- include "agent.svcHealthPortSpec" . | nindent 4 }}
