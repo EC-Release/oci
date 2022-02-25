@@ -3,12 +3,12 @@ entries:
   oauth:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-02-25T18:44:08.590394211Z"
+    created: "2022-02-25T19:33:57.249798529Z"
     description: A Helm chart for Kubernetes
-    digest: 4eba8d3c487163492536eee30a05ecb4885fe65a436e6658f246c32fca9dbf12
+    digest: 9252c8ebcc00e629af1cb3baeebbe3988809228b11e5db89d21df17e4ac90f8e
     name: oauth
     type: application
     urls:
     - https://ec-release.github.io/oci/oauth/0.1.7/oauth-0.1.7.tgz
     version: 0.1.7
-generated: "2022-02-25T18:44:08.589411649Z"
+generated: "2022-02-25T19:33:57.247867107Z"
