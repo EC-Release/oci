@@ -3,12 +3,12 @@ entries:
   agent+lber:
   - apiVersion: v1
     appVersion: v1.1beta
-    created: "2022-03-01T22:36:24.554736365Z"
+    created: "2022-03-02T19:17:56.81914199Z"
     description: A Helm chart for Kubernetes
-    digest: 059802a164ad44503f61792d1236cbf612221c9adc2667d461ea9d6c63adface
+    digest: b1ff95204a80478989420581d9721f1e116d0cfad041f0651ae3f53b175d4940
     name: agent+lber
     type: application
     urls:
     - https://ec-release.github.io/oci/agent+lber/0.1.9/agent+lber-0.1.9.tgz
     version: 0.1.9
-generated: "2022-03-01T22:36:24.55246442Z"
+generated: "2022-03-02T19:17:56.817535078Z"
