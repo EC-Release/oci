@@ -3,12 +3,12 @@ entries:
   ec-service:
   - apiVersion: v1
     appVersion: 1.16.0
-    created: "2022-03-07T15:25:40.655223198Z"
+    created: "2022-03-07T15:52:10.478309741Z"
     description: EC Service Helm chart for Kubernetes
-    digest: 5ee0c96fd196378bdc1f4c525942b2af5cf3ff4c798843c5a234a4a2a4552d61
+    digest: d1624bcf497a55bb486ab1794cadfbed8f50f9091eca21a447add4320dd0ae10
     name: ec-service
     type: application
     urls:
     - https://ec-release.github.io/oci/ec-service/0.1.0/ec-service-0.1.0.tgz
     version: 0.1.0
-generated: "2022-03-07T15:25:40.654258191Z"
+generated: "2022-03-07T15:52:10.477271026Z"
