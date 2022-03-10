@@ -3,12 +3,12 @@ entries:
   agent+plg:
   - apiVersion: v1
     appVersion: v1.1beta
-    created: "2022-03-09T20:53:52.028280495Z"
+    created: "2022-03-10T16:00:42.494692324Z"
     description: The Agent Plugin Helm chart example for Kubernet
-    digest: 19114f65e2e03b4469677b7fc9bd4129c4db478425d666d87adca94d099ee698
+    digest: 2b5a7699eb8d0bdcc1a596f91901776483eb74ca4635b82d8fef41f64b4a665b
     name: agent+plg
     type: application
     urls:
     - https://ec-release.github.io/oci/agent+plg/0.1.16/agent+plg-0.1.16.tgz
     version: 0.1.16
-generated: "2022-03-09T20:53:52.027257289Z"
+generated: "2022-03-10T16:00:42.493782139Z"
